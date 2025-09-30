@@ -7,7 +7,7 @@ import { RegisterFormData } from '@/lib/validation';
 
 type FormInputProps = {
   fieldCfg: FieldConfig;
-  field: ControllerRenderProps<RegisterFormData, 'email' | 'password'>;
+  field: ControllerRenderProps<RegisterFormData, keyof RegisterFormData>;
   showEye: ShowEyeType;
   setShowEye: React.Dispatch<React.SetStateAction<ShowEyeType>>;
 };

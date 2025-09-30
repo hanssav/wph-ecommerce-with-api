@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import localFont from 'next/font/local';
+import AppProviders from '@/providers/AppProviders';
 
 const sfProDisplay = localFont({
   src: [
@@ -41,7 +41,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${sfProDisplay.variable} antialiased`}>{children}</body>
+      <body className={`${sfProDisplay.variable} antialiased`}>
+        <AppProviders>{children}</AppProviders>
+      </body>
     </html>
   );
 }

@@ -57,7 +57,7 @@ const Register: React.FC = () => {
               <FormField
                 key={fieldCfg.name}
                 control={form.control}
-                name={fieldCfg.name as any}
+                name={fieldCfg.name}
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
