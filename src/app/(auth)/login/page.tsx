@@ -21,7 +21,6 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import InputIcon from '@/components/container/input-icon/input-icon';
 import { Eye, EyeOff } from 'lucide-react';
 import { useAuthForm } from '../useAuthForm';
 
@@ -74,11 +73,11 @@ const Login: React.FC = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <InputIcon
+                    <Input
                       type={showEye.password ? 'text' : 'password'}
                       {...field}
                       placeholder='enter your password'
-                      position='right'
+                      iconPosition='right'
                       icon={showEye.password ? <Eye /> : <EyeOff />}
                       onIconClick={() =>
                         setShowEye((prev) => ({

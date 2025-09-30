@@ -11,11 +11,12 @@ const loginSchema = AuthSchema.pick({
 
 type LoginSchema = z.infer<typeof loginSchema>;
 
+type RegisterSchema = z.infer<typeof AuthSchema>;
+
+export type ShowEyeType = { password: boolean; confirmPassword: boolean };
+
 export const useAuthForm = () => {
-  const [showEye, setShowEye] = React.useState<{
-    password: boolean;
-    confirmPassword: boolean;
-  }>({
+  const [showEye, setShowEye] = React.useState<ShowEyeType>({
     password: false,
     confirmPassword: false,
   });
@@ -29,8 +30,29 @@ export const useAuthForm = () => {
   });
 
   const onLoginSubmit: SubmitHandler<LoginSchema> = (values) => {
-    console.log('onSubmit clicked ', values);
+    console.info('onSubmit clicked ', values);
   };
 
-  return { showEye, setShowEye, loginForm, onLoginSubmit };
+  const registerForm = useForm<RegisterSchema>({
+    resolver: zodResolver(AuthSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      password: '',
+      confirmPassword: '',
+    },
+  });
+  const onRegisterSubmit: SubmitHandler<RegisterSchema> = (values) => {
+    console.info('onSubmit register onClick ', values);
+  };
+
+  return {
+    showEye,
+    setShowEye,
+    loginForm,
+    onLoginSubmit,
+    registerForm,
+    onRegisterSubmit,
+  };
 };
