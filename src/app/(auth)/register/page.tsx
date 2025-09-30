@@ -22,7 +22,7 @@ import { Button } from '@/components/ui/button';
 import { useAuthForm } from '../useAuthForm';
 import { fields } from './register-field';
 import { FormInput } from './form-input';
-import { useRouter } from 'next/navigation';
+import { AuthRedirectLink } from './redirect-link';
 
 const Register: React.FC = () => {
   const {
@@ -31,8 +31,6 @@ const Register: React.FC = () => {
     registerForm: form,
     onRegisterSubmit: onSubmit,
   } = useAuthForm();
-
-  const router = useRouter();
 
   return (
     <Card className='w-full lg:max-w-[451px] mx-4 gap-1'>
@@ -84,17 +82,12 @@ const Register: React.FC = () => {
           </CardFooter>
         </form>
       </Form>
-      <div className='flex justify-center gap-1'>
-        <span className='text-sm leading-sm font-normal lg:text-md lg:leading-md'>
-          Already have an account?
-        </span>{' '}
-        <span
-          className='text-sm leading-sm font-bold lg:text-md lg:leading-md cursor-pointer'
-          onClick={() => router.push('/login')}
-        >
-          Log in
-        </span>
-      </div>
+
+      <AuthRedirectLink
+        promptText='Already have an account?'
+        href='/login'
+        linkText='Log in'
+      />
     </Card>
   );
 };

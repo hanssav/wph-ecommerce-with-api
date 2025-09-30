@@ -23,6 +23,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Eye, EyeOff } from 'lucide-react';
 import { useAuthForm } from '../useAuthForm';
+import { AuthRedirectLink } from '../register/redirect-link';
 
 const Login: React.FC = () => {
   const {
@@ -33,7 +34,7 @@ const Login: React.FC = () => {
   } = useAuthForm();
 
   return (
-    <Card className='w-full mx-4'>
+    <Card className='w-full lg:max-w-[451px] mx-4 gap-1'>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-5'>
           <CardHeader className='space-y-5'>
@@ -58,9 +59,8 @@ const Login: React.FC = () => {
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder='enter your email' {...field} />
+                    <Input {...field} label='Email' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -71,12 +71,11 @@ const Login: React.FC = () => {
               name='password'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
                   <FormControl>
                     <Input
                       type={showEye.password ? 'text' : 'password'}
                       {...field}
-                      placeholder='enter your password'
+                      label='Password'
                       iconPosition='right'
                       icon={showEye.password ? <Eye /> : <EyeOff />}
                       onIconClick={() =>
@@ -100,6 +99,11 @@ const Login: React.FC = () => {
           </CardFooter>
         </form>
       </Form>
+      <AuthRedirectLink
+        promptText="Don't have an account?"
+        href='/register'
+        linkText='Register'
+      />
     </Card>
   );
 };
