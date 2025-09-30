@@ -4,7 +4,9 @@ export default function Home() {
   return (
     <>
       Hallo
-      <Button variant='default'>Primary</Button>
+      <Button variant='default' className='rounded-xl'>
+        Primary
+      </Button>
     </>
   );
 }
