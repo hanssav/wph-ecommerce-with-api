@@ -7,7 +7,6 @@ import Image from 'next/image';
 import React from 'react';
 import { useUser } from '@/context/auth';
 import { cn } from '@/lib/utils';
-import { UserType } from '@/types';
 import { Search } from 'lucide-react';
 
 const ButtonUserNotLogin = () => {
@@ -42,8 +41,6 @@ const ButtonUserActive = () => {
     },
   ];
 
-  console.log(user, 'user,');
-
   return (
     <>
       {buttons.map((btn, idx) => (
@@ -69,10 +66,6 @@ const ButtonUserActive = () => {
 };
 
 const Header: React.FC = () => {
-  const { user } = useUser();
-
-  console.log(!!user);
-
   return (
     <SectionWrapper
       as='header'
@@ -106,7 +99,7 @@ const Header: React.FC = () => {
           id='search'
           className='h-10 lg:h-11 lg:max-w-[481px]'
           iconPosition='left'
-          icon={<Search className='h-5 w-5 text-neutral-950' />}
+          icon={<Search className='h-5 w-5 text-neutral-950 ' />}
         ></Input>
       </div>
 

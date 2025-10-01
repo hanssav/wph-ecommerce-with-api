@@ -11,5 +11,9 @@ export default function Home() {
     if (!user) return router.push('/login');
   }, [user, router]);
 
-  return <></>;
+  return (
+    <div className='flex w-full justify-center items-center py-10'>
+      HOME CONTENT IN HERE
+    </div>
+  );
 }

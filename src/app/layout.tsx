@@ -2,6 +2,7 @@ import './globals.css';
 import AppProviders from '@/providers/AppProviders';
 import { sfProDisplay } from '@/constants';
 import Header from '@/components/pages/user/header';
+import Footer from '@/components/pages/user/footer';
 
 export default function RootLayout({
   children,
@@ -14,6 +15,7 @@ export default function RootLayout({
         <AppProviders>
           <Header />
           {children}
+          <Footer />
         </AppProviders>
       </body>
     </html>
