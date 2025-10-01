@@ -16,10 +16,7 @@ const SectionWrapper = <T extends React.ElementType = 'div'>({
   const Component = as || 'div';
   return (
     <Component
-      className={cn(
-        'px-4 py-4 gap-4 lg:px-[120px] lg:h-[82px] w-full',
-        className
-      )}
+      className={cn('px-4 py-4 lg:px-[120px] lg:h-[82px] w-full', className)}
       {...rest}
     >
       {children}

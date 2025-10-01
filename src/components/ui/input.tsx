@@ -24,16 +24,14 @@ function Input({
       <input
         type={type}
         data-slot='input'
-        placeholder=' ' // Space penting untuk floating label logic!
+        placeholder=' '
         className={cn(
           'peer file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-12 w-full min-w-0 rounded-md border bg-transparent text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
           'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
           'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
-          // Padding adjustment untuk label
           label && 'pt-6 pb-2',
-          // Padding adjustment untuk icon
           icon && iconPosition === 'left'
-            ? 'pl-12'
+            ? 'pl-10'
             : icon && iconPosition === 'right'
             ? 'pr-12 px-3'
             : 'px-3',
@@ -59,7 +57,7 @@ function Input({
             // Invalid state
             'peer-aria-invalid:text-destructive',
             // Adjustment untuk icon di kiri
-            icon && iconPosition === 'left' && 'left-12'
+            icon && iconPosition === 'left' && 'left-10'
           )}
         >
           {label}

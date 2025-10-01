@@ -11,9 +11,5 @@ export default function Home() {
     if (!user) return router.push('/login');
   }, [user, router]);
 
-  return (
-    <>
-      <strong>Selamat anda berhasil masuk </strong>
-    </>
-  );
+  return <></>;
 }
