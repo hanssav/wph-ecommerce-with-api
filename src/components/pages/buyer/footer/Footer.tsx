@@ -32,9 +32,9 @@ const MenuList: React.FC<{ menu: string[] }> = ({ menu }) => {
     <div className='flex flex-col gap-4'>
       {menu.map((label, idx) => (
         <Typography
+          key={idx}
           as='span'
           size={{ base: 'sm', lg: 'md' }}
-          key={idx}
           weight={idx === 0 ? 'bold' : 'normal'}
           className={cn(' text-neutral-950 ')}
         >
@@ -49,7 +49,7 @@ const Footer = () => {
   return (
     <SectionWrapper
       as='footer'
-      className='flex flex-col lg:flex-row gap-4 px-4 py-10 lg:px-[150px] lg:py-20 justify-between border-t border-neutral-300 mt-10'
+      className='flex flex-col lg:flex-row gap-4 px-4 py-10 lg:px-[150px] lg:py-20 justify-between border-t border-neutral-300'
     >
       <div className='flex flex-col gap-4 lg:max-w-[380px] lg:gap-10'>
         <div className='flex flex-col gap-[22px]'>
