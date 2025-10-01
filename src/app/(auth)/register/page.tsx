@@ -20,9 +20,9 @@ import {
 } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { useAuthForm } from '../useAuthForm';
-import { fields } from './register-field';
-import { FormInput } from './form-input';
-import { AuthRedirectLink } from './redirect-link';
+import { fields } from '../components/field';
+import { FormInput } from '../components/form-input';
+import { AuthRedirectLink } from '../components/redirect-link';
 
 const Register: React.FC = () => {
   const {

@@ -1,4 +1,4 @@
 export const APIConfiguration = {
-  baseUrl: process.env.VITE_PUBLIC_API_URL,
+  baseUrl: process.env.NEXT_PUBLIC_API_URL,
   mockToken: process.env.MOCK_TOKEN,
 };

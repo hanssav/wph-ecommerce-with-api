@@ -1,29 +1,15 @@
 'use client';
 
-import { api } from '@/api';
-import { useQueryClient } from '@tanstack/react-query';
 import React, { createContext, useContext } from 'react';
-
-export type TokenType = string;
-
-type LoginResponseType = {
-  success: string;
-  message: string;
-  data: {
-    token: TokenType;
-    user: UserType;
-  };
-};
-
-type UserType = {
-  id: number;
-  name: string;
-  email: string;
-  avatarUrl: string;
-};
+import { api } from '@/api';
+import { TokenType, UserType } from '@/types';
+import { useQueryClient } from '@tanstack/react-query';
 
 type AuthContextType = {
   user: UserType | null;
+  token: TokenType | null;
+  setUser: (payload: { user: UserType; token: TokenType | null }) => void;
+  clearAuth: () => void;
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -86,6 +72,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
 export const useUser = () => {
   const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuthContext must be used within AuthProvider');
+  if (!ctx) throw new Error('useAutht must be used within AuthProvider');
   return ctx;
 };

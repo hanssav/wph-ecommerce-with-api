@@ -1,8 +1,13 @@
-import { AuthSchema } from '@/lib/validation';
-import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
+import { useUser } from '@/context/auth';
+import { AuthSchema } from '@/lib/validation';
+import { userService } from '@/services';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import z from 'zod';
+import { AxiosError } from 'axios';
+import { useRouter } from 'next/navigation';
 
 const loginSchema = AuthSchema.pick({
   email: true,
@@ -21,6 +26,22 @@ export const useAuthForm = () => {
     confirmPassword: false,
   });
 
+  const { setUser } = useUser();
+  const router = useRouter();
+
+  const loginMutation = useMutation({
+    mutationFn: async (values: LoginSchema) => {
+      const res = await userService.login(values);
+      return res;
+    },
+    onSuccess: ({ data }) => {
+      setUser({ token: data.token, user: data.user });
+      router.push('/');
+    },
+    onError: (err: AxiosError) => {
+      console.error('Login error:', err);
+    },
+  });
   const loginForm = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -28,11 +49,14 @@ export const useAuthForm = () => {
       password: '',
     },
   });
-
   const onLoginSubmit: SubmitHandler<LoginSchema> = (values) => {
-    console.info('onSubmit clicked ', values);
+    loginMutation.mutate(values);
   };
 
+  // need to setup
+  const registerMutation = useMutation({
+    mutationFn: userService.register,
+  });
   const registerForm = useForm<RegisterSchema>({
     resolver: zodResolver(AuthSchema),
     defaultValues: {
@@ -43,10 +67,8 @@ export const useAuthForm = () => {
       confirmPassword: '',
     },
   });
-  const onRegisterSubmit: SubmitHandler<RegisterSchema> = (values) => {
-    console.info('onSubmit register onClick ', values);
-  };
-
+  const onRegisterSubmit: SubmitHandler<RegisterSchema> = (values) =>
+    registerMutation.mutate(values);
   return {
     showEye,
     setShowEye,

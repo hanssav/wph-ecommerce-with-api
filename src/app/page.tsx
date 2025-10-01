@@ -9,7 +9,7 @@ export default function Home() {
 
   React.useEffect(() => {
     if (!user) return router.push('/login');
-  });
+  }, [user, router]);
 
   return (
     <>

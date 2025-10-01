@@ -1,5 +1,5 @@
 import { ShowEyeType } from '../useAuthForm';
-import { FieldConfig } from './register-field';
+import { FieldConfig } from './field';
 import { Eye, EyeOff } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { ControllerRenderProps } from 'react-hook-form';

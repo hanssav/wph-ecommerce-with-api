@@ -22,7 +22,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Eye, EyeOff } from 'lucide-react';
 import { useAuthForm } from '../useAuthForm';
-import { AuthRedirectLink } from '../register/redirect-link';
+import { AuthRedirectLink } from '../components/redirect-link';
 
 const Login: React.FC = () => {
   const {
