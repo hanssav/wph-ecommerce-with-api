@@ -1,3 +1,6 @@
+'use client';
+
+import { AuthProvider } from '@/context/auth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 
@@ -7,7 +10,9 @@ const AppProviders: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>{children}</AuthProvider>
+    </QueryClientProvider>
   );
 };
 
