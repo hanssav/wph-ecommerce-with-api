@@ -29,8 +29,6 @@ const ButtonUserActive = () => {
     return <ButtonUserNotLogin />;
   }
 
-  console.log(me, 'me');
-
   const buttons = [
     {
       label: me.store ? me.name : 'Open Store',

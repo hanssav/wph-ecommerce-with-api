@@ -34,7 +34,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const queryClient = useQueryClient();
 
-  const setAuth = (payload: { user: UserType; token: TokenType | null }) => {
+  const setAuth = (payload: { user: UserType; token: string | null }) => {
     setUser(payload.user);
     setToken(payload.token);
 
@@ -51,6 +51,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       delete api.defaults.headers.common['Authorization'];
     }
   }, [token]);
+
+  // const me = useQuery({
+  //   queryKey: ['me'],
+  //   queryFn: () => userService.getMe(),
+  //   enabled: !!token,
+  //   staleTime: 1000 * 60,
+  // });
+
+  // // Merge data dari query ke state context
+  // React.useEffect(() => {
+  //   if (me.data) {
+  //     setUser((prevUser) => ({
+  //       ...prevUser,
+  //       ...me.data,
+  //     }));
+  //     localStorage.setItem('auth_user', JSON.stringify(me.data));
+  //   }
+  // }, [me.data]);
 
   const clearAuth = () => {
     setUser(null);
@@ -72,6 +90,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
 export const useUser = () => {
   const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAutht must be used within AuthProvider');
+  if (!ctx) throw new Error('useAuth must be used within AuthProvider');
   return ctx;
 };

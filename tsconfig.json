@@ -23,7 +23,9 @@
       "@/lib/*": ["./src/lib/*"],
       "@/hooks/*": ["./src/hooks/*"],
       "@/helpers/*": ["./src/helpers/*"],
-      "@/constants/*": ["./src/constants/*"]
+      "@/constants/*": ["./src/constants/*"],
+      "@/context/*": ["./src/context/*"],
+      "@/service/*": ["./src/service/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
