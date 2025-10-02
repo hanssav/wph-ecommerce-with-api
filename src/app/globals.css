@@ -148,6 +148,11 @@
   --color-neutral-300: #d5d7da;
   --color-neutral-600: #535862;
   --color-neutral-950: #0a0d12;
+
+  /* Box Shadow */
+  --shadow-custom: 0px 0px 20px 0px rgba(203, 202, 202, 0.25);
+  --shadow-card: 0px 0px 20px 0px rgba(203, 202, 202, 0.25);
+  --shadow-soft: 0px 0px 20px 0px rgba(203, 202, 202, 0.25);
 }
 
 /* @media (prefers-color-scheme: dark) {

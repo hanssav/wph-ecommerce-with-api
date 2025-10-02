@@ -5,9 +5,10 @@ import { Input } from '@/components/ui/input';
 import { ICONS, IMAGES } from '@/constants';
 import Image from 'next/image';
 import React from 'react';
-import { useUser } from '@/context/auth';
 import { cn } from '@/lib/utils';
 import { Search } from 'lucide-react';
+import { useMe } from '@/hooks/useMe';
+import { useRouter } from 'next/navigation';
 
 const ButtonUserNotLogin = () => {
   return (
@@ -21,25 +22,34 @@ const ButtonUserNotLogin = () => {
 };
 
 const ButtonUserActive = () => {
-  const { user } = useUser();
-  const [mounted, setMounted] = React.useState(false);
+  const router = useRouter();
+  const { user: me } = useMe();
 
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted || !user) {
+  if (!me) {
     return <ButtonUserNotLogin />;
   }
 
+  console.log(me, 'me');
+
   const buttons = [
-    { label: 'Toko bla bla', icon: ICONS.STORE },
     {
-      label: user?.name,
+      label: me.store ? me.name : 'Open Store',
+      icon: ICONS.STORE,
+      handleClick: () => handleClickStore(),
+    },
+    {
+      label: me.name,
       icon: ICONS.DEFAULT_AVATAR,
       imgClass: 'rounded-full',
+      handleClick: () => {},
     },
   ];
+
+  const handleClickStore = () => {
+    if (!me.store) return router.push('/open-store');
+
+    return;
+  };
 
   return (
     <>
@@ -48,6 +58,7 @@ const ButtonUserActive = () => {
           key={idx}
           variant='outline'
           className='hidden lg:flex items-center gap-2 max-w-[128px] overflow-hidden whitespace-nowrap rounded-full py-1 px-3'
+          onClick={btn.handleClick}
         >
           <Image
             src={btn.icon}
@@ -55,6 +66,7 @@ const ButtonUserActive = () => {
             width={20}
             height={20}
             className={cn(btn.imgClass)}
+            unoptimized
           />
           <span className='text-sm leading-sm font-bold truncate'>
             {btn.label}
@@ -69,7 +81,7 @@ const Header: React.FC = () => {
   return (
     <SectionWrapper
       as='header'
-      className='flex flex-row items-center lg:justify-between gap-4 shadow-[0px_0px_20px_0px_#CBCACA40]'
+      className='flex flex-row items-center lg:justify-between gap-4 shadow-card'
     >
       <div className='lg:basis-5/20 relative overflow-hidden rounded w-10 aspect-square lg:w-40 lg:h-10 lg:aspect-auto'>
         <Image

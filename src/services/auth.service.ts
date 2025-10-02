@@ -13,4 +13,9 @@ export const userService = {
     const res = await api.post('/auth/register', user);
     return res.data;
   },
+  getMe: async () => {
+    const res = await api.get('/me');
+    return res.data;
+  },
+  updateMe: async () => {},
 };
