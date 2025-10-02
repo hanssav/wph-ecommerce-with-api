@@ -1,5 +1,6 @@
 import Typography from '@/components/ui/typography';
 import { ICONS } from '@/constants';
+import { formatMoney } from '@/lib/utils';
 import { Product } from '@/types/product.types';
 import { Star } from 'lucide-react';
 import Image from 'next/image';
@@ -39,7 +40,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           {title}
         </Typography>
         <Typography weight={'bold'} size={{ base: 'sm', lg: 'md' }}>
-          {price}
+          {formatMoney(price)}
         </Typography>
 
         <div className='flex gap-[6px] items-center'>

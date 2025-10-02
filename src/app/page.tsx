@@ -36,11 +36,11 @@ export default function Home() {
           ))}
         </div>
 
-        <div className='flex justify-center'>
+        <div className='flex justify-center w-full'>
           <Button
             variant={'outline'}
             size={'lg'}
-            className='rounded-lg max-w-40'
+            className='rounded-lg w-40 lg:!w-[220px]'
           >
             <Typography size={{ base: 'md' }} weight={'semibold'}>
               Load More
