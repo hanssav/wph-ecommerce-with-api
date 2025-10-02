@@ -68,7 +68,10 @@ const Typography = <T extends ElementType = 'p'>({
   const weightClasses = getResponsiveClasses(weight, 'weight');
 
   return (
-    <Component className={cn(sizeClasses, weightClasses, className)} {...props}>
+    <Component
+      className={cn('text-neutral-950', sizeClasses, weightClasses, className)}
+      {...props}
+    >
       {children}
     </Component>
   );

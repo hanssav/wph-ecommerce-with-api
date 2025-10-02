@@ -18,6 +18,19 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'static-ecapac.acer.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.mobiledokan.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'png.pngtree.com',
       },
     ],

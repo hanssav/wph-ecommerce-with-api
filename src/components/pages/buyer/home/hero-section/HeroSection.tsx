@@ -14,8 +14,8 @@ const HeroSection = () => {
           src={IMAGES.HERO}
           alt='hero-images'
           fill
-          sizes='(max-width: 185px) 100vw, (max-width: 185px)'
           className='object-cover'
+          sizes='(max-width: 1024px) 100vw, 376px'
           priority
         />
       </div>
@@ -39,7 +39,11 @@ const HeroSection = () => {
         </div>
 
         <Button className='p-2 rounded-[6px] lg:rounded-md max-w-[93px] lg:max-w-[180px] h-7 lg:h-12'>
-          <Typography size={{ base: 10, lg: 'md' }} weight='semibold'>
+          <Typography
+            size={{ base: 10, lg: 'md' }}
+            weight='semibold'
+            className='text-white'
+          >
             Get Now
           </Typography>
         </Button>

@@ -12,6 +12,7 @@ export const ICONS = {
   INSTAGRAM: './icons/social-instagram.svg',
   LINKDIN: './icons/social-linkdin.svg',
   TIKTOK: './icons/social-tiktok.svg',
+  BADGE_CHECK: './icons/badge-check.svg',
 
   DEFAULT_AVATAR:
     'https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001877.png',
