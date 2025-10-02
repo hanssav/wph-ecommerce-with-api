@@ -16,7 +16,7 @@ const SectionWrapper = <T extends React.ElementType = 'section'>({
   const Component = as || 'section';
   return (
     <Component
-      className={cn('px-4 py-4 lg:px-[120px] lg:h-[82px] w-full', className)}
+      className={cn('px-4 py-4 lg:px-[120px] w-full', className)}
       {...rest}
     >
       {children}

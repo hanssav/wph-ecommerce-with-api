@@ -73,6 +73,7 @@ const ButtonUserActive = () => {
 };
 
 const Header: React.FC = () => {
+  const router = useRouter();
   return (
     <SectionWrapper
       as='header'
@@ -89,18 +90,23 @@ const Header: React.FC = () => {
       </div>
 
       <div className='lg:basis-10/20 flex gap-[6px] items-center w-full'>
-        <div className='rounded-xl border border-neutral-300 p-2 w-10 lg:w-auto lg:max-w-full h-auto flex gap-[6px]'>
-          <Image
-            src={ICONS.GRID}
-            width={40}
-            height={40}
-            alt='grid-icon'
-            className='object-cover'
-          />
-          <span className='hidden text-sm font-normal lg:flex items-center'>
-            Category
+        <Button
+          onClick={() => router.push('/catalog')}
+          variant='outline'
+          className='relative rounded-xl py-2 px-2 lg:px-3 flex items-center justify-center lg:w-auto lg:justify-start lg:gap-2'
+        >
+          <div className='relative w-5 h-5 lg:w-6 lg:h-6 flex-shrink-0'>
+            <Image
+              src={ICONS.GRID}
+              alt='grid-icon'
+              fill
+              className='object-contain'
+            />
+          </div>
+          <span className='hidden lg:inline-block text-sm font-normal'>
+            Catalog
           </span>
-        </div>
+        </Button>
         <Input
           label='search.. '
           id='search'
