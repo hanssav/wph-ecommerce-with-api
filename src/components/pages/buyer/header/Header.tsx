@@ -20,18 +20,16 @@ const ButtonUserNotLogin = () => {
     </>
   );
 };
-
 const ButtonUserActive = () => {
   const router = useRouter();
   const { user: me } = useMe();
-
   if (!me) {
     return <ButtonUserNotLogin />;
   }
 
   const buttons = [
     {
-      label: me.store ? me.name : 'Open Store',
+      label: me.shop ? me.shop.name : 'Open Store',
       icon: ICONS.STORE,
       handleClick: () => handleClickStore(),
     },
@@ -42,11 +40,10 @@ const ButtonUserActive = () => {
       handleClick: () => {},
     },
   ];
-
   const handleClickStore = () => {
-    if (!me.store) return router.push('/open-store');
+    if (!me.shop) return router.push('/open-store');
 
-    return;
+    return router.push('/profile');
   };
 
   return (

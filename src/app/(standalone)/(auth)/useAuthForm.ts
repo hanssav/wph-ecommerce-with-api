@@ -8,7 +8,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import z from 'zod';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
-import { useMe } from '@/hooks/useMe';
 
 const loginSchema = AuthSchema.pick({
   email: true,
