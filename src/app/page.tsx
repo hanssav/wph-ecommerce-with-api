@@ -1,6 +1,7 @@
 'use client';
 import HeroSection from '@/components/pages/buyer/home/hero-section';
 import ProductCard from '@/components/pages/buyer/home/product-card';
+import { Button } from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
 import { useUser } from '@/context/auth';
 import { useProduct } from '@/hooks';
@@ -33,6 +34,18 @@ export default function Home() {
           {products?.products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
+        </div>
+
+        <div className='flex justify-center'>
+          <Button
+            variant={'outline'}
+            size={'lg'}
+            className='rounded-lg max-w-40'
+          >
+            <Typography size={{ base: 'md' }} weight={'semibold'}>
+              Load More
+            </Typography>
+          </Button>
         </div>
       </section>
     </main>

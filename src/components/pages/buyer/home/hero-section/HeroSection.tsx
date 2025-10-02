@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import SectionWrapper from '@/components/container/section-wrapper';
 import { Button } from '@/components/ui/button';

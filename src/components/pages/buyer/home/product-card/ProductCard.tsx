@@ -17,7 +17,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   } = product;
 
   return (
-    <div id='product-card' className='rounded-xl'>
+    <div id='product-card' className='rounded-xl shadow-[0_0_20px_0_#CBCACA40]'>
       <div className='relative w-full rounded-sm overflow-hidden aspect-[1/1]'>
         <Image
           src={images[0]}
@@ -30,7 +30,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         />
       </div>
 
-      <div className='flex flex-col p-3 shadow-sm'>
+      <div className='flex flex-col p-3'>
         <Typography
           weight={'normal'}
           size={{ base: 'sm', lg: 'md' }}
