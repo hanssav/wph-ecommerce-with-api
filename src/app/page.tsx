@@ -1,4 +1,6 @@
 'use client';
+import HeroSection from '@/components/pages/buyer/home/hero-section';
+import Typography from '@/components/ui/typography';
 import { useUser } from '@/context/auth';
 import { useRouter } from 'next/navigation';
 import React from 'react';
@@ -12,8 +14,18 @@ export default function Home() {
   }, [user, router]);
 
   return (
-    <div className='flex w-full justify-center items-center py-10'>
-      HOME CONTENT IN HERE
-    </div>
+    <main className='px-4 py-6 lg:px-[120px] lg:py-12'>
+      <HeroSection />
+
+      <section>
+        <Typography
+          as='h2'
+          size={{ base: 'display-xs', lg: 'display-lg' }}
+          weight='bold'
+        >
+          Feature Product
+        </Typography>
+      </section>
+    </main>
   );
 }

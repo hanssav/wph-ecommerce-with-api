@@ -1,5 +1,3 @@
-import type { ElementType } from 'react';
-
 export const weightVariants = {
   thin: 'font-thin',
   extralight: 'font-extralight',
@@ -10,51 +8,40 @@ export const weightVariants = {
   bold: 'font-bold',
   extrabold: 'font-extrabold',
   black: 'font-black',
-};
+} as const;
+
+export const sizeVariants = {
+  xs: { text: 'text-xs', leading: 'leading-xs' },
+  sm: { text: 'text-sm', leading: 'leading-sm' },
+  md: { text: 'text-md', leading: 'leading-md' },
+  lg: { text: 'text-lg', leading: 'leading-lg' },
+  xl: { text: 'text-xl', leading: 'leading-xl' },
+  'display-xs': { text: 'text-display-xs', leading: 'leading-display-xs' },
+  'display-sm': { text: 'text-display-sm', leading: 'leading-display-sm' },
+  'display-md': { text: 'text-display-md', leading: 'leading-display-md' },
+  'display-lg': { text: 'text-display-lg', leading: 'leading-display-lg' },
+  'display-xl': { text: 'text-display-xl', leading: 'leading-display-xl' },
+  'display-2xl': { text: 'text-display-2xl', leading: 'leading-display-2xl' },
+  'display-3xl': { text: 'text-display-3xl', leading: 'leading-display-3xl' },
+} as const;
 
 type FontWeight = keyof typeof weightVariants;
+type TextSize = keyof typeof sizeVariants;
 
-type TextSize =
-  | 'xs'
-  | 'sm'
-  | 'md'
-  | 'lg'
-  | 'xl'
-  | 'display-xs'
-  | 'display-sm'
-  | 'display-md'
-  | 'display-lg'
-  | 'display-xl'
-  | 'display-2xl'
-  | 'display-3xl';
-
-type ResponsiveType = {
-  base?: TextSize;
-  sm?: TextSize;
-  md?: TextSize;
-  lg?: TextSize;
-  xl?: TextSize;
+type ResponsiveType<T> = {
+  base?: T;
+  sm?: T;
+  md?: T;
+  lg?: T;
+  xl?: T;
 };
 
-type TypographyProps<T extends ElementType = 'p'> = {
-  size?: TextSize | ResponsiveType;
-  weight?: FontWeight;
+type TypographyProps<T extends React.ElementType = 'p'> = {
+  size?: TextSize | ResponsiveType<TextSize | number>;
+  weight?: FontWeight | ResponsiveType<FontWeight>;
   className?: string;
   children: React.ReactNode;
   as?: T;
 } & React.ComponentPropsWithoutRef<T>;
 
-type TitleProps = { children: React.ReactNode } & TypographyProps;
-
-type SubtitleProps = {
-  children: React.ReactNode;
-  className?: string;
-} & TypographyProps;
-
-export type {
-  TypographyProps,
-  TextSize,
-  FontWeight,
-  TitleProps,
-  SubtitleProps,
-};
+export type { TypographyProps, TextSize, FontWeight, ResponsiveType };

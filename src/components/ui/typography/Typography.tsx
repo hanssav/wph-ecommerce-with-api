@@ -1,68 +1,55 @@
-import { cva } from 'class-variance-authority';
 import { type ElementType } from 'react';
-import type { FontWeight, TextSize, TypographyProps } from './Typography.types';
+import {
+  sizeVariants,
+  weightVariants,
+  type FontWeight,
+  type TextSize,
+  type TypographyProps,
+} from './Typography.types';
 import { cn } from '@/lib/utils';
-
-export const typographyVariants = cva('', {
-  variants: {
-    size: {
-      xs: 'text-xs leading-xs',
-      sm: 'text-sm leading-sm',
-      md: 'text-md leading-md',
-      lg: 'text-lg leading-lg',
-      xl: 'text-xl leading-xl',
-      'display-xs': 'text-display-xs leading-display-xs',
-      'display-sm': 'text-display-sm leading-display-sm',
-      'display-md': 'text-display-md leading-display-md',
-      'display-lg': 'text-display-lg leading-display-lg',
-      'display-xl': 'text-display-xl leading-display-xl',
-      'display-2xl': 'text-display-2xl leading-display-2xl',
-      'display-3xl': 'text-display-3xl leading-display-3xl',
-    },
-    weight: {
-      thin: 'font-thin',
-      extralight: 'font-extralight',
-      light: 'font-light',
-      normal: 'font-normal',
-      medium: 'font-medium',
-      semibold: 'font-semibold',
-      bold: 'font-bold',
-      extrabold: 'font-extrabold',
-      black: 'font-black',
-    },
-  },
-  defaultVariants: {
-    size: 'md',
-    weight: 'normal',
-  },
-});
-
 /**
  * Convert responsive value to Tailwind classes with breakpoints
  * @example 'md' => 'text-md leading-md'
  * @example { base: 'md', lg: 'xl' } => 'text-md leading-md lg:text-xl lg:leading-xl'
+ * @example { base: 16, lg: 40 } => 'text-[16px] leading-[24px] lg:text-[40px] lg:leading-[60px]'
+ * @example { base: 10, lg: 'display-xs' } => 'text-[10px] leading-[15px] lg:text-display-xs lg:leading-display-xs'
  */
-const getResponsiveClasses = <T extends TextSize | FontWeight>(
+
+const getResponsiveClasses = <T extends TextSize | FontWeight | number>(
   value: T | Record<string, T>,
   variant: 'size' | 'weight'
 ): string => {
   if (typeof value === 'string') {
-    return typographyVariants({ [variant]: value });
+    if (variant === 'size') {
+      const { text, leading } = sizeVariants[value as TextSize];
+      return `${text} ${leading}`;
+    }
+    return weightVariants[value as FontWeight];
+  }
+
+  if (typeof value === 'number' && variant === 'size') {
+    return `text-[${value}px] leading-[${Math.round(value * 1.5)}px]`;
   }
 
   return Object.entries(value)
+    .sort(([a], [b]) => (a === 'base' ? -1 : b === 'base' ? 1 : 0))
     .map(([breakpoint, val]) => {
-      const classes = typographyVariants({ [variant]: val });
+      let classes: string[];
 
-      if (breakpoint === 'base') {
-        return classes;
+      if (typeof val === 'number' && variant === 'size') {
+        classes = [`text-[${val}px]`, `leading-[${Math.round(val * 1.5)}px]`];
+      } else if (variant === 'size') {
+        const { text, leading } = sizeVariants[val as TextSize];
+        classes = [text, leading];
+      } else {
+        classes = [weightVariants[val as FontWeight]];
       }
 
-      // Add breakpoint prefix to each class
-      return classes
-        .split(' ')
-        .map((cls) => `${breakpoint}:${cls}`)
-        .join(' ');
+      if (breakpoint === 'base') {
+        return classes.join(' ');
+      }
+
+      return classes.map((cls) => `${breakpoint}:${cls}`).join(' ');
     })
     .join(' ');
 };
