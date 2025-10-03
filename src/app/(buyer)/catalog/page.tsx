@@ -4,56 +4,12 @@ import ProductCard from '@/components/pages/buyer/home/product-card';
 import { Button } from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
 import { useProduct } from '@/hooks';
-import { ChevronDown, Filter, ListFilter } from 'lucide-react';
 import React from 'react';
+import { FilterSection } from './components/filter-section';
+import { Subtitle } from './components/subtitle';
+import { FilterBtn } from './components/filter-btn';
+import { SortBtn } from './components/sort-btn';
 
-const SortBtn = () => {
-  return (
-    <Button
-      size={'lg'}
-      variant='outline'
-      className='flex-1 flex items-center justify-between gap-2 rounded-lg lg:max-w-32'
-    >
-      Latest
-      <ChevronDown className='h-5 w-5' />
-    </Button>
-  );
-};
-const FilterBtn = () => {
-  return (
-    <Button
-      size={'lg'}
-      variant='outline'
-      className='flex-1 flex items-center justify-between gap-2 rounded-lg'
-    >
-      Filter
-      <ListFilter className='h-5 w-5' />
-    </Button>
-  );
-};
-const Subtitle = () => {
-  return (
-    <Typography as='p' weight={'normal'} size={{ base: 'xs', lg: 'md' }}>
-      Showing 160 products
-    </Typography>
-  );
-};
-const FilterWrapper: React.FC<{
-  title?: string;
-  children: React.ReactNode;
-}> = ({ title, children }) => {
-  return (
-    <div className='px-4'>
-      <Typography weight={'bold'} size={{ lg: 'md' }}>
-        {title}
-      </Typography>
-      {children}
-    </div>
-  );
-};
-const HorizontalRule = () => (
-  <hr className='border border-neutral-300 w-full' />
-);
 const Catalog = () => {
   const { products, isLoading } = useProduct();
 
@@ -73,23 +29,19 @@ const Catalog = () => {
           <SortBtn />
         </div>
       </div>
-      <div className='flex lg:flex-row gap-4 lg:gap-6'>
-        <div className='hidden lg:block basis-5/15 border border-neutral-300 h-full py-4 gap-6 rounded-xl'>
-          <div className='flex flex-col gap-[10px]'>
-            <Typography weight={'bold'} size={{ lg: 'md' }} className='px-4'>
-              FILTER
-            </Typography>
-            <FilterWrapper title='Categories'>checkbox session</FilterWrapper>
-            <HorizontalRule />
-            <FilterWrapper title='Price'>Ratin session</FilterWrapper>
-            <HorizontalRule />
-            <FilterWrapper title='Rating'>Rating session</FilterWrapper>
-          </div>
+      <div className='lg:flex lg:flex-row gap-4 lg:gap-6'>
+        <div className='hidden basis-3/15 lg:block  border border-neutral-300 h-full py-4 gap-6 rounded-xl'>
+          <FilterSection />
         </div>
-        <div className='flex flex-col gap-6'>
+        <div className='basis-12/15 flex flex-col gap-6'>
           <div className='hidden lg:flex justify-between items-center'>
             <Subtitle />
-            <SortBtn />
+            <div className='flex gap-3 items-center'>
+              <Typography weight={'bold'} size={'md'}>
+                Sort
+              </Typography>
+              <SortBtn />
+            </div>
           </div>
           <div className='grid grid-cols-2 lg:grid-cols-4 gap-4 py-4'>
             {isLoading && <Typography as='p'>loading...</Typography>}

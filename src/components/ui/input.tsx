@@ -5,6 +5,7 @@ import { Label } from './label';
 
 type InputProps = {
   iconPosition?: 'left' | 'right';
+  leftIconPadding?: string;
   icon?: React.ReactNode;
   onIconClick?: () => void;
   label?: string;
@@ -16,6 +17,7 @@ function Input({
   onIconClick,
   icon,
   iconPosition,
+  leftIconPadding = '10',
   label,
   ...props
 }: InputProps) {
@@ -31,7 +33,7 @@ function Input({
           'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive',
           label && 'pt-6 pb-2',
           icon && iconPosition === 'left'
-            ? 'pl-10'
+            ? `pl-${leftIconPadding}`
             : icon && iconPosition === 'right'
             ? 'pr-12 px-3'
             : 'px-3',
@@ -57,7 +59,7 @@ function Input({
             // Invalid state
             'peer-aria-invalid:text-destructive',
             // Adjustment untuk icon di kiri
-            icon && iconPosition === 'left' && 'left-10'
+            icon && iconPosition === 'left' && `left-${leftIconPadding}`
           )}
         >
           {label}
