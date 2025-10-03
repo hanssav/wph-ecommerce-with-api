@@ -3,6 +3,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Typography from '@/components/ui/typography';
 import { Star } from 'lucide-react';
+import React from 'react';
+
+type Filter = {
+  byCategory: string[];
+  byRating: number[];
+  byPrice: { min: number; max: number };
+};
 
 const HorizontalRule = () => (
   <hr className='border border-neutral-300 w-full my-3' />
@@ -22,33 +29,68 @@ const FilterWrapper: React.FC<{
 };
 
 export const FilterSection = () => {
-  const checkboxItems = ['all', 'shoes', 'clothes', 'accessories'];
+  const categoryItems = ['all', 'shoes', 'clothes', 'accessories'];
   const ratingItems = [5, 4, 3, 2, 1];
   const priceItems = [
     {
+      key: 'min' as const,
       label: 'Minimum Price',
     },
     {
+      key: 'max' as const,
       label: 'Minimum Price',
     },
   ];
+
+  const [filter, setFilter] = React.useState<Filter>({
+    byCategory: ['all'],
+    byRating: [5, 2],
+    byPrice: {
+      min: 0,
+      max: 0,
+    },
+  });
 
   return (
     <div className='flex flex-col gap-[10px]'>
       <FilterWrapper title='FILTER' />
       <FilterWrapper title='Categories'>
-        {checkboxItems.map((check, idx) => (
+        {categoryItems.map((check, idx) => (
           <div key={idx} className='flex gap-3 items-center'>
-            <Checkbox className='h-5 w-5' />
+            <Checkbox
+              className='h-5 w-5'
+              checked={filter.byCategory.includes(check)}
+              onCheckedChange={(checked) => {
+                setFilter((prev) => ({
+                  ...prev,
+                  byCategory: checked
+                    ? [...prev.byCategory, check]
+                    : prev.byCategory.filter((val) => val !== check),
+                }));
+              }}
+            />
             <Label className='capitalize text-md'>{check}</Label>
           </div>
         ))}
       </FilterWrapper>
       <HorizontalRule />
       <FilterWrapper title='Price'>
-        {priceItems.map(({ label }, idx) => (
+        {priceItems.map(({ label, key }, idx) => (
           <Input
             key={idx}
+            value={filter.byPrice[key]}
+            onChange={(e) => {
+              const val = Number(e.target.value);
+              if (!isNaN(val)) {
+                setFilter((prev) => ({
+                  ...prev,
+                  byPrice: {
+                    ...prev.byPrice,
+                    [key]: val,
+                  },
+                }));
+              }
+            }}
             label={label}
             icon={
               <div className='bg-neutral-200 p-2 rounded-sm font-bold text-md mx-4'>
@@ -64,7 +106,18 @@ export const FilterSection = () => {
       <FilterWrapper title='Rating'>
         {ratingItems.map((rating, idx) => (
           <div key={idx} className='flex gap-2 items-center'>
-            <Checkbox className='h-5 w-5' />
+            <Checkbox
+              className='h-5 w-5'
+              checked={filter.byRating.includes(rating)}
+              onCheckedChange={(checked) =>
+                setFilter((prev) => ({
+                  ...prev,
+                  byRating: checked
+                    ? [...prev.byRating, rating]
+                    : prev.byRating.filter((val) => val !== rating),
+                }))
+              }
+            />
             <div className='flex items-center gap-1'>
               <div className='relative w-5 h-5'>
                 <Star className='absolute w-5 h-5 stroke-gray-300' />
