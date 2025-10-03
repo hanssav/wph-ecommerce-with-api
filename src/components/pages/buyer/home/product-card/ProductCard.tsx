@@ -4,9 +4,11 @@ import { formatMoney } from '@/lib/utils';
 import { Product } from '@/types/product.types';
 import { Star } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
+  const router = useRouter();
   const {
     title,
     price,
@@ -15,10 +17,15 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     shop: { name: shopName },
     images,
     slug,
+    id,
   } = product;
 
   return (
-    <div id='product-card' className='rounded-xl shadow-[0_0_20px_0_#CBCACA40]'>
+    <div
+      onClick={() => router.push(`/detail/${id}`)}
+      id='product-card'
+      className='rounded-xl py-0 shadow-card !hover:shadow-card-hover cursor-pointer'
+    >
       <div className='relative w-full rounded-sm overflow-hidden aspect-[1/1]'>
         <Image
           src={images[0]}
