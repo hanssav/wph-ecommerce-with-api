@@ -53,7 +53,7 @@ const Footer = () => {
     >
       <div className='flex flex-col gap-4 lg:max-w-[380px] lg:gap-10'>
         <div className='flex flex-col gap-[22px]'>
-          <div className='relative  w-20 h-10 lg:w-30 lg:h-15 lg:aspect-auto'>
+          <div className='relative w-20 h-10 lg:w-30 lg:h-15 lg:aspect-auto'>
             <Image src={IMAGES.LOGO} alt='logo' fill />
           </div>
 

@@ -80,7 +80,10 @@ const Header: React.FC = () => {
       as='header'
       className='flex flex-row items-center lg:justify-between gap-4 shadow-card'
     >
-      <div className='lg:basis-5/20 relative overflow-hidden rounded w-10 aspect-square lg:w-40 lg:h-10 lg:aspect-auto'>
+      <div
+        onClick={() => router.push('/home')}
+        className='lg:basis-5/20 relative overflow-hidden rounded w-10 aspect-square lg:w-40 lg:h-10 lg:aspect-auto'
+      >
         <Image
           src={IMAGES.LOGO}
           alt='Logo'

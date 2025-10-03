@@ -1,5 +1,6 @@
 'use client';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Hr } from '@/components/ui/hr';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Typography from '@/components/ui/typography';
@@ -12,9 +13,6 @@ type Filter = {
   byPrice: { min: number; max: number };
 };
 
-const HorizontalRule = () => (
-  <hr className='border border-neutral-300 w-full my-3' />
-);
 const FilterWrapper: React.FC<{
   title?: string;
   children?: React.ReactNode;
@@ -77,7 +75,7 @@ export const FilterSection = () => {
           </div>
         ))}
       </FilterWrapper>
-      <HorizontalRule />
+      <Hr width='my-3' />
       <FilterWrapper title='Price'>
         {priceItems.map(({ label, key }, idx) => (
           <Input
@@ -108,7 +106,7 @@ export const FilterSection = () => {
           />
         ))}
       </FilterWrapper>
-      <HorizontalRule />
+      <Hr />
       <FilterWrapper title='Rating'>
         {ratingItems.map((rating, idx) => (
           <div key={idx} className='flex gap-2 items-center'>

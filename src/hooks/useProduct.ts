@@ -16,3 +16,19 @@ export const useProduct = (params?: ParamsProduct) => {
     isLoading: query.isLoading,
   };
 };
+
+export const useProductById = (id: string) => {
+  const query = useQuery({
+    queryKey: ['product', id],
+    queryFn: () => productsService.getById(id),
+    staleTime: 1000 * 60,
+    enabled: !!id,
+  });
+
+  return {
+    product: query.data,
+    isLoading: query.isLoading,
+    isError: query.isError,
+    error: query.error,
+  };
+};

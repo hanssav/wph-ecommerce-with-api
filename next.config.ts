@@ -33,6 +33,18 @@ const nextConfig: NextConfig = {
         hostname: 'res.cloudinary.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: '"i.pravatar.cc"',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.shutterstock.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.pinimg.com',
+      },
     ],
   },
 };

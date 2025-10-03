@@ -42,7 +42,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         <Typography
           weight={'normal'}
           size={{ base: 'sm', lg: 'md' }}
-          className='tracking-wide'
+          className='tracking-wide line-clamp-2'
         >
           {title}
         </Typography>

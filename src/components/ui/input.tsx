@@ -33,7 +33,6 @@ function Input({
   label,
   ...props
 }: InputProps) {
-  console.log(props.id);
   return (
     <div className='relative w-full'>
       <input

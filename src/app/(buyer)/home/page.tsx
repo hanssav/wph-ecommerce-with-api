@@ -12,6 +12,7 @@ export default function Home() {
   const router = useRouter();
   const { user } = useUser();
 
+  console.log(user, 'user');
   const { products } = useProduct();
 
   React.useEffect(() => {

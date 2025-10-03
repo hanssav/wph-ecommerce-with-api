@@ -15,6 +15,7 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
+import { Hr } from '@/components/ui/hr';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import Typography from '@/components/ui/typography';
@@ -132,9 +133,7 @@ const OpenStore = () => {
                     />
                   ))}
                 </WrapperForm>
-                {index < formSections.length - 1 && (
-                  <hr className='w-full border border-neutral-300 my-6' />
-                )}
+                {index < formSections.length - 1 && <Hr />}
               </div>
             ))}
           </CardContent>
