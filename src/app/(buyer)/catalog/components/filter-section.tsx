@@ -1,3 +1,4 @@
+'use client';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -58,6 +59,7 @@ export const FilterSection = () => {
         {categoryItems.map((check, idx) => (
           <div key={idx} className='flex gap-3 items-center'>
             <Checkbox
+              id={check}
               className='h-5 w-5'
               checked={filter.byCategory.includes(check)}
               onCheckedChange={(checked) => {
@@ -69,7 +71,9 @@ export const FilterSection = () => {
                 }));
               }}
             />
-            <Label className='capitalize text-md'>{check}</Label>
+            <Label htmlFor={check} className='capitalize text-md'>
+              {check}
+            </Label>
           </div>
         ))}
       </FilterWrapper>
@@ -78,6 +82,8 @@ export const FilterSection = () => {
         {priceItems.map(({ label, key }, idx) => (
           <Input
             key={idx}
+            id={`input-${key}`}
+            name={`fieldd-${key}`}
             value={filter.byPrice[key]}
             onChange={(e) => {
               const val = Number(e.target.value);
@@ -98,7 +104,7 @@ export const FilterSection = () => {
               </div>
             }
             iconPosition='left'
-            leftIconPadding='12'
+            leftIconPadding={12}
           />
         ))}
       </FilterWrapper>
@@ -107,6 +113,7 @@ export const FilterSection = () => {
         {ratingItems.map((rating, idx) => (
           <div key={idx} className='flex gap-2 items-center'>
             <Checkbox
+              id={0 ? 'a0x' : rating.toString()}
               className='h-5 w-5'
               checked={filter.byRating.includes(rating)}
               onCheckedChange={(checked) =>
@@ -123,7 +130,12 @@ export const FilterSection = () => {
                 <Star className='absolute w-5 h-5 stroke-gray-300' />
                 <Star className='absolute w-5 h-5 stroke-yellow-400 fill-yellow-400' />
               </div>
-              <Label className='capitalize text-md'>{rating}</Label>
+              <Label
+                htmlFor={0 ? 'a0x' : rating.toString()}
+                className='capitalize text-md'
+              >
+                {rating}
+              </Label>
             </div>
           </div>
         ))}

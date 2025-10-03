@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import { Search } from 'lucide-react';
 import { useMe } from '@/hooks/useMe';
 import { useRouter } from 'next/navigation';
+import LogoImage from './LogoImage';
 
 const ButtonUserNotLogin = () => {
   return (
@@ -79,15 +80,7 @@ const Header: React.FC = () => {
       as='header'
       className='flex flex-row items-center lg:justify-between gap-4 shadow-card'
     >
-      <div className='lg:basis-5/20 relative overflow-hidden rounded w-10 aspect-square lg:w-40 lg:h-10 lg:aspect-auto'>
-        <Image
-          src={IMAGES.LOGO}
-          alt='Logo'
-          fill
-          className='object-cover object-left lg:object-contain'
-          priority
-        />
-      </div>
+      <LogoImage />
 
       <div className='lg:basis-10/20 flex gap-[6px] items-center w-full'>
         <Button
