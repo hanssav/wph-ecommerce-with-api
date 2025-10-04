@@ -4,9 +4,9 @@ import Typography from '@/components/ui/typography';
 import { storeService } from '@/services';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import { StoreTitle } from './title';
 import StoreDetailSection from './store-section';
 import ProductListSection from './product-list';
+import TypographyTitle from '@/components/ui/typography/Title';
 
 const Client: React.FC<{ slug: string }> = ({ slug }) => {
   const { data } = useQuery({
@@ -20,7 +20,7 @@ const Client: React.FC<{ slug: string }> = ({ slug }) => {
   return (
     <div className='flex flex-col gap-2 lg:gap-8'>
       <StoreDetailSection shop={shop} />
-      <StoreTitle className='hidden lg:block' />
+      <TypographyTitle label='Products' className='hidden lg:block' />
 
       <ProductListSection products={products} shop={shop} />
 

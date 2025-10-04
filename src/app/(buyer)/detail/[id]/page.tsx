@@ -15,6 +15,7 @@ import ProducDetail from './components/product-detail';
 import { Star } from 'lucide-react';
 import ReviewCard from './components/review-card';
 import ProductCard from '@/components/pages/buyer/product-card';
+import TypographyTitle from '@/components/ui/typography/Title';
 
 const Detail = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = React.use(params);
@@ -59,12 +60,7 @@ const Detail = ({ params }: { params: Promise<{ id: string }> }) => {
       </div>
       <Hr className='lg:my-12 my-8' />
       <div className='flex flex-col gap-4'>
-        <Typography
-          weight={'bold'}
-          size={{ base: 'display-xs', lg: 'display-md' }}
-        >
-          Product Review
-        </Typography>
+        <TypographyTitle label='Product Review' />
         <Typography
           as='div'
           size={{ base: 'xl', lg: 'display-xs' }}
@@ -106,12 +102,7 @@ const Detail = ({ params }: { params: Promise<{ id: string }> }) => {
       <Hr className='lg:my-12 my-8' />
 
       <div className='flex flex-col gap-4 lg:gap-6'>
-        <Typography
-          weight={'bold'}
-          size={{ base: 'display-xs', lg: 'display-md' }}
-        >
-          Related Product
-        </Typography>
+        <TypographyTitle label='Related Product' />
 
         <div className='grid grid-cols-2 lg:grid-cols-4 gap-5'>
           {products?.products.map((product, idx) => (

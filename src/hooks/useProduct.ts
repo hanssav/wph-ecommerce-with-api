@@ -4,9 +4,10 @@ import { useQuery } from '@tanstack/react-query';
 
 export const useProduct = (params?: ParamsProduct) => {
   const query = useQuery({
-    queryKey: ['product'],
+    queryKey: ['product', params],
     queryFn: () => {
-      return productsService.getAll(params);
+      const defaultParam = { page: 1, limit: 20, ...params };
+      return productsService.getAll(defaultParam);
     },
     staleTime: 1000 * 60,
   });

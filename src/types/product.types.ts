@@ -19,6 +19,7 @@ type Shop = {
   logo: string;
   address: string;
   isActive: boolean;
+  rating?: number;
 };
 
 type Category = {

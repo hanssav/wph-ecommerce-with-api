@@ -9,19 +9,14 @@ import { FilterSection } from './components/filter-section';
 import { Subtitle } from './components/subtitle';
 import { FilterBtn } from './components/filter-btn';
 import { SortBtn } from './components/sort-btn';
+import TypographyTitle from '@/components/ui/typography/Title';
 
 const Catalog = () => {
   const { products, isLoading } = useProduct();
 
   return (
     <SectionWrapper className='flex flex-col lg:gap-6 py-6'>
-      <Typography
-        as='h2'
-        weight={'bold'}
-        size={{ base: 'display-xs', lg: 'display-md' }}
-      >
-        Catalog
-      </Typography>
+      <TypographyTitle label='Catalog' />
       <div className='lg:hidden flex flex-col gap-3'>
         <Subtitle />
         <div className='flex gap-2'>

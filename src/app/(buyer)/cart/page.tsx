@@ -1,5 +1,5 @@
 import SectionWrapper from '@/components/container/section-wrapper';
-import { storeService } from '@/services';
+import { cartService } from '@/services';
 import {
   dehydrate,
   HydrationBoundary,
@@ -9,30 +9,23 @@ import React from 'react';
 import Client from './components/client';
 import TypographyTitle from '@/components/ui/typography/Title';
 
-type StoreProps = {
-  params: {
-    slug: string;
-  };
-};
-
-export default async function Store({ params }: StoreProps) {
-  const { slug } = params;
-
+const Cart: React.FC = async () => {
   const queryClient = new QueryClient();
+
   await queryClient.prefetchQuery({
-    queryKey: ['store', slug],
-    queryFn: () => storeService.getStoreBySlug({ slug }),
+    queryKey: ['cart'],
+    queryFn: () => cartService.get(),
   });
 
-  const dehydrateStore = dehydrate(queryClient);
-
+  const dehydrateState = dehydrate(queryClient);
   return (
     <SectionWrapper className='py-6 lg:py-14 flex flex-col gap-6 lg:gap-12'>
-      <TypographyTitle label='Products' className='lg:hidden' />
-
-      <HydrationBoundary state={dehydrateStore}>
-        <Client slug={slug} />
+      <TypographyTitle label='Cart' />
+      <HydrationBoundary state={dehydrateState}>
+        <Client />
       </HydrationBoundary>
     </SectionWrapper>
   );
-}
+};
+
+export default Cart;

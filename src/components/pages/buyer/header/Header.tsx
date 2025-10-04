@@ -121,12 +121,16 @@ const Header: React.FC = () => {
       </div>
 
       <div className='lg:basis-5/20 flex gap-[13px] items-center lg:w-full'>
-        <div className='relative w-8 h-8 lg:w-6 lg:h-6'>
+        <Button
+          variant={'ghost'}
+          onClick={() => router.push('/cart')}
+          className='relative w-8 h-8 lg:w-6 lg:h-6'
+        >
           <Image src={ICONS.CHART} alt='cart-icon' fill />
           <span className='absolute -top-2 lg:-top-3 -right-2 lg:p-1 rounded-full flex items-center justify-center w-5 h-5 bg-red-500  text-white text-xs lg:text-md'>
             2
           </span>
-        </div>
+        </Button>
         <Image
           height={40}
           width={40}
