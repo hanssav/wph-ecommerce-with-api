@@ -3,9 +3,11 @@ import { DefaultAvatar } from '@/components/ui/default-avatar';
 import Typography from '@/components/ui/typography';
 import { Shop } from '@/types/product.types';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 const ShopSection: React.FC<{ shop: Shop }> = ({ shop }) => {
+  const router = useRouter();
   return (
     <div className='flex justify-between items-center'>
       <div className='flex gap-2 lg:gap-4'>
@@ -38,7 +40,11 @@ const ShopSection: React.FC<{ shop: Shop }> = ({ shop }) => {
           </Typography>
         </div>
       </div>
-      <Button variant={'outline'} className='rounded-lg lg:w-40'>
+      <Button
+        onClick={() => router.push(`/store/${shop.slug}`)}
+        variant={'outline'}
+        className='rounded-lg lg:w-40'
+      >
         See Store
       </Button>
     </div>

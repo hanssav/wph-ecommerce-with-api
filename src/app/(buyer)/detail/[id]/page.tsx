@@ -58,7 +58,6 @@ const Detail = ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
       </div>
       <Hr className='lg:my-12 my-8' />
-
       <div className='flex flex-col gap-4'>
         <Typography
           weight={'bold'}
@@ -66,7 +65,6 @@ const Detail = ({ params }: { params: Promise<{ id: string }> }) => {
         >
           Product Review
         </Typography>
-
         <Typography
           as='div'
           size={{ base: 'xl', lg: 'display-xs' }}
