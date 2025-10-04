@@ -1,6 +1,6 @@
 'use client';
 import HeroSection from '@/components/pages/buyer/home/hero-section';
-import ProductCard from '@/components/pages/buyer/home/product-card';
+import ProductCard from '@/components/pages/buyer/product-card';
 import { Button } from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
 import { useUser } from '@/context/auth';
@@ -11,8 +11,6 @@ import React from 'react';
 export default function Home() {
   const router = useRouter();
   const { user } = useUser();
-
-  console.log(user, 'user');
   const { products } = useProduct();
 
   React.useEffect(() => {

@@ -13,11 +13,17 @@ const ImageGallery: React.FC<Partial<Pick<Product, 'images' | 'slug'>>> = ({
 }) => {
   const validImages = normalizeImages(images);
 
-  if (!validImages.length) return null;
-
   const [selected, setSelected] = React.useState<string | null>(
     validImages[0] || null
   );
+
+  React.useEffect(() => {
+    if (validImages.length) {
+      setSelected(validImages[0]);
+    }
+  }, [validImages]);
+
+  if (!validImages.length) return null;
 
   return (
     <div className='flex flex-col gap-4'>

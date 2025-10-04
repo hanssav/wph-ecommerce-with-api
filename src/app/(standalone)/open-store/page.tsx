@@ -29,7 +29,15 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-const formSections = [
+type FieldName = 'name' | 'domain' | 'city' | 'postalCode' | 'detailAddress';
+type Field = {
+  name: FieldName;
+  label: string;
+  type: 'input' | 'textarea' | 'select';
+};
+type FormSection = { header: string; fields: Field[] };
+
+const formSections: FormSection[] = [
   {
     header: 'STORE PROFILE',
     fields: [
@@ -89,6 +97,7 @@ const OpenStore = () => {
     };
     storeMutation.mutate(datas);
   };
+
   return (
     <Card className='w-full lg:max-w-[451px] mx-4 gap-1'>
       <Form {...form}>
@@ -117,7 +126,7 @@ const OpenStore = () => {
                     <FormField
                       key={fieldConfig.name}
                       control={form.control}
-                      name={fieldConfig.name as any}
+                      name={fieldConfig.name}
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>

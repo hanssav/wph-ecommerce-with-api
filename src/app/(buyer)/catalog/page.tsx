@@ -1,6 +1,6 @@
 'use client';
 import SectionWrapper from '@/components/container/section-wrapper';
-import ProductCard from '@/components/pages/buyer/home/product-card';
+import ProductCard from '@/components/pages/buyer/product-card';
 import { Button } from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
 import { useProduct } from '@/hooks';

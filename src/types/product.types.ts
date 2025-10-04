@@ -70,9 +70,18 @@ type ProductApiResponse = {
   data: ProductData;
 };
 
-type ParamsProduct = { sort?: 'asc' | 'desc' };
+type ParamsProduct = {
+  order?: 'asc' | 'desc';
+  categgoryId?: number;
+  minPrice?: number;
+  maxPrice?: number;
+  sort?: 'newest' | 'rating' | 'price' | 'popular';
+  page?: number;
+  limit?: number;
+};
 
 export type {
+  Review,
   Category,
   Shop,
   Product,

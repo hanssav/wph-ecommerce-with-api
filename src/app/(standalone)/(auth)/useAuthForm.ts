@@ -39,7 +39,7 @@ export const useAuthForm = () => {
       router.push('/');
     },
     onError: (err: AxiosError) => {
-      console.error('Login error:', err);
+      throw new Error(err.message);
     },
   });
   const loginForm = useForm<LoginSchema>({
