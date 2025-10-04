@@ -20,7 +20,7 @@ const Cart: React.FC = async () => {
   const dehydrateState = dehydrate(queryClient);
   return (
     <SectionWrapper className='py-6 lg:py-14 flex flex-col gap-6 lg:gap-12'>
-      <TypographyTitle label='Cart' />
+      <TypographyTitle label='Cart' className='lg:hidden' />
       <HydrationBoundary state={dehydrateState}>
         <Client />
       </HydrationBoundary>
