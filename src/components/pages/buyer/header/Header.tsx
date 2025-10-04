@@ -9,6 +9,14 @@ import { MobileMenu } from './components/mobile-menu';
 const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState<boolean>(false);
 
+  React.useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [mobileMenuOpen]);
+
   return (
     <SectionWrapper
       as='header'
