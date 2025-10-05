@@ -33,13 +33,13 @@ const CheckoutClient = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='flex gap-4'>
-          <div className='space-y-4 basis-2/3'>
+        <div className='flex flex-col lg:flex-row gap-4'>
+          <div className='space-y-4 lg:basis-2/3'>
             <CheckoutForm form={form} />
             <ProductShippingCard form={form} />
           </div>
 
-          <div className='basis-1/3'>
+          <div className='lg:basis-1/3'>
             <PaymentCard form={form} isPending={checkout.isPending} />
           </div>
         </div>

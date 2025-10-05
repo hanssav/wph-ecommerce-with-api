@@ -1,7 +1,7 @@
 import { PATH } from '@/constants';
 import { CheckoutFormData } from '@/lib/validation/checkout.validation';
-import { orderService } from '@/services';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { GetOrdersMyParam, orderService } from '@/services';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 export const useCreateOrders = () => {
@@ -23,4 +23,22 @@ export const useCreateOrders = () => {
   });
 
   return createOrderMutation;
+};
+
+export const useGetOrderMy = (params?: GetOrdersMyParam) => {
+  const orders = useQuery({
+    queryKey: ['orders/my', params],
+    queryFn: () => {
+      const param = { page: 1, limit: 10, ...params };
+      if (!param.paymentStatus || param.paymentStatus === 'ALL') {
+        delete param.paymentStatus;
+      }
+
+      return orderService.getOrdersMy(param);
+    },
+    staleTime: 1000 * 60,
+    placeholderData: (previousData) => previousData,
+  });
+
+  return { orders: orders.data?.data, query: orders };
 };

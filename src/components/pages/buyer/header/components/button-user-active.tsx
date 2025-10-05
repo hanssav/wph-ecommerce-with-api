@@ -51,7 +51,7 @@ export const ButtonUserActive: React.FC<{ isDesktop?: boolean }> = ({
           key={idx}
           variant='outline'
           className={cn(
-            'items-center gap-2 overflow-hidden whitespace-nowrap rounded-full py-1 px-3 transition-all duration-200',
+            'items-center gap-2 overflow-hidden whitespace-nowrap rounded-full py-1 px-3 transition-all duration-200 bg-white',
             open && !isDesktop ? 'flex w-full justify-center' : 'hidden',
             'lg:flex lg:w-auto lg:max-w-[128px]'
           )}

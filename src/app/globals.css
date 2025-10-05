@@ -148,6 +148,7 @@
   --color-neutral-300: #d5d7da;
   --color-neutral-600: #535862;
   --color-neutral-700: #414651;
+  --color-neutral-800: #252b37;
   --color-neutral-950: #0a0d12;
 
   /* shadows */
@@ -164,7 +165,7 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: #fafafa;
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
