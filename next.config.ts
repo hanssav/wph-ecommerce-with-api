@@ -49,6 +49,7 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'images.macrumors.com',
       },
+      { protocol: 'https', hostname: 'upload.wikimedia.org' },
     ],
   },
 };

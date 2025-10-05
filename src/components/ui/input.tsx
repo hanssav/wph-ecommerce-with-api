@@ -57,7 +57,7 @@ function Input({
 
       {label && (
         <Label
-          htmlFor={props.id || props.name}
+          htmlFor={props.id ?? props.name}
           className={cn(
             'absolute left-3 text-muted-foreground pointer-events-none transition-all duration-200 ease-out',
             // Default state (kosong)

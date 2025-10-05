@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import Typography from '@/components/ui/typography';
+import { IMAGES } from '@/constants';
 import { Store, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
@@ -74,9 +75,6 @@ const ProductPriceWithButton: React.FC<{
   </>
 );
 export const CartCard: React.FC = () => {
-  const mockImage =
-    'https://images.macrumors.com/t/UDyL8vJo9SZGNLUyL5bgRD2vtmA=/1600x0/article-new/2025/07/iPhone-17-Pro-Dark-Blue-and-Orange.jpg';
-
   const [count, setCount] = React.useState<number>(0);
 
   return (
@@ -87,7 +85,7 @@ export const CartCard: React.FC = () => {
         <Checkbox />
         <div className='flex flex-col lg:flex-row gap-1 w-full lg: justify-between'>
           <div className='flex gap-2 lg:gap-4'>
-            <ImageWrapper src={mockImage} />
+            <ImageWrapper src={IMAGES.MOCK_PRODUCT_IMAGE} />
             <ProductInfo />
           </div>
           <div className='flex lg:flex-col lg:items-end items-center justify-between w-full lg:w-auto lg:gap-4'>

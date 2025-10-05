@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { CartCard } from './cart-card';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import TypographyTitle from '@/components/ui/typography/Title';
+import { useRouter } from 'next/navigation';
 
 type CheckAllProps = {
   selected: boolean;
@@ -38,6 +39,7 @@ const CheckAll: React.FC<CheckAllProps> = ({
 
 const Client = () => {
   const { cart } = useGetCart();
+  const router = useRouter();
   // const [selected, setSelected] = React.useState<string[] | null>(null);
 
   console.log(cart);
@@ -74,7 +76,10 @@ const Client = () => {
             <span className='font-normal'>Total</span>
             <span className='font-bold'>Rp.1780.000</span>
           </Typography>
-          <Button onClick={() => {}} className='w-full my-4 rounded-md'>
+          <Button
+            onClick={() => router.push('/checkout')}
+            className='w-full my-4 rounded-md'
+          >
             Checkout
           </Button>
         </CardContent>
