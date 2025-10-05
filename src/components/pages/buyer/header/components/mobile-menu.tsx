@@ -2,10 +2,10 @@ import { CircleArrowOutDownLeft, FileText, Star } from 'lucide-react';
 import React from 'react';
 import { ButtonUserActive } from './button-user-active';
 import { cn } from '@/lib/utils';
+import { useHeader } from '../useHeader';
 
-export const MobileMenu: React.FC<{
-  open: boolean;
-}> = ({ open }) => {
+export const MobileMenu: React.FC = () => {
+  const { open } = useHeader();
   const listMenuMobile = [
     { label: 'Order List', icon: FileText },
 
@@ -32,7 +32,7 @@ export const MobileMenu: React.FC<{
           'bg-background/95 px-4 py-4 grid grid-cols-2 gap-2 space-y-4 '
         )}
       >
-        <ButtonUserActive isMobileOpen={open} />
+        <ButtonUserActive />
         <div className='flex flex-col gap-2'>
           {listMenuMobile.map((item, idx) => (
             <button

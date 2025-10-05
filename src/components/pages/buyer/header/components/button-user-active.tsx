@@ -6,10 +6,12 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { PATH } from '@/constants/path';
+import { useHeader } from '../useHeader';
 
-export const ButtonUserActive: React.FC<{ isMobileOpen?: boolean }> = ({
-  isMobileOpen = false,
+export const ButtonUserActive: React.FC<{ isDesktop: boolean }> = ({
+  isDesktop,
 }) => {
+  const { open } = useHeader();
   const router = useRouter();
   const { user: me } = useMe();
   if (!me) {
@@ -43,7 +45,7 @@ export const ButtonUserActive: React.FC<{ isMobileOpen?: boolean }> = ({
           variant='outline'
           className={cn(
             'items-center gap-2 overflow-hidden whitespace-nowrap rounded-full py-1 px-3 transition-all duration-200',
-            isMobileOpen ? 'flex w-full justify-center' : 'hidden',
+            open && !isDesktop ? 'flex w-full justify-center' : 'hidden',
             'lg:flex lg:w-auto lg:max-w-[128px]'
           )}
           onClick={btn.handleClick}

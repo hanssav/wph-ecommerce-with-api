@@ -5,11 +5,10 @@ import { Menu, Search, ShoppingCart } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ButtonUserActive } from './button-user-active';
+import { useHeader } from '../useHeader';
 
-export const DesktopHeader: React.FC<{
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  open: boolean;
-}> = ({ setOpen, open }) => {
+export const DesktopHeader: React.FC = () => {
+  const { open, setOpen } = useHeader();
   const router = useRouter();
   return (
     <>
@@ -75,7 +74,7 @@ export const DesktopHeader: React.FC<{
           <Menu className='!h-5 !w-5' />
         </Button>
 
-        <ButtonUserActive />
+        <ButtonUserActive isDesktop={true} />
       </div>
     </>
   );

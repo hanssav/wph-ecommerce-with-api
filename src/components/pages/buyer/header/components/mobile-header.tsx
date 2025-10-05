@@ -1,11 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 import React from 'react';
+import { useHeader } from '../useHeader';
 
-export const MobileHeader: React.FC<{
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  open: boolean;
-}> = ({ setOpen, open }) => {
+export const MobileHeader: React.FC = () => {
+  const { open, setOpen } = useHeader();
   return (
     <div className='flex justify-between w-full'>
       <span className='text-lg font-bold'>Menu</span>
