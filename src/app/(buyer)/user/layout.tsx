@@ -10,7 +10,7 @@ import React from 'react';
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useMe();
   const { avatarUrl, name } = user || {};
-  console.log(user);
+
   return (
     <SectionWrapper className='py-6 lg:py-14 flex gap-6 lg:gap-12'>
       <div className='hidden lg:block basis-2/10'>

@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { DefaultAvatar } from '@/components/ui/default-avatar';
 import Typography from '@/components/ui/typography';
 import { PATH } from '@/constants';
-import { Shop } from '@/types/product.types';
+import { Shop } from '@/types';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react';

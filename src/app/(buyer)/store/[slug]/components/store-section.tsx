@@ -1,6 +1,6 @@
 import { DefaultAvatar } from '@/components/ui/default-avatar';
 import Typography from '@/components/ui/typography';
-import { Shop } from '@/types/product.types';
+import { Shop } from '@/types';
 import { Star } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';

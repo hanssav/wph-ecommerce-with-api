@@ -9,13 +9,13 @@ import Typography from '@/components/ui/typography';
 import { Hr } from '@/components/ui/hr';
 import { Button } from '@/components/ui/button';
 import CountButton from './components/count-button';
-import { Shop } from '@/types/product.types';
 import ShopSection from './components/shop-section';
 import ProducDetail from './components/product-detail';
 import { Star } from 'lucide-react';
 import ReviewCard from './components/review-card';
 import ProductCard from '@/components/pages/buyer/product-card';
 import TypographyTitle from '@/components/ui/typography/Title';
+import { Shop } from '@/types';
 
 const Detail = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = React.use(params);

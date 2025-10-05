@@ -1,3 +1,5 @@
+import { Shop } from './shop.types';
+
 type User = {
   id: number;
   name: string;
@@ -10,16 +12,6 @@ type Review = {
   comment: string;
   createdAt: string;
   user: User;
-};
-
-type Shop = {
-  id: number;
-  name: string;
-  slug: string;
-  logo: string;
-  address: string;
-  isActive: boolean;
-  rating?: number;
 };
 
 type Category = {
@@ -84,7 +76,6 @@ type ParamsProduct = {
 export type {
   Review,
   Category,
-  Shop,
   Product,
   ProductData,
   ProductApiResponse,

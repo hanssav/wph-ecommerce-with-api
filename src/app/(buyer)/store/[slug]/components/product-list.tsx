@@ -1,5 +1,5 @@
 import ProductCard from '@/components/pages/buyer/product-card';
-import { Product, Shop } from '@/types/product.types';
+import { Product, Shop } from '@/types';
 import React from 'react';
 
 const ProductListSection: React.FC<{ products: Product[]; shop: Shop }> = ({
