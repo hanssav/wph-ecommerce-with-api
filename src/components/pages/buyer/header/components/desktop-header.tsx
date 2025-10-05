@@ -10,6 +10,7 @@ import { useHeader } from '../useHeader';
 export const DesktopHeader: React.FC = () => {
   const { open, setOpen } = useHeader();
   const router = useRouter();
+
   return (
     <>
       <div

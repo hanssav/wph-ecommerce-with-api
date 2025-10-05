@@ -14,16 +14,14 @@ const HeaderContent: React.FC = () => {
   }, [open]);
 
   return (
-    <HeaderProvider>
-      <SectionWrapper
-        as='header'
-        className='flex flex-row items-center lg:justify-between gap-4 shadow-card backdrop:backdrop-blur-md fixed top-0 z-50 bg-white'
-      >
-        {open ? <MobileHeader /> : <DesktopHeader />}
+    <SectionWrapper
+      as='header'
+      className='flex flex-row items-center lg:justify-between gap-4 shadow-card backdrop:backdrop-blur-md fixed top-0 z-50 bg-white'
+    >
+      {open ? <MobileHeader /> : <DesktopHeader />}
 
-        <MobileMenu />
-      </SectionWrapper>
-    </HeaderProvider>
+      <MobileMenu />
+    </SectionWrapper>
   );
 };
 

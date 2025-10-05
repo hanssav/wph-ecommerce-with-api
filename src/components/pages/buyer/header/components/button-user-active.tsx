@@ -11,7 +11,7 @@ import { useHeader } from '../useHeader';
 export const ButtonUserActive: React.FC<{ isDesktop: boolean }> = ({
   isDesktop,
 }) => {
-  const { open } = useHeader();
+  const { open, setOpen } = useHeader();
   const router = useRouter();
   const { user: me } = useMe();
   if (!me) {
@@ -28,13 +28,20 @@ export const ButtonUserActive: React.FC<{ isDesktop: boolean }> = ({
       label: me.name,
       icon: ICONS.DEFAULT_AVATAR,
       imgClass: 'rounded-full',
-      handleClick: () => router.push(PATH.USER.ORDER),
+      handleClick: () => {
+        router.push(PATH.USER.ORDER);
+        setOpen(false);
+      },
     },
   ];
-  const handleClickStore = () => {
-    if (!me.shop) return router.push(PATH.OPEN_STORE.MAIN);
 
-    return router.push(PATH.DASHBOARD);
+  const handleClickStore = () => {
+    if (!me.shop) {
+      router.push(PATH.OPEN_STORE.MAIN);
+    } else {
+      router.push(PATH.DASHBOARD);
+    }
+    setOpen(false);
   };
 
   return (
