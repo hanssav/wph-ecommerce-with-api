@@ -1,8 +1,12 @@
-import SectionWrapper from '@/components/container/section-wrapper';
+import TypographyTitle from '@/components/ui/typography/Title';
 import React from 'react';
 
 const Order = () => {
-  return <SectionWrapper>Order Page</SectionWrapper>;
+  return (
+    <div className='space-y-4'>
+      <TypographyTitle label='Order List' className='' />
+    </div>
+  );
 };
 
 export default Order;

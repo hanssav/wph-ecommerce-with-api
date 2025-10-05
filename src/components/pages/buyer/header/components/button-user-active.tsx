@@ -8,8 +8,8 @@ import { cn } from '@/lib/utils';
 import { PATH } from '@/constants/path';
 import { useHeader } from '../useHeader';
 
-export const ButtonUserActive: React.FC<{ isDesktop: boolean }> = ({
-  isDesktop,
+export const ButtonUserActive: React.FC<{ isDesktop?: boolean }> = ({
+  isDesktop = false,
 }) => {
   const { open, setOpen } = useHeader();
   const router = useRouter();
