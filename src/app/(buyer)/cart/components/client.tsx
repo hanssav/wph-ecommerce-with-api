@@ -9,6 +9,7 @@ import { CartCard } from './cart-card';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import TypographyTitle from '@/components/ui/typography/Title';
 import { useRouter } from 'next/navigation';
+import { PATH } from '@/constants';
 
 type CheckAllProps = {
   selected: boolean;
@@ -77,7 +78,7 @@ const Client = () => {
             <span className='font-bold'>Rp.1780.000</span>
           </Typography>
           <Button
-            onClick={() => router.push('/checkout')}
+            onClick={() => router.push(PATH.CHECKOUT.MAIN)}
             className='w-full my-4 rounded-md'
           >
             Checkout

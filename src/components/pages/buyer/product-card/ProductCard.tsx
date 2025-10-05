@@ -1,5 +1,5 @@
 import Typography from '@/components/ui/typography';
-import { ICONS } from '@/constants';
+import { ICONS, PATH } from '@/constants';
 import { formatMoney } from '@/lib/utils';
 import { Product } from '@/types/product.types';
 import { Star } from 'lucide-react';
@@ -22,7 +22,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
 
   return (
     <div
-      onClick={() => router.push(`/detail/${id}`)}
+      onClick={() => router.push(`${PATH.PRODUCT_DETAIL}/${id}`)}
       id='product-card'
       className='rounded-xl py-0 shadow-card !hover:shadow-card-hover cursor-pointer'
     >

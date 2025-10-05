@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ICONS, IMAGES } from '@/constants';
+import { ICONS, IMAGES, PATH } from '@/constants';
 import { Menu, Search, ShoppingCart } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -14,7 +14,7 @@ export const DesktopHeader: React.FC<{
   return (
     <>
       <div
-        onClick={() => router.push('/home')}
+        onClick={() => router.push(PATH.HOME)}
         className='lg:basis-5/20 relative overflow-hidden rounded w-10 aspect-square lg:w-40 lg:h-10 lg:aspect-auto'
       >
         <Image
@@ -28,7 +28,7 @@ export const DesktopHeader: React.FC<{
 
       <div className='lg:basis-10/20 flex gap-[6px] items-center w-full'>
         <Button
-          onClick={() => router.push('/catalog')}
+          onClick={() => router.push(PATH.CATALOG)}
           variant='outline'
           className='relative rounded-xl py-2 px-2 lg:px-3 flex items-center justify-center lg:w-auto lg:justify-start lg:gap-2'
         >
@@ -56,7 +56,7 @@ export const DesktopHeader: React.FC<{
       <div className='lg:basis-5/20 flex gap-4 items-center'>
         <Button
           variant={'ghost'}
-          onClick={() => router.push('/cart')}
+          onClick={() => router.push(PATH.CART)}
           className='relative w-8 h-8 lg:w-6 lg:h-6 !p-0'
         >
           <ShoppingCart className='!w-5 !h-5 lg:!w-5 lg:!h-5' />

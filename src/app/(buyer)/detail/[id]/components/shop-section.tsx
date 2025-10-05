@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { DefaultAvatar } from '@/components/ui/default-avatar';
 import Typography from '@/components/ui/typography';
+import { PATH } from '@/constants';
 import { Shop } from '@/types/product.types';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -41,7 +42,7 @@ const ShopSection: React.FC<{ shop: Shop }> = ({ shop }) => {
         </div>
       </div>
       <Button
-        onClick={() => router.push(`/store/${shop.slug}`)}
+        onClick={() => router.push(`${PATH.STORE}/${shop.slug}`)}
         variant={'outline'}
         className='rounded-lg lg:w-40'
       >

@@ -1,3 +1,4 @@
+import { PATH } from '@/constants';
 import { CheckoutFormData } from '@/lib/validation/checkout.validation';
 import { orderService } from '@/services';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -14,10 +15,10 @@ export const useCreateOrders = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['orders'] });
-      router.push('/checkout/success');
+      router.push(PATH.CHECKOUT.SUCCESS);
     },
     onError: () => {
-      router.push('/checkout/failed');
+      router.push(PATH.CHECKOUT.FAILED);
     },
   });
 

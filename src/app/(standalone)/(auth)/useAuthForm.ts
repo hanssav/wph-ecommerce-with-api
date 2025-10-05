@@ -8,6 +8,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import z from 'zod';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
+import { PATH } from '@/constants';
 
 const loginSchema = AuthSchema.pick({
   email: true,
@@ -36,7 +37,7 @@ export const useAuthForm = () => {
     },
     onSuccess: ({ data }) => {
       setUser({ token: data.token, user: data.user });
-      router.push('/');
+      router.push(PATH.HOME);
     },
     onError: (err: AxiosError) => {
       throw new Error(err.message);

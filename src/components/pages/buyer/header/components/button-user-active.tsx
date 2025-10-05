@@ -5,6 +5,7 @@ import { ICONS } from '@/constants';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { PATH } from '@/constants/path';
 
 export const ButtonUserActive: React.FC<{ isMobileOpen?: boolean }> = ({
   isMobileOpen = false,
@@ -25,13 +26,13 @@ export const ButtonUserActive: React.FC<{ isMobileOpen?: boolean }> = ({
       label: me.name,
       icon: ICONS.DEFAULT_AVATAR,
       imgClass: 'rounded-full',
-      handleClick: () => {},
+      handleClick: () => router.push(PATH.USER.ORDER),
     },
   ];
   const handleClickStore = () => {
-    if (!me.shop) return router.push('/open-store');
+    if (!me.shop) return router.push(PATH.OPEN_STORE.MAIN);
 
-    return router.push('/profile');
+    return router.push(PATH.DASHBOARD);
   };
 
   return (

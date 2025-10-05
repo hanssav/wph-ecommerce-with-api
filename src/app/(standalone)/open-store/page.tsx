@@ -19,7 +19,7 @@ import { Hr } from '@/components/ui/hr';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import Typography from '@/components/ui/typography';
-import { IMAGES } from '@/constants';
+import { IMAGES, PATH } from '@/constants';
 import { CreateStoreFormData, CreateStoreSchema } from '@/lib/validation';
 import { storeService } from '@/services';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -86,7 +86,7 @@ const OpenStore = () => {
       return res;
     },
     onSuccess: () => {
-      router.push('/');
+      router.push(PATH.HOME);
     },
   });
   const onSubmit: SubmitHandler<CreateStoreFormData> = (values) => {
@@ -151,7 +151,7 @@ const OpenStore = () => {
               Submit
             </Button>
             <Button
-              onClick={() => router.push('/')}
+              onClick={() => router.push(PATH.HOME)}
               variant={'ghost'}
               className='underline font-bold'
             >

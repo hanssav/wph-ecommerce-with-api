@@ -1,10 +1,12 @@
+'use client';
 import SectionWrapper from '@/components/container/section-wrapper';
 import Typography from '@/components/ui/typography';
-import { IMAGES } from '@/constants';
+import { IMAGES, PATH } from '@/constants';
 import Image from 'next/image';
 import React from 'react';
 import { ecommerceList, helpList, socialMediaList } from './Footer.constant';
 import { cn } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
 
 const SocialMediaList = () => {
   return (
@@ -26,7 +28,6 @@ const SocialMediaList = () => {
     </div>
   );
 };
-
 const MenuList: React.FC<{ menu: string[] }> = ({ menu }) => {
   return (
     <div className='flex flex-col gap-4'>
@@ -46,10 +47,16 @@ const MenuList: React.FC<{ menu: string[] }> = ({ menu }) => {
 };
 
 const Footer = () => {
+  const pathname = usePathname();
+  const hiddenFooter = PATH.HIDDEN_FOOTER.includes(pathname);
+
   return (
     <SectionWrapper
       as='footer'
-      className='flex flex-col lg:flex-row gap-4 px-4 py-10 lg:px-[150px] lg:py-20 justify-between border-t border-neutral-300'
+      className={cn(
+        'flex flex-col lg:flex-row gap-4 px-4 py-10 lg:px-[150px] lg:py-20 justify-between border-t border-neutral-300',
+        hiddenFooter && 'hidden'
+      )}
     >
       <div className='flex flex-col gap-4 lg:max-w-[380px] lg:gap-10'>
         <div className='flex flex-col gap-[22px]'>

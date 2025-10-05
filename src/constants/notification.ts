@@ -1,4 +1,5 @@
 import { IMAGES } from './assets';
+import { PATH } from './path';
 
 export const NOTIFICATION = {
   CHECKOUT_SUCCESS: {
@@ -7,7 +8,7 @@ export const NOTIFICATION = {
     subtitle:
       'We’ve received your order and will notify you once it’s shipped.',
     btnLabel: 'Go to My Orders',
-    btnActionSrc: '/order',
+    btnActionSrc: PATH.USER.ORDER,
   },
   CHECKOUT_FAILED: {
     src: IMAGES.CHECKOUT_FAILED,
@@ -15,6 +16,6 @@ export const NOTIFICATION = {
     subtitle:
       'Something went wrong during checkout. Please review your details and retry.',
     btnLabel: 'Back to Home',
-    btnActionSrc: '/',
+    btnActionSrc: PATH.HOME,
   },
 };
