@@ -10,8 +10,10 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import CheckoutForm from './checkout-form';
 import ProductShippingCard from './product-shipping-card';
 import PaymentCard from './payment-card';
+import { useCreateOrders } from '@/hooks/useOrder';
 
 const CheckoutClient = () => {
+  const checkout = useCreateOrders();
   const form = useForm<CheckoutFormData>({
     resolver: zodResolver(CheckoutSchema),
     defaultValues: {
@@ -24,7 +26,9 @@ const CheckoutClient = () => {
       paymentMethod: '',
     },
   });
-  const onSubmit: SubmitHandler<CheckoutFormData> = () => {};
+  const onSubmit: SubmitHandler<CheckoutFormData> = (values) => {
+    checkout.mutate(values);
+  };
 
   return (
     <Form {...form}>
@@ -36,7 +40,7 @@ const CheckoutClient = () => {
           </div>
 
           <div className='basis-1/3'>
-            <PaymentCard form={form} />
+            <PaymentCard form={form} isPending={checkout.isPending} />
           </div>
         </div>
       </form>

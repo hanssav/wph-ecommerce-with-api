@@ -4,7 +4,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { Hr } from '@/components/ui/hr';
@@ -24,7 +23,7 @@ type BankOption = {
   logoUrl: string;
 };
 
-export const bankOptions = [
+export const bankOptions: BankOption[] = [
   {
     value: 'bca-va',
     label: 'BCA Virtual Account',
@@ -63,7 +62,8 @@ const DetailsPayment: React.FC<{ label: string; price: number }> = ({
 
 const PaymentCard: React.FC<{
   form: UseFormReturn<CheckoutFormData>;
-}> = ({ form }) => {
+  isPending: boolean;
+}> = ({ form, isPending }) => {
   return (
     <Card>
       <CardContent className='space-y-3'>
@@ -120,7 +120,7 @@ const PaymentCard: React.FC<{
           <DetailsPayment label='Total' price={19999999} />
 
           <Button className='w-full' size={'lg'}>
-            Pay Now
+            {isPending ? 'Processing...' : 'Pay Now'}
           </Button>
         </div>
       </CardContent>

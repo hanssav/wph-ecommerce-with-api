@@ -33,7 +33,6 @@ export const ButtonUserActive: React.FC<{ isMobileOpen?: boolean }> = ({
 
     return router.push('/profile');
   };
-  console.log(isMobileOpen, 'moobile open');
 
   return (
     <>
