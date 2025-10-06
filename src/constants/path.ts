@@ -2,6 +2,7 @@ const HOME = '/home';
 
 const USER = {
   ORDER: '/user/order',
+  REVIEW: '/user/review',
 };
 
 const CHECKOUT = {

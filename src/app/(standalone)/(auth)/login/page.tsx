@@ -59,7 +59,7 @@ const Login: React.FC = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input {...field} label='Email' />
+                    <Input {...field} label='Email' autoComplete='email' />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

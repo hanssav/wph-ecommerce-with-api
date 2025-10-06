@@ -27,6 +27,7 @@ export const FormInput: React.FC<FormInputProps> = ({
     return (
       <Input
         {...field}
+        id={`id-${fieldCfg.name}`}
         label={fieldCfg.label}
         type={showEye[key] ? 'text' : 'password'}
         iconPosition='right'
@@ -41,5 +42,13 @@ export const FormInput: React.FC<FormInputProps> = ({
     );
   }
 
-  return <Input {...field} type={fieldCfg.type} label={fieldCfg.label} />;
+  return (
+    <Input
+      {...field}
+      type={fieldCfg.type}
+      label={fieldCfg.label}
+      autoComplete={fieldCfg.name}
+      id={`id-${fieldCfg.name}`}
+    />
+  );
 };
