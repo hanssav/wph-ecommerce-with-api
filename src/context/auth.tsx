@@ -52,24 +52,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [token]);
 
-  // const me = useQuery({
-  //   queryKey: ['me'],
-  //   queryFn: () => userService.getMe(),
-  //   enabled: !!token,
-  //   staleTime: 1000 * 60,
-  // });
-
-  // // Merge data dari query ke state context
-  // React.useEffect(() => {
-  //   if (me.data) {
-  //     setUser((prevUser) => ({
-  //       ...prevUser,
-  //       ...me.data,
-  //     }));
-  //     localStorage.setItem('auth_user', JSON.stringify(me.data));
-  //   }
-  // }, [me.data]);
-
   const clearAuth = () => {
     setUser(null);
     setToken(null);

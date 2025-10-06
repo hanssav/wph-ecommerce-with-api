@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { PATH } from '@/constants/path';
 import { useHeader } from '../useHeader';
+import ButtonLoginRegister from './button-login-register';
 
 export const ButtonUserActive: React.FC<{ isDesktop?: boolean }> = ({
   isDesktop = false,
@@ -14,26 +15,7 @@ export const ButtonUserActive: React.FC<{ isDesktop?: boolean }> = ({
   const router = useRouter();
   const { user: me } = useMe();
 
-  if (!me) {
-    return (
-      <>
-        <Button
-          variant='outline'
-          className='lg:flex-1 hidden lg:block'
-          onClick={() => router.push(PATH.AUTH.LOGIN)}
-        >
-          Login
-        </Button>
-        <Button
-          className='lg:flex-1 hidden lg:block'
-          onClick={() => router.push(PATH.AUTH.REGISTER)}
-        >
-          Register
-        </Button>
-      </>
-    );
-  }
-
+  if (!me) return <ButtonLoginRegister />;
   const buttons = [
     {
       label: me.shop ? me.shop.name : 'Open Store',

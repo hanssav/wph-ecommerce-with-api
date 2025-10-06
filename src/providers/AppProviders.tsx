@@ -2,6 +2,7 @@
 
 import { AuthProvider } from '@/context/auth';
 import { DialogProvider } from '@/context/dialog';
+import { ToastProvider } from '@/context/toast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 
@@ -13,7 +14,9 @@ const AppProviders: React.FC<{ children: React.ReactNode }> = ({
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <DialogProvider>{children}</DialogProvider>
+        <ToastProvider>
+          <DialogProvider>{children}</DialogProvider>
+        </ToastProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
