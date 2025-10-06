@@ -1,4 +1,4 @@
-import ProductCard from '@/components/pages/buyer/product-card';
+import ProductCard from '@/components/container/product-card';
 import { Product, Shop } from '@/types';
 import React from 'react';
 

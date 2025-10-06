@@ -13,7 +13,7 @@ import ShopSection from './components/shop-section';
 import ProducDetail from './components/product-detail';
 import { Star } from 'lucide-react';
 import ReviewCard from './components/review-card';
-import ProductCard from '@/components/pages/buyer/product-card';
+import ProductCard from '@/components/container/product-card';
 import TypographyTitle from '@/components/ui/typography/Title';
 import { Shop } from '@/types';
 

@@ -1,6 +1,5 @@
 'use client';
-import HeroSection from '@/components/pages/buyer/home/hero-section';
-import ProductCard from '@/components/pages/buyer/product-card';
+import ProductCard from '@/components/container/product-card';
 import { Button } from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
 import { PATH } from '@/constants';
@@ -8,6 +7,7 @@ import { useUser } from '@/context/auth';
 import { useProduct } from '@/hooks';
 import { useRouter } from 'next/navigation';
 import React from 'react';
+import HeroSection from './components/hero-section';
 
 export default function Home() {
   const router = useRouter();
