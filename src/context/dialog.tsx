@@ -20,8 +20,6 @@ export const DialogProvider: React.FC<{ children: React.ReactNode }> = ({
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState<DialogOptions>({});
 
-  console.log('dialog', open);
-
   const openDialog = (opts: DialogOptions) => {
     setOptions(opts);
     setOpen(true);

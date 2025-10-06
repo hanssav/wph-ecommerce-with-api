@@ -24,7 +24,11 @@ export const HeaderProvider: React.FC<{ children: React.ReactNode }> = ({
 export const useHeader = (): HeaderContextType => {
   const context = useContext(HeaderContext);
   if (!context) {
-    throw new Error('useHeader must be used within a HeaderProvider');
+    return {
+      setOpen: () => {},
+      open: false,
+    };
   }
+
   return context;
 };

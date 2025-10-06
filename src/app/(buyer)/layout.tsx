@@ -6,7 +6,7 @@ import { useUser } from '@/context/auth';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-const layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useUser();
   const router = useRouter();
 
@@ -25,4 +25,4 @@ const layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   );
 };
 
-export default layout;
+export default Layout;

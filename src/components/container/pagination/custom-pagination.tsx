@@ -33,7 +33,7 @@ const Pagination: React.FC<PaginationProps> = ({
         <PaginationItem>
           <PaginationPrevious
             href='#'
-            onClick={(e) => {
+            onClick={() => {
               handleChange(current - 1);
             }}
             className={cn(
@@ -49,7 +49,7 @@ const Pagination: React.FC<PaginationProps> = ({
               <PaginationLink
                 href='#'
                 isActive={current === page}
-                onClick={(e) => {
+                onClick={() => {
                   handleChange(page);
                 }}
               >
@@ -66,7 +66,7 @@ const Pagination: React.FC<PaginationProps> = ({
         <PaginationItem>
           <PaginationNext
             href='#'
-            onClick={(e) => {
+            onClick={() => {
               handleChange(current + 1);
             }}
             className={cn(

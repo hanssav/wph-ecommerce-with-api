@@ -26,11 +26,8 @@ const ListMenu: React.FC<{ isHeader?: boolean }> = ({ isHeader = false }) => {
   const router = useRouter();
   const { clearAuth } = useUser();
   const { openDialog, closeDialog } = useDialog();
-  const header = isHeader
-    ? useHeader()
-    : ({ setOpen: () => {} } as Pick<ReturnType<typeof useHeader>, 'setOpen'>);
-
-  const setOpen = header.setOpen;
+  const header = useHeader();
+  const setOpen = isHeader ? header.setOpen : () => {};
 
   return (
     <div className='flex flex-col gap-2'>
