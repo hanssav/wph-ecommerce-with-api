@@ -3,6 +3,7 @@ export const IMAGES = {
   HERO: '/images/hero.png',
   CHECKOUT_SUCCESS: '/images/checkout-success.png',
   CHECKOUT_FAILED: '/images/checkout-failed.png',
+  REVIEW_EMPTY: '/images/review-empty.png',
 
   MOCK_PRODUCT_IMAGE:
     'https://images.macrumors.com/t/UDyL8vJo9SZGNLUyL5bgRD2vtmA=/1600x0/article-new/2025/07/iPhone-17-Pro-Dark-Blue-and-Orange.jpg',

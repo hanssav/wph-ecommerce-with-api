@@ -20,7 +20,7 @@ const Order = async () => {
 
   return (
     <div className='space-y-4'>
-      <TypographyTitle label='Order List' className='' />
+      <TypographyTitle label='Order List' />
       <HydrationBoundary state={dehydrateState}>
         <OrderClient />
       </HydrationBoundary>

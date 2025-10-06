@@ -18,4 +18,12 @@ export const NOTIFICATION = {
     btnLabel: 'Back to Home',
     btnActionSrc: PATH.HOME,
   },
+
+  REVIEW_EMPTY: {
+    src: IMAGES.REVIEW_EMPTY,
+    title: 'No Reviews Yet',
+    subtitle: 'Start sharing your opinion to make this space more helpful..',
+    btnLabel: 'Start Shopping',
+    btnActionSrc: PATH.CATALOG,
+  },
 };
