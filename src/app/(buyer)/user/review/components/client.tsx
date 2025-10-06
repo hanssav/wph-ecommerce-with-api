@@ -29,18 +29,24 @@ const ReviewClient = () => {
 
       {mockReviews.map(
         ({ storeName, invoice, date, product, rating, review }, idx) => (
-          <Card className='flex flex-col gap-3 p-5' key={idx}>
-            <div className='space-y-0.5 flex gap-2'>
+          <Card className='flex flex-col gap-3 p-3 lg:p-5' key={idx}>
+            <div className='space-y-0.5 flex flex-col lg:flex-row gap-2'>
               <div className='flex gap-1.5 items-center'>
                 <Store className='h-4 w-4' />
                 <Typography weight={'normal'} size={{ base: 'sm', lg: 'md' }}>
-                  {storeName} - {invoice}
+                  {storeName}
+                </Typography>
+                <span className='hidden lg:block'>-</span>
+              </div>
+              <div className='flex gap-2'>
+                <Typography weight={'normal'} size={{ base: 'sm', lg: 'md' }}>
+                  {invoice}
+                </Typography>
+                <span className='lg:hidden font-bold'>.</span>
+                <Typography weight={'normal'} size={{ base: 'sm', lg: 'md' }}>
+                  {formatDate(date)}
                 </Typography>
               </div>
-
-              <Typography weight={'normal'} size={{ base: 'sm', lg: 'md' }}>
-                {formatDate(date)}
-              </Typography>
             </div>
 
             <div className='flex gap-2.5'>

@@ -18,11 +18,11 @@ export const MobileMenu: React.FC = () => {
     >
       <nav
         className={cn(
-          'bg-background/95 px-4 py-4 grid grid-cols-2 gap-2 space-y-4 '
+          'h-full  px-4 py-4 grid grid-cols-2 gap-2 space-y-4 content-start bg-white'
         )}
       >
         <ButtonUserActive />
-        <ListMenu />
+        <ListMenu isHeader={true} />
       </nav>
     </div>
   );

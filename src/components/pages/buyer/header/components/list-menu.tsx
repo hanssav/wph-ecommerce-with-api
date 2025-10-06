@@ -5,6 +5,9 @@ import { useUser } from '@/context/auth';
 import { cn } from '@/lib/utils';
 import { CircleArrowOutDownLeft, FileText, Star } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useHeader } from '../useHeader';
+import { useDialog } from '@/context/dialog';
+import { Button } from '@/components/ui/button';
 
 export const listMenuMobile = [
   { label: 'Order List', icon: FileText, src: PATH.USER.ORDER },
@@ -19,9 +22,15 @@ export const listMenuMobile = [
   },
 ];
 
-const ListMenu = () => {
+const ListMenu: React.FC<{ isHeader?: boolean }> = ({ isHeader = false }) => {
   const router = useRouter();
   const { clearAuth } = useUser();
+  const { openDialog, closeDialog } = useDialog();
+  const header = isHeader
+    ? useHeader()
+    : ({ setOpen: () => {} } as Pick<ReturnType<typeof useHeader>, 'setOpen'>);
+
+  const setOpen = header.setOpen;
 
   return (
     <div className='flex flex-col gap-2'>
@@ -34,10 +43,34 @@ const ListMenu = () => {
           )}
           onClick={() => {
             if (item.fnKey === 'logout') {
-              return clearAuth();
-            } else if (item.src) {
-              router.push(item.src);
+              openDialog({
+                title: 'Logout',
+                desc: 'You will need to sign in again to access your account',
+                footer: (
+                  <div className='flex w-full gap-3 lg:justify-end lg:w-[137px] text-sm leading-sm font-semibold'>
+                    <Button
+                      variant={'outline'}
+                      onClick={() => closeDialog()}
+                      className='flex-1 rounded-lg'
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      variant={'danger'}
+                      className='rounded-lg flex-1 lg:w-[137px] text-sm leading-sm font-semibold'
+                      onClick={() => {
+                        clearAuth();
+                        closeDialog();
+                      }}
+                    >
+                      Logout
+                    </Button>
+                  </div>
+                ),
+              });
             }
+            if (item.src) router.push(item.src);
+            if (isHeader) setOpen(false);
           }}
         >
           <item.icon

@@ -1,6 +1,5 @@
 import { useMe } from '@/hooks';
 import { useRouter } from 'next/navigation';
-import { ButtonUserNotLogin } from './button-user-not-login';
 import { ICONS } from '@/constants';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
@@ -14,8 +13,25 @@ export const ButtonUserActive: React.FC<{ isDesktop?: boolean }> = ({
   const { open, setOpen } = useHeader();
   const router = useRouter();
   const { user: me } = useMe();
+
   if (!me) {
-    return <ButtonUserNotLogin />;
+    return (
+      <>
+        <Button
+          variant='outline'
+          className='lg:flex-1 hidden lg:block'
+          onClick={() => router.push(PATH.AUTH.LOGIN)}
+        >
+          Login
+        </Button>
+        <Button
+          className='lg:flex-1 hidden lg:block'
+          onClick={() => router.push(PATH.AUTH.REGISTER)}
+        >
+          Register
+        </Button>
+      </>
+    );
   }
 
   const buttons = [

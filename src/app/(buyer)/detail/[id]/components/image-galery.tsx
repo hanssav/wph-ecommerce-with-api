@@ -14,14 +14,14 @@ const ImageGallery: React.FC<Partial<Pick<Product, 'images' | 'slug'>>> = ({
   const validImages = normalizeImages(images);
 
   const [selected, setSelected] = React.useState<string | null>(
-    validImages[0] || null
+    validImages.length ? validImages[0] : null
   );
 
   React.useEffect(() => {
-    if (validImages.length) {
+    if (validImages.length && !selected) {
       setSelected(validImages[0]);
     }
-  }, [validImages]);
+  }, [validImages, selected]);
 
   if (!validImages.length) return null;
 
