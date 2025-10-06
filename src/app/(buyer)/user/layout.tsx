@@ -12,7 +12,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { avatarUrl, name } = user || {};
 
   return (
-    <SectionWrapper className='py-6 lg:py-14 flex gap-6 lg:gap-12 bg-[#FAFAFA] h-full'>
+    <SectionWrapper className='py-6 lg:py-14 flex gap-6 lg:gap-12'>
       <div className='hidden lg:block lg:basis-2/10'>
         <div className='sticky top-36 space-y-4 rounded-2xl shadow-card p-4'>
           <div className='flex gap-2 items-center'>
