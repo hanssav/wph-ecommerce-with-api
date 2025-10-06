@@ -1,11 +1,5 @@
 import { api } from '@/api';
-import { OrdersResponse } from '@/types';
-
-export type GetOrdersMyParam = {
-  page: number;
-  limit?: number;
-  paymentStatus?: 'PENDING' | 'PAID' | 'FAILED' | 'REFUNDED' | 'ALL';
-};
+import { GetOrdersMyParam, OrdersResponse } from '@/types';
 
 export const orderService = {
   ordersCheckout: async (body: { address: string }) => {

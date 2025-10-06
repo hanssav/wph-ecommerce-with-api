@@ -17,7 +17,12 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <div className='sticky top-36 space-y-4 rounded-2xl shadow-card p-4'>
           <div className='flex gap-2 items-center'>
             <div className='relative aspect-square w-10 overflow-hidden'>
-              <Image src={avatarUrl || ICONS.DEFAULT_AVATAR} alt='user' fill />
+              <Image
+                src={avatarUrl || ICONS.DEFAULT_AVATAR}
+                alt='user'
+                fill
+                sizes='(max-width: 768px) 2.5rem, 2.5rem'
+              />
             </div>
             <Typography weight={'bold'} size={{ base: 'sm' }}>
               {name}

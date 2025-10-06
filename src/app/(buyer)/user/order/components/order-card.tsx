@@ -45,7 +45,7 @@ const OrderCard: React.FC<{ order: Order }> = ({ order }) => {
             alt={product.title}
             fill
             priority
-            className=''
+            sizes='(max-width: 768px) 3rem, 4rem'
           />
         </div>
         <div>

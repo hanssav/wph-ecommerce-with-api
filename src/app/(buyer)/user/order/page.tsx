@@ -12,8 +12,8 @@ const Order = async () => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ['orders/my'],
-    queryFn: () => orderService.getOrdersMy(),
+    queryKey: ['orders/my', { page: 1, limit: 10 }],
+    queryFn: () => orderService.getOrdersMy({ page: 1, limit: 10 }),
   });
 
   const dehydrateState = dehydrate(queryClient);

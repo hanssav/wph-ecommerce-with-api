@@ -12,10 +12,11 @@ import {
 } from '@/components/ui/select';
 import Typography from '@/components/ui/typography';
 import { useGetOrderMy } from '@/hooks';
-import { GetOrdersMyParam } from '@/services';
 import { Search } from 'lucide-react';
 import React from 'react';
 import OrderCard from './order-card';
+import { GetOrdersMyParam } from '@/types';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const selectValues = [
   { value: 'ALL', label: 'All Orders' },
@@ -33,20 +34,11 @@ const OrderClient = () => {
   });
 
   const {
-    orders: data,
+    orders,
+    pagination,
+    currentPage,
     query: { isLoading, isError },
   } = useGetOrderMy(filter);
-
-  const orders = data?.orders ?? [];
-  const pagination = data?.pagination;
-
-  const handlePageChange = (newPage: number) => {
-    if (newPage >= 1 && newPage <= (pagination?.totalPages ?? 1)) {
-      setFilter((prev) => ({ ...prev, page: newPage }));
-    }
-  };
-
-  const currentPage = filter.page ?? 1;
 
   return (
     <div className='space-y-6'>
@@ -71,7 +63,7 @@ const OrderClient = () => {
         }
         value={filter.paymentStatus ?? 'ALL'}
       >
-        <SelectTrigger id='orderStatus' className='w-full !h-12'>
+        <SelectTrigger id='orderStatus' className='w-full !h-12 lg:hidden'>
           <SelectValue placeholder='All Orders' />
         </SelectTrigger>
         <SelectContent>
@@ -82,6 +74,27 @@ const OrderClient = () => {
           ))}
         </SelectContent>
       </Select>
+
+      <Tabs className='p-4 hidden lg:block'>
+        <TabsList className='w-full justify-between'>
+          {selectValues.map(({ value: tab, label }) => (
+            <TabsTrigger
+              key={tab}
+              value={tab}
+              onClick={() =>
+                setFilter({
+                  ...filter,
+                  paymentStatus: tab as GetOrdersMyParam['paymentStatus'],
+                })
+              }
+              data-state={filter.paymentStatus === tab ? 'active' : 'inactive'}
+              className='rounded-none border-b-1 border-b-neutral-300 data-[state=active]:border-b-3 data-[state=active]:border-b-neutral-950 !py-5'
+            >
+              {label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
 
       {isLoading && <Card className='text-center'>Loading orders...</Card>}
       {isError && <Card className='text-red-500'>Failed to load orders.</Card>}
@@ -100,13 +113,15 @@ const OrderClient = () => {
             size={{ base: 'sm' }}
             className='text-neutral-800'
           >
-            Showing 1 to 10 of 60 entries
+            {`Showing ${orders.length} to ${
+              pagination.total > filter.limit ? filter.limit : pagination.total
+            } of ${pagination.total} entries`}
           </Typography>
 
           <Pagination
             current={currentPage}
-            handleChange={handlePageChange}
             pagination={pagination}
+            setFilter={setFilter}
           />
         </div>
       )}

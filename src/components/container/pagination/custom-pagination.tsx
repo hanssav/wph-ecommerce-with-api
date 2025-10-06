@@ -9,18 +9,24 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { cn } from '@/lib/utils';
-import { Pagination as PaginationTypes } from '@/types';
+import { GetOrdersMyParam, Pagination as PaginationTypes } from '@/types';
 
 type PaginationProps = {
   pagination: PaginationTypes;
-  handleChange: (page: number) => void;
   current: number;
+  setFilter: React.Dispatch<React.SetStateAction<GetOrdersMyParam>>;
 };
 const Pagination: React.FC<PaginationProps> = ({
   pagination,
-  handleChange,
   current,
+  setFilter,
 }) => {
+  const handleChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= (pagination?.totalPages ?? 1)) {
+      setFilter((prev) => ({ ...prev, page: newPage }));
+    }
+  };
+
   return (
     <PaginationPrimitive>
       <PaginationContent className='lg:items-end'>
@@ -28,7 +34,6 @@ const Pagination: React.FC<PaginationProps> = ({
           <PaginationPrevious
             href='#'
             onClick={(e) => {
-              e.preventDefault();
               handleChange(current - 1);
             }}
             className={cn(
@@ -45,7 +50,6 @@ const Pagination: React.FC<PaginationProps> = ({
                 href='#'
                 isActive={current === page}
                 onClick={(e) => {
-                  e.preventDefault();
                   handleChange(page);
                 }}
               >
@@ -63,7 +67,6 @@ const Pagination: React.FC<PaginationProps> = ({
           <PaginationNext
             href='#'
             onClick={(e) => {
-              e.preventDefault();
               handleChange(current + 1);
             }}
             className={cn(

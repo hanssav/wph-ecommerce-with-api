@@ -40,4 +40,18 @@ type OrderItem = {
   shop: Shop;
 };
 
-export type { OrdersResponse, OrdersData, Pagination, Order, OrderItem };
+type PaymentStatus = 'PENDING' | 'PAID' | 'FAILED' | 'REFUNDED' | 'ALL';
+type GetOrdersMyParam = {
+  page: number;
+  limit: number;
+  paymentStatus?: PaymentStatus;
+};
+
+export type {
+  OrdersResponse,
+  OrdersData,
+  Pagination,
+  Order,
+  OrderItem,
+  GetOrdersMyParam,
+};
