@@ -51,7 +51,7 @@ export const FilterSection = () => {
   });
 
   return (
-    <div className='flex flex-col gap-[10px]'>
+    <div className='flex flex-col gap-[10px] bg-white'>
       <FilterWrapper title='FILTER' />
       <FilterWrapper title='Categories'>
         {categoryItems.map((check, idx) => (

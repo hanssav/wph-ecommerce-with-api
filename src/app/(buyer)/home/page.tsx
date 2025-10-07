@@ -23,7 +23,7 @@ export default async function Home() {
   >({
     queryKey: ['products', {} as ParamsProduct],
     queryFn: async ({ pageParam = 1 }) => {
-      return productsService.getAll({ page: pageParam, limit: 20 });
+      return productsService.getAll({ page: pageParam, limit: 8 });
     },
     getNextPageParam: (lastPage: ProductApiResponse) => {
       const { page, totalPages } = lastPage.data.pagination;
