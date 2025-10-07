@@ -1,7 +1,6 @@
 import {
   dehydrate,
   QueryClient,
-  DehydratedState,
   HydrationBoundary,
 } from '@tanstack/react-query';
 import { productsService } from '@/services';
