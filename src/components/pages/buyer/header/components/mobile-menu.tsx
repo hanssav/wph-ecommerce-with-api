@@ -3,7 +3,6 @@ import { ButtonUserActive } from './button-user-active';
 import { cn } from '@/lib/utils';
 import { useHeader } from '../useHeader';
 import ListMenu from './list-menu';
-import { useUser } from '@/context/auth';
 import ButtonLoginRegister from './button-login-register';
 import { useMe } from '@/hooks';
 
