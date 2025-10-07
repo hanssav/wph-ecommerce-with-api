@@ -27,6 +27,7 @@ const HeaderAvatar: React.FC<{ src?: string; name?: string }> = ({
         alt={name}
         fill
         priority
+        sizes='40px'
         className='object-cover'
         unoptimized
       />
