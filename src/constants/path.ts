@@ -30,6 +30,7 @@ const DASHBOARD = '/dashboard';
 const ADMIN = {
   DASHBOARD,
   PRODUCT: '/product',
+  PRODUCT_FORM: '/product/form',
   ORDER_LIST: '/order-list',
   REVIEW: '/review',
   SETTING: '/setting',

@@ -1,11 +1,14 @@
 import { Card } from '@/components/ui/card';
 import Typography from '@/components/ui/typography';
 import { IMAGES } from '@/constants';
+import { Product } from '@/types';
 import { Eye, Pencil, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
-const ProductAdminCard = () => {
+const ProductAdminCard: React.FC<{ product: Product }> = ({ product = {} }) => {
+  if (!product) return;
+
   return (
     <Card className='flex flex-col gap-3 p-3 lg:hidden'>
       <div className='flex  gap-[10px] py-3 border-b'>

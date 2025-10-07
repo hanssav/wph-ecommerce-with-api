@@ -73,6 +73,13 @@ type ParamsProduct = {
   limit?: number;
 };
 
+type ParamsSellerProduct = {
+  q?: string;
+  isActive?: boolean;
+  page?: number;
+  limit?: number;
+};
+
 export type {
   Review,
   Category,
@@ -81,4 +88,5 @@ export type {
   ProductApiResponse,
   ProducApitResponseId,
   ParamsProduct,
+  ParamsSellerProduct,
 };

@@ -26,4 +26,12 @@ export const NOTIFICATION = {
     btnLabel: 'Start Shopping',
     btnActionSrc: PATH.CATALOG,
   },
+
+  PRODUCT_EMPTY: {
+    src: IMAGES.PRODUCT_EMPTY,
+    title: 'No Products Yet',
+    subtitle: 'Start adding your items to showcase and reach more customers.',
+    btnLabel: '+ Add Product',
+    btnActionSrc: PATH.ADMIN.PRODUCT_FORM,
+  },
 };

@@ -1,5 +1,5 @@
 import { productsService } from '@/services';
-import { ParamsProduct } from '@/types/product.types';
+import { ParamsProduct, ParamsSellerProduct } from '@/types/product.types';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 export const useProduct = (params?: ParamsProduct) => {
@@ -24,6 +24,32 @@ export function useInfiniteProducts(params: ParamsProduct) {
     queryFn: async ({ pageParam = 1 }) => {
       const defaultParam = { page: pageParam, limit: 20, ...params };
       const res = await productsService.getAll(defaultParam);
+      return res;
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      const { page, totalPages } = lastPage.data.pagination;
+      return page < totalPages ? page + 1 : undefined;
+    },
+    getPreviousPageParam: (firstPage) => {
+      const { page } = firstPage.data.pagination;
+      return page > 1 ? page - 1 : undefined;
+    },
+    staleTime: 1000 * 60,
+  });
+
+  const products =
+    query.data?.pages.flatMap((page) => page.data.products) ?? [];
+
+  return { query, products };
+}
+
+export function useInfiniteSellerProducts(params?: ParamsSellerProduct) {
+  const query = useInfiniteQuery({
+    queryKey: ['sellerProducts', params],
+    queryFn: async ({ pageParam = 1 }) => {
+      const defaultParam = { page: pageParam, limit: 20, ...params };
+      const res = await productsService.getAllBySeller(defaultParam);
       return res;
     },
     initialPageParam: 1,
