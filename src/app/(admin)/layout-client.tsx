@@ -1,6 +1,6 @@
 'use client';
 import { useMe } from '@/hooks';
-import { ChevronDown, Menu, X, LogOut } from 'lucide-react';
+import { ChevronDown, Menu, X, LogOut, Store } from 'lucide-react';
 import Image from 'next/image';
 import { ICONS, IMAGES, listDashboardMenus, PATH } from '@/constants';
 import Typography from '@/components/ui/typography';
@@ -9,7 +9,30 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useRouter, usePathname } from 'next/navigation';
 import { useBreakpoint } from '@/hooks/useBreakpoints';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
+const HeaderAvatar: React.FC<{ src?: string; name?: string }> = ({
+  src = ICONS.DEFAULT_AVATAR,
+  name = 'user-avatar',
+}) => {
+  return (
+    <div className='relative h-10 w-10 overflow-hidden rounded-full'>
+      <Image
+        src={src}
+        alt={name}
+        fill
+        priority
+        className='object-cover'
+        unoptimized
+      />
+    </div>
+  );
+};
 export default function LayoutClient({
   children,
 }: {
@@ -17,6 +40,7 @@ export default function LayoutClient({
 }) {
   const { user } = useMe();
   const [open, setOpen] = React.useState<boolean>(false);
+  const [isUserClick, setIsUserClick] = React.useState<boolean>(false);
   const router = useRouter();
   const bp = useBreakpoint();
   const pathname = usePathname();
@@ -28,6 +52,7 @@ export default function LayoutClient({
 
   const onLogout = () => {};
 
+  console.log(isUserClick, 'isUser Click');
   return (
     <>
       <nav className='flex justify-between items-center px-4 py-3 lg:px-6 bg-white max-h-16 w-full shadow-card backdrop:backdrop-blur-md'>
@@ -43,22 +68,38 @@ export default function LayoutClient({
           <Menu className='h-5 w-5' />
         </Button>
 
-        <div className='flex gap-1 items-center'>
-          <div className='relative h-10 w-10 overflow-hidden rounded-full'>
-            <Image
-              src={user?.avatarUrl ?? ICONS.DEFAULT_AVATAR}
-              alt={user?.name ?? 'user-avatar'}
-              fill
-              priority
-              className='object-cover'
-              unoptimized
-            />
-          </div>
-          <Typography size={{ base: 'sm' }} weight='bold'>
-            {user?.name ?? 'Guest'}
-          </Typography>
-          <ChevronDown className='w-5 h-5' />
-        </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger className='flex gap-1 items-center' asChild>
+            <Button variant={'ghost'} onClick={() => setIsUserClick(true)}>
+              <HeaderAvatar src={user?.avatarUrl} name={user?.name} />
+              <Typography size={{ base: 'sm' }} weight='bold'>
+                {user?.name ?? 'Guest'}
+              </Typography>
+              <ChevronDown className='w-5 h-5' />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className='w-[261px]' align='end' sideOffset={5}>
+            <DropdownMenuItem className='flex gap-2 p-4 border-b bg-white'>
+              <HeaderAvatar src={user?.avatarUrl} name={user?.name} />
+              <div>
+                <Typography size={{ base: 'sm' }} weight='bold'>
+                  {user?.name ?? 'Guest'}
+                </Typography>
+                <div className='flex gap-1 items-center'>
+                  <Store className='w-5 h-5' />
+                  <Typography size={{ base: 'sm' }} weight='normal'>
+                    {user?.shop.name ?? 'Guest'}
+                  </Typography>
+                </div>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem className='flex justify-center px-4 py-2'>
+              <Button variant={'outline'} className='w-full rounded-md'>
+                Back To Buyer Acount
+              </Button>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </nav>
 
       <div>
