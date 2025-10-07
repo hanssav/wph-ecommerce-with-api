@@ -2,7 +2,7 @@
 import React from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
 import Typography from '@/components/ui/typography';
-import { useGetCart } from '@/hooks/useCart';
+// import { useGetCart } from '@/hooks/useCart';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { CartCard } from './cart-card';
@@ -39,11 +39,11 @@ const CheckAll: React.FC<CheckAllProps> = ({
 };
 
 const Client = () => {
-  const { cart } = useGetCart();
+  // const { cart } = useGetCart();
   const router = useRouter();
   // const [selected, setSelected] = React.useState<string[] | null>(null);
 
-  console.log(cart);
+  // console.log(cart);
   const allChecked = true;
 
   const checkAllRest = {

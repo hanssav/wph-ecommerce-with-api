@@ -3,12 +3,13 @@ import {
   ClipboardList,
   CheckCircle,
   CircleDollarSign,
+  LucideIcon,
 } from 'lucide-react';
 
 const DASHBOARD_CONSTANT: {
   title: string;
   data: number | string;
-  Icon: React.ComponentType<any>;
+  Icon: LucideIcon;
 }[] = [
   {
     title: 'Total Products',

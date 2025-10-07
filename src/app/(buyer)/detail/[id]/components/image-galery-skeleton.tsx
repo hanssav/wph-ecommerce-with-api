@@ -1,6 +1,5 @@
 import React from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Hr } from '@/components/ui/hr';
 
 const ImageGallerySkeleton: React.FC = () => {
   return (

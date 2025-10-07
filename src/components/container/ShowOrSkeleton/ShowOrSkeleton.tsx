@@ -1,26 +1,24 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
-interface SingleProps {
+type SingleProps = {
   isLoading: boolean;
-  skeleton: ReactNode;
-  children: ReactNode;
-  data?: never;
-  skeletonCount?: never;
-  Skeleton?: never;
-}
+  skeleton: React.ReactNode;
+  children: React.ReactNode;
+};
 
-interface ListProps<T> {
+type ListProps<T> = {
   isLoading: boolean;
   skeletonCount?: number;
   Skeleton: React.ComponentType<{ idx: number; length: number }>;
   data: T[];
-  children: (item: T, idx: number, length: number) => ReactNode;
-  skeleton?: never;
-}
+  children: (item: T, idx: number, length: number) => React.ReactNode;
+};
 
-type ShowOrSkeletonProps<T = any> = SingleProps | ListProps<T>;
+type ShowOrSkeletonProps<T> =
+  | (SingleProps & { data?: undefined; Skeleton?: undefined })
+  | (ListProps<T> & { skeleton?: undefined });
 
-export default function ShowOrSkeleton<T = any>(props: ShowOrSkeletonProps<T>) {
+export default function ShowOrSkeleton<T>(props: ShowOrSkeletonProps<T>) {
   const { isLoading } = props;
 
   if ('data' in props && props.data !== undefined) {
@@ -43,6 +41,6 @@ export default function ShowOrSkeleton<T = any>(props: ShowOrSkeletonProps<T>) {
     return <>{data.map((item, idx) => children(item, idx, data.length))}</>;
   }
 
-  const { skeleton, children } = props as SingleProps;
-  return isLoading ? skeleton : children;
+  const { skeleton, children } = props;
+  return isLoading ? <>{skeleton}</> : <>{children}</>;
 }

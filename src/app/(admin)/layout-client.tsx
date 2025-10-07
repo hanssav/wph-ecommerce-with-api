@@ -40,7 +40,6 @@ export default function LayoutClient({
 }) {
   const { user } = useMe();
   const [open, setOpen] = React.useState<boolean>(false);
-  const [isUserClick, setIsUserClick] = React.useState<boolean>(false);
   const router = useRouter();
   const bp = useBreakpoint();
   const pathname = usePathname();
@@ -52,7 +51,6 @@ export default function LayoutClient({
 
   const onLogout = () => {};
 
-  console.log(isUserClick, 'isUser Click');
   return (
     <>
       <nav className='flex justify-between items-center px-4 py-3 lg:px-6 bg-white max-h-16 w-full shadow-card backdrop:backdrop-blur-md'>
@@ -70,7 +68,7 @@ export default function LayoutClient({
 
         <DropdownMenu>
           <DropdownMenuTrigger className='flex gap-1 items-center' asChild>
-            <Button variant={'ghost'} onClick={() => setIsUserClick(true)}>
+            <Button variant={'ghost'}>
               <HeaderAvatar src={user?.avatarUrl} name={user?.name} />
               <Typography size={{ base: 'sm' }} weight='bold'>
                 {user?.name ?? 'Guest'}
