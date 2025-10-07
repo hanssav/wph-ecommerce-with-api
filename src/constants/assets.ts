@@ -7,6 +7,8 @@ export const IMAGES = {
 
   MOCK_PRODUCT_IMAGE:
     'https://images.macrumors.com/t/UDyL8vJo9SZGNLUyL5bgRD2vtmA=/1600x0/article-new/2025/07/iPhone-17-Pro-Dark-Blue-and-Orange.jpg',
+  DEFAULT_PRODUCT_IMAGE:
+    'https://apollobattery.com.au/wp-content/uploads/2022/08/default-product-image.png',
 };
 
 export const ICONS = {

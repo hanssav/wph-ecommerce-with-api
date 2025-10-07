@@ -1,5 +1,5 @@
 import Typography from '@/components/ui/typography';
-import { ICONS, PATH } from '@/constants';
+import { ICONS, IMAGES, PATH } from '@/constants';
 import { formatMoney } from '@/lib/utils';
 import { Product } from '@/types/product.types';
 import { Star } from 'lucide-react';
@@ -20,6 +20,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     id,
   } = product;
 
+  const [imgSrc, setImgSrc] = React.useState<string>(images[0]);
   return (
     <div
       onClick={() => router.push(`${PATH.PRODUCT_DETAIL}/${id}`)}
@@ -28,10 +29,11 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     >
       <div className='relative w-full rounded-sm overflow-hidden aspect-[1/1]'>
         <Image
-          src={images[0]}
+          src={imgSrc}
           alt={slug}
           fill
           className='object-cover'
+          onError={() => setImgSrc(IMAGES.DEFAULT_PRODUCT_IMAGE)}
           sizes='(max-width: 640px) 50vw, (max-width: 768px) 33.33vw, (max-width: 1024px) 25vw, 25vw'
           priority
           unoptimized
