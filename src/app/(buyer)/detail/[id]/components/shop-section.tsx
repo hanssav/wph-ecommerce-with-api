@@ -9,15 +9,17 @@ import React from 'react';
 
 const ShopSection: React.FC<{ shop: Shop }> = ({ shop }) => {
   const router = useRouter();
+
   return (
-    <div className='flex justify-between items-center'>
+    <div className='flex justify-between items-center gap-2 lg:gap-4'>
       <div className='flex gap-2 lg:gap-4'>
         {shop?.logo ? (
           <div className='relative w-14 lg:w-16 rounded-full overflow-hidden aspect-square'>
             <Image
               src={shop.logo}
-              fill
               alt={shop.slug}
+              fill
+              sizes='(max-width: 1024px) 56px, 64px'
               className='object-cover'
             />
           </div>

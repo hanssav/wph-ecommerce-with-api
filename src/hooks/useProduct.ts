@@ -53,6 +53,7 @@ export const useProductById = (id: string) => {
   });
 
   return {
+    query,
     product: query.data,
     isLoading: query.isLoading,
     isError: query.isError,

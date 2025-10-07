@@ -19,6 +19,7 @@ const ReviewCard: React.FC<{
           <Image
             src={user.avatarUrl}
             fill
+            sizes='(max-width: 1024px) 56px, 64px'
             alt={user.name}
             className='object-cover'
           />

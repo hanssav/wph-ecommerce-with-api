@@ -31,10 +31,13 @@ const ImageGallery: React.FC<Partial<Pick<Product, 'images' | 'slug'>>> = ({
         {selected && (
           <Image
             fill
-            src={selected}
-            alt={slug}
+            src={selected || '/images/placeholder.png'}
+            alt={slug || 'product image'}
             priority
             className='object-cover'
+            sizes='(max-width: 640px) 100vw, 
+             (max-width: 1024px) 50vw, 
+             33vw'
           />
         )}
       </div>
@@ -50,6 +53,7 @@ const ImageGallery: React.FC<Partial<Pick<Product, 'images' | 'slug'>>> = ({
           >
             <Image
               src={img}
+              sizes='80px'
               alt={`${slug}-${idx}`}
               fill
               className='object-cover'

@@ -59,6 +59,7 @@ export const FilterSection = () => {
             <Checkbox
               id={check}
               className='h-5 w-5'
+              name='byCategory'
               checked={filter.byCategory.includes(check)}
               onCheckedChange={(checked) => {
                 setFilter((prev) => ({
@@ -111,8 +112,9 @@ export const FilterSection = () => {
         {ratingItems.map((rating, idx) => (
           <div key={idx} className='flex gap-2 items-center'>
             <Checkbox
-              id={0 ? 'a0x' : rating.toString()}
+              id={`rating-${idx}`}
               className='h-5 w-5'
+              name='byRating'
               checked={filter.byRating.includes(rating)}
               onCheckedChange={(checked) =>
                 setFilter((prev) => ({
@@ -128,10 +130,7 @@ export const FilterSection = () => {
                 <Star className='absolute w-5 h-5 stroke-gray-300' />
                 <Star className='absolute w-5 h-5 stroke-yellow-400 fill-yellow-400' />
               </div>
-              <Label
-                htmlFor={0 ? 'a0x' : rating.toString()}
-                className='capitalize text-md'
-              >
+              <Label htmlFor={`rating-${idx}`} className='capitalize text-md'>
                 {rating}
               </Label>
             </div>
