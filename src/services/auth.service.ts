@@ -1,5 +1,5 @@
 import { api } from '@/api';
-import { LoginResponseType, UserType } from '@/types';
+import { LoginResponseType, MeResponse, UserType } from '@/types';
 
 type LoginPayload = Pick<UserType, 'email' | 'password'>;
 type RegisterType = Omit<UserType, 'id'>;
@@ -13,7 +13,7 @@ export const userService = {
     const res = await api.post('/auth/register', user);
     return res.data;
   },
-  getMe: async () => {
+  getMe: async (): Promise<MeResponse> => {
     const res = await api.get('/me');
     return res.data;
   },

@@ -27,6 +27,13 @@ const HIDDEN_FOOTER = [
 ];
 
 const DASHBOARD = '/dashboard';
+const ADMIN = {
+  DASHBOARD,
+  PRODUCT: '/product',
+  ORDER_LIST: '/order-list',
+  REVIEW: '/review',
+  SETTING: '/setting',
+};
 
 const STORE = '/store';
 
@@ -51,4 +58,5 @@ export const PATH = {
   CATALOG,
   CART,
   PRODUCT_DETAIL,
+  ADMIN,
 };

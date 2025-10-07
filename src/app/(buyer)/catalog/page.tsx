@@ -34,7 +34,7 @@ const Catalog = async () => {
   const dehydratedState = dehydrate(queryClient);
 
   return (
-    <SectionWrapper className='flex flex-col lg:gap-6 py-6'>
+    <SectionWrapper className='flex flex-col gap-3 lg:gap-6 py-6'>
       <TypographyTitle label='Catalog' />
       <HydrationBoundary state={dehydratedState}>
         <CatalogClient />

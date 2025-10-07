@@ -1,7 +1,26 @@
-import React from 'react';
+import {
+  HydrationBoundary,
+  dehydrate,
+  QueryClient,
+} from '@tanstack/react-query';
+import { userService } from '@/services';
+import LayoutClient from './layout-client';
 
-const layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <div>Di sini Dashboard layout {children}</div>;
-};
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const queryClient = new QueryClient();
 
-export default layout;
+  await queryClient.prefetchQuery({
+    queryKey: ['me'],
+    queryFn: () => userService.getMe(),
+  });
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <LayoutClient>{children}</LayoutClient>
+    </HydrationBoundary>
+  );
+}

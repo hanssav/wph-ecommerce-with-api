@@ -16,5 +16,6 @@ export const useMe = () => {
   return {
     user: query.data?.data,
     isLoading: query.isLoading,
+    query,
   };
 };

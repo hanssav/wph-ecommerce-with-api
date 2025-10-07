@@ -9,7 +9,6 @@ import { useMe } from '@/hooks';
 export const MobileMenu: React.FC = () => {
   const { open } = useHeader();
   const { user } = useMe();
-
   return (
     <div
       className={cn(

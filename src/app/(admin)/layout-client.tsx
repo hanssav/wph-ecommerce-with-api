@@ -1,0 +1,181 @@
+'use client';
+import { useMe } from '@/hooks';
+import { ChevronDown, Menu, X, LogOut } from 'lucide-react';
+import Image from 'next/image';
+import { ICONS, IMAGES, listDashboardMenus, PATH } from '@/constants';
+import Typography from '@/components/ui/typography';
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { useRouter, usePathname } from 'next/navigation';
+import { useBreakpoint } from '@/hooks/useBreakpoints';
+
+export default function LayoutClient({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const { user } = useMe();
+  const [open, setOpen] = React.useState<boolean>(false);
+  const router = useRouter();
+  const bp = useBreakpoint();
+  const pathname = usePathname();
+
+  React.useEffect(() => {
+    const isLarge = ['lg', 'xl', '2xl'].includes(bp);
+    setOpen(isLarge);
+  }, [bp]);
+
+  const onLogout = () => {};
+
+  return (
+    <>
+      <nav className='flex justify-between items-center px-4 py-3 lg:px-6 bg-white max-h-16 w-full shadow-card backdrop:backdrop-blur-md'>
+        <Button
+          variant='ghost'
+          className={cn(
+            'rounded-md !p-0',
+            open && 'lg:ml-[216px]',
+            !open && 'lg:ml-20'
+          )}
+          onClick={() => setOpen(!open)}
+        >
+          <Menu className='h-5 w-5' />
+        </Button>
+
+        <div className='flex gap-1 items-center'>
+          <div className='relative h-10 w-10 overflow-hidden rounded-full'>
+            <Image
+              src={user?.avatarUrl ?? ICONS.DEFAULT_AVATAR}
+              alt={user?.name ?? 'user-avatar'}
+              fill
+              priority
+              className='object-cover'
+              unoptimized
+            />
+          </div>
+          <Typography size={{ base: 'sm' }} weight='bold'>
+            {user?.name ?? 'Guest'}
+          </Typography>
+          <ChevronDown className='w-5 h-5' />
+        </div>
+      </nav>
+
+      <div>
+        <aside
+          className={cn(
+            'bg-white flex flex-col justify-between h-full fixed top-0 left-0 z-50 w-3/4 lg:max-w-[216px] shadow-card lg:shadow-none lg:border-r',
+            'transition-transform duration-300 ease-in-out p-4',
+            open
+              ? 'translate-x-0 opacity-100 pointer-events-auto'
+              : '-translate-x-full opacity-0 pointer-events-none lg:translate-0 lg:max-w-20 lg:opacity-100'
+          )}
+        >
+          <div>
+            <div
+              className={cn(
+                'flex justify-between items-center gap-4',
+                !open && 'lg:justify-center'
+              )}
+            >
+              <div
+                onClick={() => router.push(PATH.HOME)}
+                className='flex gap-2 items-center cursor-pointer'
+              >
+                <div className='relative overflow-hidden w-7 h-7 rounded-sm'>
+                  <Image
+                    src={IMAGES.LOGO}
+                    alt='Logo'
+                    fill
+                    className='object-cover object-left'
+                    priority
+                  />
+                </div>
+                <div className={cn(!open && 'lg:hidden')}>
+                  <Typography
+                    size={{ base: 'sm' }}
+                    weight='bold'
+                    className='leading-tight'
+                  >
+                    Shirt
+                  </Typography>
+                  <Typography
+                    size={{ base: 'sm' }}
+                    weight='bold'
+                    className='leading-tight'
+                  >
+                    Seller
+                  </Typography>
+                </div>
+              </div>
+
+              <Button
+                onClick={() => setOpen(false)}
+                variant='ghost'
+                className='lg:hidden'
+              >
+                <X className='h-5 w-5' />
+              </Button>
+            </div>
+
+            <ul className='mt-6 w-full space-y-1 lg:space-y-4'>
+              {listDashboardMenus.map(({ label, icon: Icon, path }, idx) => {
+                const isActive = pathname === path;
+                return (
+                  <li key={idx}>
+                    <button
+                      onClick={() => router.push(path)}
+                      className={cn(
+                        'flex items-center w-full gap-3 px-3 py-2 rounded-md transition-colors',
+                        isActive
+                          ? 'bg-neutral-200 font-semibold'
+                          : 'hover:bg-neutral-300',
+                        !open && 'lg:p-3 lg:justify-center'
+                      )}
+                    >
+                      <Icon className='w-4 h-4' />
+                      <Typography
+                        as='span'
+                        size={{ base: 'sm' }}
+                        weight={isActive ? 'semibold' : 'normal'}
+                        className={cn(!open && 'lg:hidden')}
+                      >
+                        {label}
+                      </Typography>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          <div className='border-t pt-4 mt-4'>
+            <button
+              onClick={onLogout}
+              className='flex items-center gap-3 text-red-600 font-semibold w-full px-3 py-2 hover:bg-red-50 rounded-md transition-colors'
+            >
+              <LogOut className='w-4 h-4 rotate-180' />
+              <Typography
+                as='span'
+                size={{ base: 'sm' }}
+                weight='semibold'
+                className={cn('text-red-600', !open && 'lg:hidden')}
+              >
+                Logout
+              </Typography>
+            </button>
+          </div>
+        </aside>
+
+        <div
+          className={cn(
+            'lg:py-8 lg:px-10 p-4',
+            !open ? 'lg:ml-20' : 'lg:ml-[216px]'
+          )}
+        >
+          {children}
+        </div>
+      </div>
+    </>
+  );
+}
