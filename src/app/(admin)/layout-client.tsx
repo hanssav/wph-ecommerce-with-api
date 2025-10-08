@@ -164,7 +164,10 @@ export default function LayoutClient({
                 return (
                   <li key={idx}>
                     <button
-                      onClick={() => router.push(path)}
+                      onClick={() => {
+                        router.push(path);
+                        setOpen(false);
+                      }}
                       className={cn(
                         'flex items-center w-full gap-3 px-3 py-2 rounded-md transition-colors',
                         isActive

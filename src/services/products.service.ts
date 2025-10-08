@@ -34,7 +34,7 @@ export const productsService = {
     return res.data;
   },
   deleteProduct: async (id: number | string) => {
-    const res = await api.delete(`/seller/produts/${id}`);
+    const res = await api.delete(`/seller/products/${id}`);
     return res.data;
   },
 };
