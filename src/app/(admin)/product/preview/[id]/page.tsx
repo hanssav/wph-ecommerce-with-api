@@ -13,7 +13,7 @@ type DetailProps = {
 };
 
 const Preview = async ({ params }: DetailProps) => {
-  const { id } = params;
+  const { id } = await params;
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({

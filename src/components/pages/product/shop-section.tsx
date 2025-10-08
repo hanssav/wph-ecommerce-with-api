@@ -21,6 +21,7 @@ const ShopSection: React.FC<{ shop: Shop }> = ({ shop }) => {
               fill
               sizes='(max-width: 1024px) 56px, 64px'
               className='object-cover'
+              priority
             />
           </div>
         ) : (

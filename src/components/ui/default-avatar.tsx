@@ -14,6 +14,7 @@ const DefaultAvatar: React.FC<{ className?: string }> = ({ className }) => {
         src='https://www.shutterstock.com/image-vector/woman-girl-avatar-shopping-shop-260nw-475989598.jpg'
         fill
         alt='Shop avatar'
+        sizes='3.75rem'
         className='object-cover rounded-full'
       />
     </div>

@@ -53,8 +53,9 @@ const ImageGallery: React.FC<Partial<Pick<Product, 'images' | 'slug'>>> = ({
           >
             <Image
               src={img}
-              sizes='80px'
+              sizes='6rem'
               alt={`${slug}-${idx}`}
+              priority
               fill
               className='object-cover'
             />
