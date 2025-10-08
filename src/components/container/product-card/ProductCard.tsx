@@ -29,7 +29,7 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     >
       <div className='relative w-full rounded-sm overflow-hidden aspect-[1/1]'>
         <Image
-          src={imgSrc}
+          src={imgSrc ?? IMAGES.DEFAULT_PRODUCT_IMAGE}
           alt={slug}
           fill
           className='object-cover'

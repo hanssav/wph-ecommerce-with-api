@@ -1,0 +1,181 @@
+'use client';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import Typography from '@/components/ui/typography';
+import { useAddProduct, useCategories } from '@/hooks';
+import {
+  ProductFormInput,
+  ProductSchema,
+} from '@/lib/validation/product.validation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ArrowLeft } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import React from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import InputImage from './components/input-image';
+import { MOCK_IMAGE_PRODUCTS } from '@/constants';
+
+const ProductFormClient = () => {
+  const router = useRouter();
+
+  const { categories } = useCategories();
+  const { addProduct, mutation } = useAddProduct();
+
+  const form = useForm<ProductFormInput>({
+    resolver: zodResolver(ProductSchema),
+    defaultValues: {
+      title: '',
+      description: '',
+      price: '',
+      stock: '',
+      categoryId: undefined,
+      images: [],
+      imagesUrl: [],
+      isActive: true,
+    },
+  });
+  const onSubmit: SubmitHandler<ProductFormInput> = (values) => {
+    // mock failed test create produxt
+    // values.title = undefined;
+
+    // change mock product if you want to use others images
+    values.imagesUrl = MOCK_IMAGE_PRODUCTS;
+    addProduct(values);
+  };
+
+  return (
+    <div className='flex justify-center'>
+      <Card className='w-full max-w-[760px]'>
+        <CardHeader className=' flex gap-2 items-center'>
+          <ArrowLeft className='h-5 w-5' onClick={() => router.back()} />
+          <Typography size={{ base: 'xl', lg: 'display-xs' }} weight={'bold'}>
+            Add Product
+          </Typography>
+        </CardHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <CardContent className='space-y-3'>
+              <FormField
+                control={form.control}
+                name='title'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input {...field} label='Title' autoComplete='title' />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='categoryId'
+                render={({ field }) => (
+                  <FormItem className='space-y-1'>
+                    <FormControl>
+                      <Select
+                        onValueChange={(value) =>
+                          field.onChange(parseInt(value))
+                        }
+                        defaultValue={field.value?.toString()}
+                        name={field.name}
+                      >
+                        <SelectTrigger id='categoryId' className='w-full !h-12'>
+                          <SelectValue placeholder='Categories' />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {categories?.map(({ id, name }) => (
+                            <SelectItem key={id} value={id.toString()}>
+                              {name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='price'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input {...field} label='Price' autoComplete='price' />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='stock'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input {...field} label='Stock' autoComplete='stock' />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='description'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea {...field} label='Dscription' />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name='images'
+                render={({ field }) => (
+                  <FormItem className='space-y-2'>
+                    <FormLabel
+                      htmlFor={field.name}
+                      className='text-sm font-medium'
+                    >
+                      Product Images (Max 5)
+                    </FormLabel>
+                    <FormControl>
+                      <InputImage field={field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type='submit' className='w-full rounded-lg'>
+                {mutation.isPending ? 'Saving...' : 'Save'}
+              </Button>
+            </CardContent>
+          </form>
+        </Form>
+      </Card>
+    </div>
+  );
+};
+
+export default ProductFormClient;

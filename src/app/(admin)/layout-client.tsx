@@ -160,7 +160,7 @@ export default function LayoutClient({
 
             <ul className='mt-6 w-full space-y-1 lg:space-y-4'>
               {listDashboardMenus.map(({ label, icon: Icon, path }, idx) => {
-                const isActive = pathname === path;
+                const isActive = pathname.includes(path);
                 return (
                   <li key={idx}>
                     <button

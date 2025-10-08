@@ -30,3 +30,8 @@ export const ICONS = {
   DEFAULT_AVATAR:
     'https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001877.png',
 };
+
+export const MOCK_IMAGE_PRODUCTS = [
+  'https://images.macrumors.com/t/UDyL8vJo9SZGNLUyL5bgRD2vtmA=/1600x0/article-new/2025/07/iPhone-17-Pro-Dark-Blue-and-Orange.jpg',
+  'https://www.mobiledokan.com/media/apple-iphone-17-pro-max-cosmic-orange-official-image.webp',
+];

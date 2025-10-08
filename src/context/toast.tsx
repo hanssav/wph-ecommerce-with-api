@@ -31,8 +31,8 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
         <div
           className={`fixed top-5 right-5 px-5 py-3 rounded-lg shadow-lg text-white flex items-center gap-3 z-50 transition-all duration-300 ${
             toast.type === 'success'
-              ? 'bg-green-600 animate-slide-in'
-              : 'bg-red-600 animate-slide-in'
+              ? 'bg-[#079455] animate-slide-in'
+              : 'bg-[#D9206E] animate-slide-in'
           }`}
         >
           <p className='text-sm font-medium flex-1'>{toast.message}</p>

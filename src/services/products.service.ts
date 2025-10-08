@@ -1,4 +1,5 @@
 import { api } from '@/api';
+import { ProductFormInput } from '@/lib/validation/product.validation';
 import {
   ParamsProduct,
   ParamsSellerProduct,
@@ -19,6 +20,10 @@ export const productsService = {
     params?: ParamsSellerProduct
   ): Promise<ProductApiResponse> => {
     const res = await api.get('/seller/products', { params });
+    return res.data;
+  },
+  addProduct: async (product: ProductFormInput) => {
+    const res = await api.post('/seller/products', product);
     return res.data;
   },
 };

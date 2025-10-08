@@ -5,3 +5,4 @@ export * from './product.types';
 export * from './shop.types';
 export * from './dialog.types';
 export * from './me.types';
+export * from './category.types';

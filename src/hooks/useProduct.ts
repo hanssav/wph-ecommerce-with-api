@@ -1,6 +1,10 @@
+import { PATH } from '@/constants';
+import { useToast } from '@/context/toast';
+import { ProductFormInput } from '@/lib/validation/product.validation';
 import { productsService } from '@/services';
 import { ParamsProduct, ParamsSellerProduct } from '@/types/product.types';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 export const useProduct = (params?: ParamsProduct) => {
   const query = useQuery({
@@ -68,6 +72,25 @@ export function useInfiniteSellerProducts(params?: ParamsSellerProduct) {
     query.data?.pages.flatMap((page) => page.data.products) ?? [];
 
   return { query, products };
+}
+
+export function useAddProduct() {
+  const { showToast } = useToast();
+  const router = useRouter();
+  const addMutation = useMutation({
+    mutationFn: (product: ProductFormInput) =>
+      productsService.addProduct(product),
+    onSuccess: () => {
+      showToast('Product has been added successfully.', 'success');
+      router.push(PATH.ADMIN.PRODUCT);
+    },
+    onError: () => {
+      showToast('Failed to create product. Please try again.', 'error');
+      router.push(PATH.ADMIN.PRODUCT);
+    },
+  });
+
+  return { addProduct: addMutation.mutate, mutation: addMutation };
 }
 
 export const useProductById = (id: string) => {

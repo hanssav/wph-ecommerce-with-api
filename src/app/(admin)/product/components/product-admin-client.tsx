@@ -7,11 +7,13 @@ import React from 'react';
 import ProductAdminCard from './product-admin-card';
 import { useInfiniteSellerProducts } from '@/hooks';
 import Notification from '@/components/container/notification';
-import { NOTIFICATION } from '@/constants';
+import { NOTIFICATION, PATH } from '@/constants';
 import ShowOrSkeleton from '@/components/container/ShowOrSkeleton';
 import { ProductAdminCardSkeleton } from './skeleton';
+import { useRouter } from 'next/navigation';
 
 const ProductAdminClient = () => {
+  const router = useRouter();
   const initialParams = { limit: 10 };
   const {
     products,
@@ -23,7 +25,10 @@ const ProductAdminClient = () => {
   return (
     <>
       <div className='lg:flex lg:justify-between w-full items-center space-y-3'>
-        <Button className='rounded-md w-full lg:max-w-[180px]'>
+        <Button
+          className='rounded-md w-full lg:max-w-[180px]'
+          onClick={() => router.push(PATH.ADMIN.PRODUCT_FORM)}
+        >
           + Add Product
         </Button>
         <div className='flex items-center'>
