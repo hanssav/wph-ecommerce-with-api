@@ -15,12 +15,14 @@ type PaginationProps<T> = {
   pagination: PaginationTypes;
   current: number;
   setFilter: React.Dispatch<React.SetStateAction<T>>;
+  dataLength?: number;
 };
 
 const Pagination = <T extends { page?: number }>({
   pagination,
   current,
   setFilter,
+  dataLength,
 }: PaginationProps<T>) => {
   const handleChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= (pagination?.totalPages ?? 1)) {
@@ -70,10 +72,10 @@ const Pagination = <T extends { page?: number }>({
             onClick={() => {
               handleChange(current + 1);
             }}
-            className={cn(
-              current === pagination.totalPages &&
-                'pointer-events-none opacity-50 cursor-not-allowed'
-            )}
+            className={cn({
+              'pointer-events-none opacity-50 cursor-not-allowed':
+                current === pagination.totalPages || !dataLength,
+            })}
           />
         </PaginationItem>
       </PaginationContent>

@@ -3,12 +3,10 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
-import ProductAdminCard from './product-admin-card';
-import { useInfiniteSellerProducts } from '@/hooks';
+import { useDebounce, useInfiniteSellerProducts } from '@/hooks';
 import Notification from '@/components/container/notification';
-import { NOTIFICATION, PATH } from '@/constants';
 import ShowOrSkeleton from '@/components/container/show-skeleton';
-import { ProductAdminCardSkeleton } from './skeleton';
+import { NOTIFICATION, PATH } from '@/constants';
 import { useRouter } from 'next/navigation';
 import {
   Column,
@@ -16,10 +14,14 @@ import {
 } from '@/components/container/table-pagination/Table';
 import { ParamsSellerProduct, Product } from '@/types';
 import { formatMoney } from '@/lib/utils';
-import ProductInfo from './product-info';
-import ButtonActions from './button-actions';
 import Pagination from '@/components/container/pagination';
 import Typography from '@/components/ui/typography';
+import {
+  ButtonActions,
+  ProductAdminCard,
+  ProductAdminCardSkeleton,
+  ProductInfo,
+} from './components';
 
 const ProductAdminClient = () => {
   const router = useRouter();
@@ -28,12 +30,12 @@ const ProductAdminClient = () => {
     limit: 10,
     q: '',
   });
-
+  const debounceFilter = useDebounce(filter);
   const {
     products,
     query: { isLoading },
     pagination,
-  } = useInfiniteSellerProducts(filter);
+  } = useInfiniteSellerProducts(debounceFilter);
 
   const columns: Column<Product>[] = [
     {
@@ -95,6 +97,14 @@ const ProductAdminClient = () => {
             className='!w-full lg:max-w-[254px]'
             iconPosition='left'
             icon={<Search className='h-5 w-5 text-neutral-950' />}
+            value={filter.q}
+            onChange={(e) =>
+              setFilter((prev) => ({
+                ...prev,
+                q: e.target.value,
+                page: 1,
+              }))
+            }
           />
         </div>
       </div>
@@ -138,11 +148,12 @@ const ProductAdminClient = () => {
             current={filter.page}
             pagination={pagination}
             setFilter={setFilter}
+            dataLength={products.length}
           />
         </div>
       )}
 
-      {!products.length && !isLoading && (
+      {!products.length && !isLoading && !debounceFilter.q && (
         <Notification {...NOTIFICATION.PRODUCT_EMPTY} />
       )}
     </>

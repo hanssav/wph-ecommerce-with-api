@@ -15,7 +15,6 @@ import { Shop } from '@/types';
 import React from 'react';
 
 const PreviewClient: React.FC<{ id: string }> = ({ id }) => {
-  console.log(id, 'idPreview client');
   const {
     product,
     query: { isLoading },
