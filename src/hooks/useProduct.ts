@@ -4,6 +4,7 @@ import { ProductFormInput } from '@/lib/validation/product.validation';
 import { productsService } from '@/services';
 import { ParamsProduct, ParamsSellerProduct } from '@/types/product.types';
 import {
+  keepPreviousData,
   useInfiniteQuery,
   useMutation,
   useQuery,
@@ -71,12 +72,16 @@ export function useInfiniteSellerProducts(params?: ParamsSellerProduct) {
       return page > 1 ? page - 1 : undefined;
     },
     staleTime: 1000 * 60,
+    placeholderData: keepPreviousData, // important for pagination, avoid flicker when click page
   });
 
   const products =
     query.data?.pages.flatMap((page) => page.data.products) ?? [];
 
-  return { query, products };
+  const pagination =
+    query.data?.pages.flatMap((page) => page.data.pagination) ?? [];
+
+  return { query, products, pagination: pagination[0] };
 }
 
 export function useAddProduct() {

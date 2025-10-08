@@ -7,11 +7,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import { productsService } from '@/services';
-import {
-  ParamsProduct,
-  ParamsSellerProduct,
-  ProductApiResponse,
-} from '@/types';
+import { ParamsSellerProduct, ProductApiResponse } from '@/types';
 
 const Product = async () => {
   const queryClient = new QueryClient();
@@ -23,7 +19,7 @@ const Product = async () => {
     [string, ParamsSellerProduct],
     number
   >({
-    queryKey: ['products', {} as ParamsProduct],
+    queryKey: ['products', {} as ParamsSellerProduct],
     queryFn: async ({ pageParam = 1 }) => {
       return productsService.getAll({ page: pageParam, limit: 8 });
     },

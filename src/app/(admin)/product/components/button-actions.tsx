@@ -90,22 +90,25 @@ const ButtonActions: React.FC<{ id?: number }> = ({ id }) => {
 
   return (
     <div className='flex gap-4'>
-      <Button variant='ghost' className='!p-0 flex items-center'>
+      <Button
+        variant='ghost'
+        className='!p-0 flex items-center hover:bg-gray-300'
+      >
         <Eye className='w-5 h-5' />
       </Button>
       <Button
         variant='ghost'
-        className='!p-0 flex items-center'
+        className='!p-0 flex items-center hover:bg-gray-300'
         onClick={() => router.push(`${PATH.ADMIN.PRODUCT_FORM}?id=${id}`)}
       >
         <Pencil className='h-5 w-5' />
       </Button>
       <Button
         variant='ghost'
-        className='!p-0 flex items-center'
+        className='!p-0 flex items-center hover:bg-gray-300'
         onClick={handleDeleteClick}
       >
-        <Trash2 className='h-5 w-5' />
+        <Trash2 className='h-5 w-5 text-red-600' />
       </Button>
     </div>
   );

@@ -9,18 +9,19 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { cn } from '@/lib/utils';
-import { GetOrdersMyParam, Pagination as PaginationTypes } from '@/types';
+import { Pagination as PaginationTypes } from '@/types';
 
-type PaginationProps = {
+type PaginationProps<T> = {
   pagination: PaginationTypes;
   current: number;
-  setFilter: React.Dispatch<React.SetStateAction<GetOrdersMyParam>>;
+  setFilter: React.Dispatch<React.SetStateAction<T>>;
 };
-const Pagination: React.FC<PaginationProps> = ({
+
+const Pagination = <T extends { page?: number }>({
   pagination,
   current,
   setFilter,
-}) => {
+}: PaginationProps<T>) => {
   const handleChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= (pagination?.totalPages ?? 1)) {
       setFilter((prev) => ({ ...prev, page: newPage }));

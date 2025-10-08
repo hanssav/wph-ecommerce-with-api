@@ -20,7 +20,7 @@ import ProductDetailSkeleton from './product-detail-skeleton';
 import ShopSectionSkeleton from './shop-section-skeleton';
 import ReviewCardSkeleton from './review-card-skeleteon';
 import ProductCardSkeleton from '@/components/container/product-card-skeleton';
-import ShowOrSkeleton from '@/components/container/ShowOrSkeleton';
+import ShowOrSkeleton from '@/components/container/show-skeleton';
 
 const DetailClient: React.FC<{ id: string }> = ({ id }) => {
   const {

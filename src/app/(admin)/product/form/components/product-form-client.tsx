@@ -34,7 +34,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import InputImage from './components/input-image';
+import InputImage from './input-image';
 import { MOCK_IMAGE_PRODUCTS } from '@/constants';
 
 const ProductFormClient = () => {

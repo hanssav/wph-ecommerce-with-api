@@ -4,7 +4,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import React from 'react';
-import ProductFormClient from './product-form-client';
+import ProductFormClient from './components/product-form-client';
 import { categoryServices } from '@/services/category.service';
 
 const ProductForm = async () => {
