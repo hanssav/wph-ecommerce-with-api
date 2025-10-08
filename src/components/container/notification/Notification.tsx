@@ -19,7 +19,7 @@ const Notification: React.FC<NotificationProps> = ({
     <div className='relative h-[calc(100vh-360px)] w-full'>
       <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-4'>
         <div className='relative overflow-hidden w-40 aspect-square'>
-          <Image src={src} alt={title} fill priority />
+          <Image src={src} alt={title} fill priority sizes='160px' />
         </div>
         <div className='flex flex-col gap-1 justify-center items-center'>
           <Typography weight={'bold'} size={{ base: 'md', lg: 'lg' }}>

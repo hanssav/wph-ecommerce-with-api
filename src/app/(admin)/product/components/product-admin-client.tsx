@@ -20,8 +20,6 @@ const ProductAdminClient = () => {
     query: { isLoading },
   } = useInfiniteSellerProducts(initialParams);
 
-  if (!products.length) return <Notification {...NOTIFICATION.PRODUCT_EMPTY} />;
-
   return (
     <>
       <div className='lg:flex lg:justify-between w-full items-center space-y-3'>
@@ -50,6 +48,7 @@ const ProductAdminClient = () => {
       >
         {(product, idx) => <ProductAdminCard key={idx} product={product} />}
       </ShowOrSkeleton>
+      {!products.length && <Notification {...NOTIFICATION.PRODUCT_EMPTY} />}
     </>
   );
 };

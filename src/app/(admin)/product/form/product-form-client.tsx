@@ -19,14 +19,19 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import Typography from '@/components/ui/typography';
-import { useAddProduct, useCategories } from '@/hooks';
+import {
+  useAddProduct,
+  useCategories,
+  useProductById,
+  useUpdateProduct,
+} from '@/hooks';
 import {
   ProductFormInput,
   ProductSchema,
 } from '@/lib/validation/product.validation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowLeft } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import InputImage from './components/input-image';
@@ -34,9 +39,13 @@ import { MOCK_IMAGE_PRODUCTS } from '@/constants';
 
 const ProductFormClient = () => {
   const router = useRouter();
-
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
   const { categories } = useCategories();
-  const { addProduct, mutation } = useAddProduct();
+  const { addProduct, mutation: addMutation } = useAddProduct();
+  const { update, mutation: updateMutation } = useUpdateProduct();
+  const productQuery = useProductById(id);
+  const pageName = id ? 'Edit' : 'Add';
 
   const form = useForm<ProductFormInput>({
     resolver: zodResolver(ProductSchema),
@@ -51,13 +60,29 @@ const ProductFormClient = () => {
       isActive: true,
     },
   });
+
+  React.useEffect(() => {
+    if (!id || !productQuery?.product?.data) return;
+
+    const data = productQuery.product.data;
+    const product = {
+      ...data,
+      categoryId: data.categoryId,
+      stock: data.stock.toString(),
+      price: data.price.toString(),
+    };
+    form.reset(product);
+  }, [id, productQuery?.product?.data, form]);
+
   const onSubmit: SubmitHandler<ProductFormInput> = (values) => {
     // mock failed test create produxt
     // values.title = undefined;
 
     // change mock product if you want to use others images
     values.imagesUrl = MOCK_IMAGE_PRODUCTS;
-    addProduct(values);
+    if (!id) return addProduct(values);
+
+    return update({ id: Number(id), product: values });
   };
 
   return (
@@ -66,7 +91,7 @@ const ProductFormClient = () => {
         <CardHeader className=' flex gap-2 items-center'>
           <ArrowLeft className='h-5 w-5' onClick={() => router.back()} />
           <Typography size={{ base: 'xl', lg: 'display-xs' }} weight={'bold'}>
-            Add Product
+            {pageName} Product
           </Typography>
         </CardHeader>
         <Form {...form}>
@@ -94,7 +119,8 @@ const ProductFormClient = () => {
                         onValueChange={(value) =>
                           field.onChange(parseInt(value))
                         }
-                        defaultValue={field.value?.toString()}
+                        // defaultValue={field.value?.toString() ?? ''}
+                        value={field.value?.toString() || ''}
                         name={field.name}
                       >
                         <SelectTrigger id='categoryId' className='w-full !h-12'>
@@ -168,7 +194,9 @@ const ProductFormClient = () => {
                 )}
               />
               <Button type='submit' className='w-full rounded-lg'>
-                {mutation.isPending ? 'Saving...' : 'Save'}
+                {addMutation.isPending || updateMutation.isPending
+                  ? 'Saving...'
+                  : 'Save'}
               </Button>
             </CardContent>
           </form>

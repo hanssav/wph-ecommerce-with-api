@@ -1,20 +1,22 @@
 import { Card } from '@/components/ui/card';
 import Typography from '@/components/ui/typography';
 import { IMAGES } from '@/constants';
+import { formatMoney } from '@/lib/utils';
 import { Product } from '@/types';
-import { Eye, Pencil, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
+import ButtonActions from './button-actions';
 
 const ProductAdminCard: React.FC<{ product: Product }> = ({ product = {} }) => {
   if (!product) return;
+  const { title, category, price = 0, stock, images = [] } = product;
 
   return (
     <Card className='flex flex-col gap-3 p-3 lg:hidden'>
       <div className='flex  gap-[10px] py-3 border-b'>
-        <div className='relative h-12 w-12 overflow-hidden rounded-full'>
+        <div className='relative h-12 w-12 overflow-hidden rounded-md'>
           <Image
-            src={IMAGES.DEFAULT_PRODUCT_IMAGE}
+            src={images[0] ?? IMAGES.DEFAULT_PRODUCT_IMAGE}
             alt={'default-image'}
             fill
             priority
@@ -25,40 +27,40 @@ const ProductAdminCard: React.FC<{ product: Product }> = ({ product = {} }) => {
         </div>
         <div>
           <Typography size={{ base: 'sm' }} weight='bold'>
-            {'Product title'}
+            {title}
           </Typography>
           <Typography
             size={{ base: 'sm' }}
             weight='normal'
             className='leading-tight text-neutral-600'
           >
-            {'Category'}
+            {category?.name}
           </Typography>
         </div>
       </div>
       <div className='flex gap-[10px] py-3 border-b'>
         <div className='flex-1'>
           <Typography size={{ base: 'sm' }} weight='bold'>
-            {'Product title'}
+            Price
           </Typography>
           <Typography
             size={{ base: 'sm' }}
             weight='normal'
             className='text-neutral-600 leading-tight'
           >
-            {'Category'}
+            {formatMoney(price)}
           </Typography>
         </div>
         <div className='flex-1'>
           <Typography size={{ base: 'sm' }} weight='bold'>
-            {'Product title'}
+            Stock
           </Typography>
           <Typography
             size={{ base: 'sm' }}
             weight='normal'
             className='text-neutral-600 leading-tight'
           >
-            {'Category'}
+            {stock}
           </Typography>
         </div>
       </div>
@@ -66,11 +68,7 @@ const ProductAdminCard: React.FC<{ product: Product }> = ({ product = {} }) => {
         <Typography size={{ base: 'sm' }} weight='semibold'>
           {'Action'}
         </Typography>
-        <div className='flex gap-4'>
-          <Eye className='w-5 h-5' />
-          <Pencil className='h-5 w-5' />
-          <Trash2 className='h-5 w-5 text-red-600' />
-        </div>
+        <ButtonActions id={product.id} />
       </div>
     </Card>
   );

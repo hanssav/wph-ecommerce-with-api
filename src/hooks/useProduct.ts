@@ -93,10 +93,33 @@ export function useAddProduct() {
   return { addProduct: addMutation.mutate, mutation: addMutation };
 }
 
-export const useProductById = (id: string) => {
+export function useUpdateProduct() {
+  const { showToast } = useToast();
+  const router = useRouter();
+  const update = useMutation({
+    mutationFn: ({ id, product }: { id: number; product: ProductFormInput }) =>
+      productsService.updateProduct(id, product),
+    onSuccess: () => {
+      showToast('Product has been update successfully.', 'success');
+      router.push(PATH.ADMIN.PRODUCT);
+    },
+    onError: () => {
+      showToast('Failed to update. Please try again.', 'error');
+      router.push(PATH.ADMIN.PRODUCT);
+    },
+  });
+
+  return { update: update.mutate, mutation: update };
+}
+
+export const useProductById = (id: string | null) => {
   const query = useQuery({
     queryKey: ['product', id],
-    queryFn: () => productsService.getById(id),
+    queryFn: () => {
+      if (!id) return null;
+      const res = productsService.getById(id);
+      return res;
+    },
     staleTime: 1000 * 60,
     enabled: !!id,
   });

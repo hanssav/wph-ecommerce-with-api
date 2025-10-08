@@ -26,4 +26,11 @@ export const productsService = {
     const res = await api.post('/seller/products', product);
     return res.data;
   },
+  updateProduct: async (
+    id: number | string,
+    product: Partial<ProductFormInput>
+  ) => {
+    const res = await api.put(`/seller/products/${id}`, product);
+    return res.data;
+  },
 };
