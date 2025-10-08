@@ -6,21 +6,21 @@ import Typography from '@/components/ui/typography';
 import { Hr } from '@/components/ui/hr';
 import { Button } from '@/components/ui/button';
 import { Star } from 'lucide-react';
-import ProductCard from '@/components/container/product-card';
-import TypographyTitle from '@/components/ui/typography/Title';
 import { Shop } from '@/types';
-import ImageGallery from './image-galery';
-import ProducDetail from './product-detail';
-import ShopSection from './shop-section';
-import CountButton from './count-button';
-import ReviewCard from './review-card';
-import BreadcrumbComp from './breadcrumb';
-import ImageGallerySkeleton from './image-galery-skeleton';
-import ProductDetailSkeleton from './product-detail-skeleton';
-import ShopSectionSkeleton from './shop-section-skeleton';
-import ReviewCardSkeleton from './review-card-skeleteon';
-import ProductCardSkeleton from '@/components/container/product-card-skeleton';
+import ProductCard from '@/components/container/product-card';
 import ShowOrSkeleton from '@/components/container/show-skeleton';
+import ProductCardSkeleton from '@/components/container/product-card-skeleton';
+import TypographyTitle from '@/components/ui/typography/Title';
+import {
+  BreadcrumbComp,
+  ImageGallery,
+  ImageGallerySkeleton,
+  ProducDetail,
+  ProductDetailSkeleton,
+  ShopSection,
+  ShopSectionSkeleton,
+} from '@/components/pages/product';
+import { CountButton, ReviewCard, ReviewCardSkeleton } from './components';
 
 const DetailClient: React.FC<{ id: string }> = ({ id }) => {
   const {

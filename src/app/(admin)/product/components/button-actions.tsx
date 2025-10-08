@@ -93,6 +93,7 @@ const ButtonActions: React.FC<{ id?: number }> = ({ id }) => {
       <Button
         variant='ghost'
         className='!p-0 flex items-center hover:bg-gray-300'
+        onClick={() => router.push(`/product/preview/${id}`)}
       >
         <Eye className='w-5 h-5' />
       </Button>

@@ -1,5 +1,5 @@
 import SectionWrapper from '@/components/container/section-wrapper';
-import DetailClient from './components/client';
+import DetailClient from './client';
 import {
   dehydrate,
   HydrationBoundary,

@@ -32,7 +32,12 @@ const ProducDetail: React.FC<{ product?: Product }> = ({
       </div>
       <Hr />
       <div className='flex flex-col gap-2'>
-        <Typography size={{ base: 'md', lg: 'lg' }} weight={'bold'}>
+        <Typography
+          as='p'
+          size={{ base: 'md', lg: 'lg' }}
+          weight={'bold'}
+          className='!text-justify'
+        >
           Deskripsi
         </Typography>
         <Typography size={{ base: 'sm', lg: 'md' }} weight={'normal'}>

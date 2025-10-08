@@ -48,7 +48,7 @@ export default function LayoutClient({
 
   React.useEffect(() => {
     setOpen(isLarge);
-  }, [bp]);
+  }, [bp, isLarge]);
 
   const onLogout = () => {};
 
