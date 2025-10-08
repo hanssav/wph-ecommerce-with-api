@@ -62,17 +62,20 @@ const ProductFormClient = () => {
   });
 
   React.useEffect(() => {
-    if (!id || !productQuery?.product?.data) return;
+    if (!id || !productQuery?.product?.data || !categories) return;
 
     const data = productQuery.product.data;
+    const categoryExists = categories.some((cat) => cat.id === data.categoryId);
+
     const product = {
       ...data,
-      categoryId: data.categoryId,
+      categoryId: categoryExists ? data.categoryId : undefined,
       stock: data.stock.toString(),
       price: data.price.toString(),
     };
+
     form.reset(product);
-  }, [id, productQuery?.product?.data, form]);
+  }, [id, productQuery?.product?.data, form, categories]);
 
   const onSubmit: SubmitHandler<ProductFormInput> = (values) => {
     // mock failed test create produxt
@@ -116,10 +119,11 @@ const ProductFormClient = () => {
                   <FormItem className='space-y-1'>
                     <FormControl>
                       <Select
+                        key={field.value}
                         onValueChange={(value) =>
                           field.onChange(parseInt(value))
                         }
-                        // defaultValue={field.value?.toString() ?? ''}
+                        disabled={!categories || categories.length === 0}
                         value={field.value?.toString() || ''}
                         name={field.name}
                       >

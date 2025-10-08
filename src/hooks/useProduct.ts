@@ -3,7 +3,12 @@ import { useToast } from '@/context/toast';
 import { ProductFormInput } from '@/lib/validation/product.validation';
 import { productsService } from '@/services';
 import { ParamsProduct, ParamsSellerProduct } from '@/types/product.types';
-import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 export const useProduct = (params?: ParamsProduct) => {
@@ -132,3 +137,20 @@ export const useProductById = (id: string | null) => {
     error: query.error,
   };
 };
+
+export function useDeleteProduct() {
+  const { showToast } = useToast();
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (id: number | string) => productsService.deleteProduct(id),
+    onSuccess: () => {
+      showToast('Product has been deleted.', 'success');
+      queryClient.invalidateQueries({ queryKey: ['sellerProducts'] });
+    },
+    onError: () => {
+      showToast('Failed to delete. Please try again.', 'error');
+    },
+  });
+
+  return { deleteProduct: mutation.mutate, mutation };
+}

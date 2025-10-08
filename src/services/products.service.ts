@@ -33,4 +33,8 @@ export const productsService = {
     const res = await api.put(`/seller/products/${id}`, product);
     return res.data;
   },
+  deleteProduct: async (id: number | string) => {
+    const res = await api.delete(`/seller/produts/${id}`);
+    return res.data;
+  },
 };
