@@ -44,9 +44,9 @@ export default function LayoutClient({
   const router = useRouter();
   const bp = useBreakpoint();
   const pathname = usePathname();
+  const isLarge = ['lg', 'xl', '2xl'].includes(bp);
 
   React.useEffect(() => {
-    const isLarge = ['lg', 'xl', '2xl'].includes(bp);
     setOpen(isLarge);
   }, [bp]);
 
@@ -166,7 +166,7 @@ export default function LayoutClient({
                     <button
                       onClick={() => {
                         router.push(path);
-                        setOpen(false);
+                        if (!isLarge) setOpen(false);
                       }}
                       className={cn(
                         'flex items-center w-full gap-3 px-3 py-2 rounded-md transition-colors',
