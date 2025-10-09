@@ -37,6 +37,8 @@ export const SellerSchema = z.object({
   // logo boleh: File | data-url string | null
   logo: z.union([logoFileSchema, logoDataUrlSchema]).nullable(),
   address: z.string().min(1, 'Address is required'),
+  city: z.string().min(1, 'Address is required'),
+  postalCode: z.string().min(1, 'Address is required'),
   isActive: z.boolean(),
 });
 

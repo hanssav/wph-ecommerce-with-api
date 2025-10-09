@@ -61,10 +61,10 @@ const ChangeProfileDialog: React.FC<{
     updateSeller(values, {
       onSuccess: () => {
         onClose();
-        showToast('✅ Update success!', 'success');
+        showToast('Profile updated successfully!', 'success');
       },
       onError: () => {
-        showToast('Update failed!', 'error');
+        showToast('Profile failed to update!', 'error');
       },
     });
   };
@@ -235,7 +235,6 @@ const ProfileContent: React.FC<Pick<SellerData, 'logo' | 'name' | 'slug'>> = ({
         onClick={() => {
           openDialog({
             title: 'Change Profile',
-            desc: '',
             content: (
               <ChangeProfileDialog
                 logo={logo}
