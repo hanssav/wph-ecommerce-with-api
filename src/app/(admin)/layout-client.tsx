@@ -15,6 +15,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useDialog } from '@/context/dialog';
+import { useUser } from '@/context/auth';
+import { useToast } from '@/context/toast';
 
 const HeaderAvatar: React.FC<{ src?: string; name?: string }> = ({
   src = ICONS.DEFAULT_AVATAR,
@@ -34,12 +37,64 @@ const HeaderAvatar: React.FC<{ src?: string; name?: string }> = ({
     </div>
   );
 };
+const ButtonLogout: React.FC<{ open: boolean }> = ({ open }) => {
+  const { openDialog, closeDialog } = useDialog();
+  const { clearAuth } = useUser();
+
+  const onLogout = () => {
+    openDialog({
+      title: 'Logout',
+      desc: 'You will need to sign in again to access your account',
+      footer: (
+        <div className='flex w-full gap-3 lg:justify-end lg:w-[137px] text-sm leading-sm font-semibold'>
+          <Button
+            variant={'outline'}
+            onClick={() => closeDialog()}
+            className='flex-1 rounded-lg'
+          >
+            Cancel
+          </Button>
+          <Button
+            variant={'danger'}
+            className='rounded-lg flex-1 lg:w-[137px] text-sm leading-sm font-semibold'
+            onClick={() => {
+              clearAuth();
+              closeDialog();
+            }}
+          >
+            Logout
+          </Button>
+        </div>
+      ),
+    });
+  };
+
+  return (
+    <div className='border-t pt-4 mt-4'>
+      <button
+        onClick={onLogout}
+        className='flex items-center gap-3 text-red-600 font-semibold w-full px-3 py-2 hover:bg-red-50 rounded-md transition-colors'
+      >
+        <LogOut className='w-4 h-4 rotate-180' />
+        <Typography
+          as='span'
+          size={{ base: 'sm' }}
+          weight='semibold'
+          className={cn('text-red-600', !open && 'lg:hidden')}
+        >
+          Logout
+        </Typography>
+      </button>
+    </div>
+  );
+};
 export default function LayoutClient({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const { user } = useMe();
+  const { showToast } = useToast();
   const [open, setOpen] = React.useState<boolean>(false);
   const router = useRouter();
   const bp = useBreakpoint();
@@ -50,7 +105,13 @@ export default function LayoutClient({
     setOpen(isLarge);
   }, [bp, isLarge]);
 
-  const onLogout = () => {};
+  React.useEffect(() => {
+    if (!user) {
+      showToast('You need to be logged in to access this page', 'success');
+      router.push(PATH.HOME);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <>
@@ -191,25 +252,8 @@ export default function LayoutClient({
               })}
             </ul>
           </div>
-
-          <div className='border-t pt-4 mt-4'>
-            <button
-              onClick={onLogout}
-              className='flex items-center gap-3 text-red-600 font-semibold w-full px-3 py-2 hover:bg-red-50 rounded-md transition-colors'
-            >
-              <LogOut className='w-4 h-4 rotate-180' />
-              <Typography
-                as='span'
-                size={{ base: 'sm' }}
-                weight='semibold'
-                className={cn('text-red-600', !open && 'lg:hidden')}
-              >
-                Logout
-              </Typography>
-            </button>
-          </div>
+          <ButtonLogout open={open} />
         </aside>
-
         <div
           className={cn(
             'lg:py-8 lg:px-10 p-4',
