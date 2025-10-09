@@ -1,6 +1,10 @@
 import { api } from '@/api';
 import { SellerFormInput } from '@/lib/validation/seller-admin.validation';
-import { SellerResponse } from '@/types';
+import {
+  GetAllOrderSellerParams,
+  GetAllOrderSellerResponse,
+  SellerResponse,
+} from '@/types';
 
 type StoreDataType = {
   name: string;
@@ -42,6 +46,12 @@ export const storeService = {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
 
+    return res.data;
+  },
+  getAllOrderBySeller: async (
+    params: GetAllOrderSellerParams
+  ): Promise<GetAllOrderSellerResponse> => {
+    const res = await api.get('/seller/order-items', { params });
     return res.data;
   },
 };

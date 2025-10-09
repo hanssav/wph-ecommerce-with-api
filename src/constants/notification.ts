@@ -34,4 +34,12 @@ export const NOTIFICATION = {
     btnLabel: '+ Add Product',
     btnActionSrc: PATH.ADMIN.PRODUCT_FORM,
   },
+  ORDER_EMPTY: {
+    src: IMAGES.REVIEW_EMPTY,
+    title: 'No Orders Yet',
+    subtitle:
+      'Once you place an order, you can see all your purchases right here.',
+    btnLabel: 'Start Shopping',
+    btnActionSrc: PATH.CATALOG,
+  },
 };

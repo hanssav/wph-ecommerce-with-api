@@ -7,16 +7,12 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { usePathname, useRouter } from 'next/navigation';
 import { useBreakpoint } from '@/hooks';
-import { useToast } from '@/context/toast';
-import { Me } from '@/types';
 import ButtonLogout from './logout-button';
 
 const Sidebar: React.FC<{
   open?: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  user?: Me;
-}> = ({ open, setOpen, user }) => {
-  const { showToast } = useToast();
+}> = ({ open, setOpen }) => {
   const router = useRouter();
   const bp = useBreakpoint();
   const pathname = usePathname();
@@ -24,15 +20,8 @@ const Sidebar: React.FC<{
 
   React.useEffect(() => {
     setOpen(isLarge);
-  }, [bp, isLarge]);
-
-  React.useEffect(() => {
-    if (!user) {
-      showToast('You need to be logged in to access this page', 'success');
-      router.push(PATH.HOME);
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [bp, isLarge]);
 
   return (
     <aside

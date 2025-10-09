@@ -17,5 +17,6 @@ export const useMe = () => {
     user: query.data?.data,
     isLoading: query.isLoading,
     query,
+    token,
   };
 };

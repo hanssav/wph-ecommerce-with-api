@@ -1,6 +1,12 @@
 import { SellerFormInput } from '@/lib/validation/seller-admin.validation';
 import { storeService } from '@/services';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { GetAllOrderSellerParams } from '@/types';
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 
 export const useSeller = () => {
   const query = useQuery({
@@ -26,5 +32,20 @@ export const useUpdateSeller = () => {
   return {
     updateSeller: mutation.mutate,
     ...mutation,
+  };
+};
+
+export const useGetAllOrderBySeller = (params: GetAllOrderSellerParams) => {
+  const query = useQuery({
+    queryKey: ['seller/order-items', params],
+    queryFn: () => storeService.getAllOrderBySeller(params),
+    staleTime: 60_000,
+    placeholderData: keepPreviousData,
+  });
+
+  return {
+    orders: query.data?.data.items,
+    pagination: query.data?.data?.pagination,
+    ...query,
   };
 };
