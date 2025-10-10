@@ -11,6 +11,7 @@ export const AuthSchema = z
       .regex(/^[0-9]+$/, 'Phone number must contain only digits'),
     password: z.string().min(6, 'password must be at least 6 characters'),
     confirmPassword: z.string().min(6, 'confirm password is required'),
+    avatarUrl: z.string().optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "passwords don't match",

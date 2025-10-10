@@ -1,5 +1,3 @@
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-
 type TokenType = string;
 
 type UserType = {
@@ -7,7 +5,7 @@ type UserType = {
   name: string;
   password: string;
   email: string;
-  avatarUrl?: string | StaticImport;
+  avatarUrl?: string;
   avatar?: string;
 };
 

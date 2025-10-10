@@ -9,6 +9,7 @@ import z from 'zod';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 import { PATH } from '@/constants';
+import { useToast } from '@/context/toast';
 
 const loginSchema = AuthSchema.pick({
   email: true,
@@ -29,6 +30,7 @@ export const useAuthForm = () => {
 
   const { setUser } = useUser();
   const router = useRouter();
+  const { showToast } = useToast();
 
   const loginMutation = useMutation({
     mutationFn: async (values: LoginSchema) => {
@@ -37,6 +39,7 @@ export const useAuthForm = () => {
     },
     onSuccess: ({ data }) => {
       setUser({ token: data.token, user: data.user });
+      showToast('Login successful!', 'success');
       router.push(PATH.HOME);
     },
     onError: (err: AxiosError) => {
@@ -54,22 +57,35 @@ export const useAuthForm = () => {
     loginMutation.mutate(values);
   };
 
-  // need to setup
   const registerMutation = useMutation({
     mutationFn: userService.register,
+    onSuccess: () => {
+      showToast('Registration successful!', 'success');
+      router.push(PATH.AUTH.LOGIN);
+    },
   });
+
   const registerForm = useForm<RegisterSchema>({
     resolver: zodResolver(AuthSchema),
     defaultValues: {
       name: '',
       email: '',
-      phone: '',
       password: '',
       confirmPassword: '',
+      avatarUrl: '',
     },
   });
-  const onRegisterSubmit: SubmitHandler<RegisterSchema> = (values) =>
-    registerMutation.mutate(values);
+
+  const onRegisterSubmit: SubmitHandler<RegisterSchema> = (values) => {
+    const payload = {
+      name: values.name.trim(),
+      email: values.email.trim(),
+      password: values.password,
+      avatarUrl: values.avatarUrl || '',
+    };
+
+    registerMutation.mutate(payload);
+  };
   return {
     showEye,
     setShowEye,

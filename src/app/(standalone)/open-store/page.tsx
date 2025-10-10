@@ -23,7 +23,7 @@ import { IMAGES, PATH } from '@/constants';
 import { CreateStoreFormData, CreateStoreSchema } from '@/lib/validation';
 import { storeService } from '@/services';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react';
@@ -69,6 +69,7 @@ const WrapperForm: React.FC<{ children: React.ReactNode; title?: string }> = ({
   );
 };
 const OpenStore = () => {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const form = useForm<CreateStoreFormData>({
     resolver: zodResolver(CreateStoreSchema),
@@ -86,6 +87,7 @@ const OpenStore = () => {
       return res;
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['me'] });
       router.push(PATH.HOME);
     },
   });
