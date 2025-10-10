@@ -33,13 +33,14 @@ const Notification: React.FC<NotificationProps> = ({
             {subtitle}
           </Typography>
         </div>
-
-        <Button
-          onClick={() => router.push(btnActionSrc)}
-          className='rounded-md w-80'
-        >
-          {btnLabel}
-        </Button>
+        {btnActionSrc && (
+          <Button
+            onClick={() => router.push(btnActionSrc)}
+            className='rounded-md w-80'
+          >
+            {btnLabel}
+          </Button>
+        )}
       </div>
     </div>
   );

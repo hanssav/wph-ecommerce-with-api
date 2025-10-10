@@ -4,14 +4,10 @@ import { Hr } from '@/components/ui/hr';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Typography from '@/components/ui/typography';
+import { useCategories } from '@/hooks';
+import { ParamsProduct } from '@/types';
 import { Star } from 'lucide-react';
 import React from 'react';
-
-type Filter = {
-  byCategory: string[];
-  byRating: number[];
-  byPrice: { min: number; max: number };
-};
 
 const FilterWrapper: React.FC<{
   title?: string;
@@ -27,51 +23,44 @@ const FilterWrapper: React.FC<{
   );
 };
 
-const FilterSection = () => {
-  const categoryItems = ['all', 'shoes', 'clothes', 'accessories'];
+const FilterSection: React.FC<{
+  filter: ParamsProduct;
+  setFilter: React.Dispatch<React.SetStateAction<ParamsProduct>>;
+}> = ({ filter, setFilter }) => {
+  const { categories } = useCategories();
+
   const ratingItems = [5, 4, 3, 2, 1];
   const priceItems = [
     {
-      key: 'min' as const,
+      key: 'minPrice' as const,
       label: 'Minimum Price',
     },
     {
-      key: 'max' as const,
+      key: 'maxPrice' as const,
       label: 'Minimum Price',
     },
   ];
-
-  const [filter, setFilter] = React.useState<Filter>({
-    byCategory: ['all'],
-    byRating: [5, 2],
-    byPrice: {
-      min: 0,
-      max: 0,
-    },
-  });
 
   return (
     <div className='flex flex-col gap-[10px] bg-white'>
       <FilterWrapper title='FILTER' />
       <FilterWrapper title='Categories'>
-        {categoryItems.map((check, idx) => (
+        {categories?.map(({ id, name }, idx) => (
           <div key={idx} className='flex gap-3 items-center'>
             <Checkbox
-              id={check}
+              id={id.toString()}
               className='h-5 w-5'
-              name='byCategory'
-              checked={filter.byCategory.includes(check)}
-              onCheckedChange={(checked) => {
+              name='categoryId'
+              checked={filter?.categoryId === id}
+              onCheckedChange={(checked) =>
                 setFilter((prev) => ({
                   ...prev,
-                  byCategory: checked
-                    ? [...prev.byCategory, check]
-                    : prev.byCategory.filter((val) => val !== check),
-                }));
-              }}
+                  categoryId: checked ? id : undefined,
+                }))
+              }
             />
-            <Label htmlFor={check} className='capitalize text-md'>
-              {check}
+            <Label htmlFor={id.toString()} className='capitalize text-md'>
+              {name}
             </Label>
           </div>
         ))}
@@ -83,18 +72,14 @@ const FilterSection = () => {
             key={idx}
             id={`input-${key}`}
             name={`fieldd-${key}`}
-            value={filter.byPrice[key]}
+            value={filter[key] === undefined ? '' : filter[key]}
             onChange={(e) => {
-              const val = Number(e.target.value);
-              if (!isNaN(val)) {
-                setFilter((prev) => ({
-                  ...prev,
-                  byPrice: {
-                    ...prev.byPrice,
-                    [key]: val,
-                  },
-                }));
-              }
+              const val = e.target.value;
+
+              setFilter((prev) => ({
+                ...prev,
+                [key]: val === '' ? undefined : Number(val),
+              }));
             }}
             label={label}
             icon={
@@ -115,15 +100,6 @@ const FilterSection = () => {
               id={`rating-${idx}`}
               className='h-5 w-5'
               name='byRating'
-              checked={filter.byRating.includes(rating)}
-              onCheckedChange={(checked) =>
-                setFilter((prev) => ({
-                  ...prev,
-                  byRating: checked
-                    ? [...prev.byRating, rating]
-                    : prev.byRating.filter((val) => val !== rating),
-                }))
-              }
             />
             <div className='flex items-center gap-1'>
               <div className='relative w-5 h-5'>

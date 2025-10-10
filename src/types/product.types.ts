@@ -47,7 +47,7 @@ type ProductApiResponse = {
 
 type ParamsProduct = {
   order?: 'asc' | 'desc';
-  categgoryId?: number;
+  categoryId?: number;
   minPrice?: number;
   maxPrice?: number;
   sort?: 'newest' | 'rating' | 'price' | 'popular';
