@@ -4,7 +4,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import { userService } from '@/services';
-import LayoutClient from './layout-client';
+import LayoutClient from './client';
 
 export default async function Layout({
   children,

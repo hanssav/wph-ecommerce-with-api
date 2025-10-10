@@ -4,7 +4,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import React from 'react';
-import SettingClient from './setting-client';
+import SettingClient from './client';
 import { storeService } from '@/services';
 import TypographyTitle from '@/components/ui/typography/Title';
 
