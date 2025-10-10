@@ -1,12 +1,13 @@
 import { SellerFormInput } from '@/lib/validation/seller-admin.validation';
 import { storeService } from '@/services';
-import { GetAllOrderSellerParams } from '@/types';
+import { GetAllOrderSellerParams, OrderItemBySeller } from '@/types';
 import {
   keepPreviousData,
   useMutation,
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
+import React from 'react';
 
 export const useSeller = () => {
   const query = useQuery({
@@ -36,9 +37,23 @@ export const useUpdateSeller = () => {
 };
 
 export const useGetAllOrderBySeller = (params: GetAllOrderSellerParams) => {
+  const normalizedParams = React.useMemo(() => {
+    const param = {
+      ...params,
+      page: params.page ?? 1,
+      limit: params.limit ?? 10,
+    };
+
+    if (!param.status || param.status === 'ALL') {
+      delete param.status;
+    }
+
+    return param;
+  }, [params]);
+
   const query = useQuery({
-    queryKey: ['seller/order-items', params],
-    queryFn: () => storeService.getAllOrderBySeller(params),
+    queryKey: ['seller/order-items', normalizedParams],
+    queryFn: () => storeService.getAllOrderBySeller(normalizedParams),
     staleTime: 60_000,
     placeholderData: keepPreviousData,
   });
@@ -48,4 +63,23 @@ export const useGetAllOrderBySeller = (params: GetAllOrderSellerParams) => {
     pagination: query.data?.data?.pagination,
     ...query,
   };
+};
+
+export const useUpdatetatusBySeller = () => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: ({
+      id,
+      data,
+    }: {
+      id: number | string;
+      data: Pick<OrderItemBySeller, 'status'>;
+    }) => storeService.updateOrderItemsStatus(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['seller/order-items'] });
+    },
+  });
+
+  return { update: mutation.mutate, ...mutation };
 };

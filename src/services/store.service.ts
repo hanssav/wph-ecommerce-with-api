@@ -3,6 +3,7 @@ import { SellerFormInput } from '@/lib/validation/seller-admin.validation';
 import {
   GetAllOrderSellerParams,
   GetAllOrderSellerResponse,
+  OrderItemBySeller,
   SellerResponse,
 } from '@/types';
 
@@ -52,6 +53,13 @@ export const storeService = {
     params: GetAllOrderSellerParams
   ): Promise<GetAllOrderSellerResponse> => {
     const res = await api.get('/seller/order-items', { params });
+    return res.data;
+  },
+  updateOrderItemsStatus: async (
+    id: number | string,
+    data: { status: OrderItemBySeller['status'] }
+  ) => {
+    const res = await api.patch(`/seller/order-items/${id}/status`, data);
     return res.data;
   },
 };

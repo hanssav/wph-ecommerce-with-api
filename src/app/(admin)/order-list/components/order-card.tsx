@@ -1,5 +1,4 @@
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { Badge, BadgeVariant } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import Typography from '@/components/ui/typography';
 import { IMAGES } from '@/constants';
@@ -7,78 +6,23 @@ import { cn, formatDate, formatMoney } from '@/lib/utils';
 import { OrderItemBySeller } from '@/types';
 import Image from 'next/image';
 import React from 'react';
+import { useOrder } from '../useOrder';
+import ButtonAction from './button-actions';
+import CardSection from './card-section';
 
-const CardSection: React.FC<{
-  label?: string;
-  value?: string[];
-  border?: boolean;
-  className?: string;
-}> = ({ label, value = [], border = true, className }) => {
-  return (
-    <div
-      className={cn(
-        'pb-4 w-full',
-        border && 'border-b border-neutral-300',
-        className
-      )}
-    >
-      <Typography size={{ base: 'sm' }} weight='bold' className='lg:text-left '>
-        {label}
-      </Typography>
-
-      <div className='flex flex-col gap-0.5'>
-        {value.map((val, idx) => (
-          <Typography
-            key={idx}
-            size={{ base: 'sm' }}
-            weight='normal'
-            className='leading-tight text-neutral-600 lg:text-left'
-          >
-            {val}
-          </Typography>
-        ))}
-      </div>
-    </div>
-  );
-};
-type ButtonActionProps = {
-  status: OrderItemBySeller['status'];
-};
-
-const ButtonAction: React.FC<ButtonActionProps> = ({ status }) => {
-  const renderButtons = () => {
-    switch (status) {
-      case 'NEW':
-        return (
-          <div className='flex gap-4 w-full lg:justify-end'>
-            <Button
-              variant={'outline'}
-              className='flex-1 rounded-md lg:max-w-40'
-              // onActionA={() => console.log('Action A clicked')}
-            >
-              Reject Order
-            </Button>
-            <Button
-              className='flex-1 rounded-md lg:max-w-40'
-              // onActionB={() => console.log('Action B clicked')}
-            >
-              Accept Order
-            </Button>
-          </div>
-        );
-    }
-  };
-
-  return renderButtons();
-};
 const OrderCard: React.FC<{ order: OrderItemBySeller }> = ({ order }) => {
-  console.log(order, 'order');
+  const { badgeVariant, accStatus, setDelivered, setAccept, setReject } =
+    useOrder(order);
+
   return (
     <Card>
       <CardContent className='space-y-3'>
         <div className='flex flex-col lg:flex-row  gap-1.5 border-b border-neutral-300 pb-3'>
-          <Badge variant={'outline'} className='font-semibold'>
-            {order.status}
+          <Badge
+            variant={badgeVariant as BadgeVariant['variant']}
+            className='font-semibold'
+          >
+            {accStatus}
           </Badge>
           <Typography
             size={{ base: 'sm' }}
@@ -152,15 +96,10 @@ const OrderCard: React.FC<{ order: OrderItemBySeller }> = ({ order }) => {
 
           <ButtonAction
             status={order.status}
-            // onActionA={() => console.log('Action A clicked')}
-            // onActionB={() => console.log('Action B clicked')}
+            setDelivered={setDelivered}
+            setReject={setReject}
+            setAccept={setAccept}
           />
-          {/* <div className='flex gap-4'>
-            <Button variant={'outline'} className='flex-1 rounded-md'>
-              Reject Order
-            </Button>
-            <Button className='flex-1 rounded-md'>Accept Order</Button>
-          </div> */}
         </div>
       </CardContent>
     </Card>

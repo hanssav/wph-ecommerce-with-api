@@ -20,7 +20,14 @@ export type SellerResponse = {
   data: SellerData;
 };
 
-type Status = 'NEW' | 'PROCESSING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
+type Status =
+  | 'ALL'
+  | 'NEW'
+  | 'PROCESSING'
+  | 'SHIPPED'
+  | 'DELIVERED'
+  | 'CANCELLED'
+  | 'CONFIRMED';
 
 export type GetAllOrderSellerParams = {
   page: number;
