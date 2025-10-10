@@ -20,10 +20,10 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const selectValues = [
   { value: 'ALL', label: 'All Orders' },
-  { value: 'PROCESSING', label: 'Processing' },
-  { value: 'DELIVERED', label: 'Delivered' },
-  { value: 'COMPLETED', label: 'Completed' },
-  { value: 'CANCELED', label: 'Canceled' },
+  { value: 'PENDING', label: 'Pending' },
+  { value: 'PAID', label: 'Paid' },
+  { value: 'FAILED', label: 'Failed' },
+  { value: 'REFUNDED', label: 'Refunded' },
 ];
 
 const OrderClient = () => {
@@ -97,8 +97,9 @@ const OrderClient = () => {
       </Tabs>
 
       {isLoading && <Card className='text-center'>Loading orders...</Card>}
-      {isError && <Card className='text-red-500'>Failed to load orders.</Card>}
-      {!isLoading && !orders.length && <Card>No orders found.</Card>}
+      {!isLoading && !orders.length && (
+        <Card className='px-4'>No orders found.</Card>
+      )}
 
       <div className='space-y-4'>
         {orders.map((order) => (
