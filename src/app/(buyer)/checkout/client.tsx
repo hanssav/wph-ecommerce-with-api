@@ -17,15 +17,18 @@ const CheckoutClient = () => {
   const form = useForm<CheckoutFormData>({
     resolver: zodResolver(CheckoutSchema),
     defaultValues: {
-      name: '',
-      phone: '',
-      city: '',
-      postalCode: '',
-      address: '',
-      shippingMethod: '',
-      paymentMethod: '',
+      address: {
+        name: '',
+        phone: '',
+        city: '',
+        postalCode: '',
+        address: '',
+        paymentMethod: 'bni-va',
+      },
+      shippingMethod: 'jne',
     },
   });
+
   const onSubmit: SubmitHandler<CheckoutFormData> = (values) => {
     checkout.mutate(values);
   };

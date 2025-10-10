@@ -42,4 +42,12 @@ export const NOTIFICATION = {
     btnLabel: 'Start Shopping',
     btnActionSrc: PATH.CATALOG,
   },
+  CART_EMPTY: {
+    src: IMAGES.CART_EMPTY,
+    title: 'Your Cart is Empty',
+    subtitle:
+      'Your cart is waiting. Add your favorite items and come back to checkout.',
+    btnLabel: 'Start Shopping',
+    btnActionSrc: PATH.CATALOG,
+  },
 };

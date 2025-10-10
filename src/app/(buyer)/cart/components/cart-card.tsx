@@ -1,19 +1,23 @@
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import Typography from '@/components/ui/typography';
 import { IMAGES } from '@/constants';
+import { cn, formatMoney } from '@/lib/utils';
+import { Product, Shop } from '@/types';
+import { CartResponse } from '@/types/cart.types';
 import { Store, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
-const CheckStore = () => {
+const CheckStore: React.FC<{ shop: Partial<Shop> }> = ({ shop }) => {
   return (
     <div className='flex gap-3 items-center'>
       <Checkbox />
       <div className='flex gap-1.5 items-center'>
         <Store className='h-4 w-4' />
         <Typography weight={'semibold'} size={{ base: 'sm', lg: 'md' }}>
-          Toko Barokah Jaya
+          {shop.name}
         </Typography>
       </div>
     </div>
@@ -27,28 +31,30 @@ const ImageWrapper: React.FC<{ src: string }> = ({ src }) => {
         alt={'product-example'}
         fill
         priority
+        sizes='(max-width: 640px) 5rem, (max-width: 1024px) 8rem, 10rem'
         className='object-cover'
       />
     </div>
   );
 };
-const ProductInfo = () => (
+const ProductInfo: React.FC<{ product: Partial<Product> }> = ({ product }) => (
   <div className='flex flex-col gap-0 items-start justify-center'>
     <Typography weight={'bold'} size={{ base: 'sm', lg: 'lg' }}>
-      Iphone 17 Pro Max
+      {product.title}
     </Typography>
     <Typography weight={'normal'} size={{ base: 'xs', lg: 'md' }}>
-      Gadged
+      {product.category?.name ?? 'No Category Data'}
     </Typography>
   </div>
 );
 const ProductPriceWithButton: React.FC<{
   count: number;
   setCount: React.Dispatch<React.SetStateAction<number>>;
-}> = ({ count, setCount }) => (
+  product: Partial<Product>;
+}> = ({ count, setCount, product }) => (
   <>
     <Typography weight={'bold'} size={{ base: 'sm', lg: 'xl' }}>
-      Rp.17.000.000
+      {formatMoney(product.price ?? 0)}
     </Typography>
     <div className='flex gap-2 items-center'>
       <Trash2 className='text-black w-6 h-6' />
@@ -74,25 +80,44 @@ const ProductPriceWithButton: React.FC<{
     </div>
   </>
 );
-export const CartCard: React.FC = () => {
+export const CartCard: React.FC<{
+  data: CartResponse['data']['groups'][number];
+}> = ({ data }) => {
   const [count, setCount] = React.useState<number>(0);
+  const { items, shop } = data;
 
   return (
-    <div className='border border-neutral-300 rounded-2xl flex flex-col gap-4 p-4 w-full'>
-      <CheckStore />
+    <Card className='border border-neutral-300 rounded-2xl flex flex-col gap-4 p-4 w-full'>
+      <CheckStore shop={shop} />
 
-      <div className='flex gap-3'>
-        <Checkbox />
-        <div className='flex flex-col lg:flex-row gap-1 w-full lg: justify-between'>
-          <div className='flex gap-2 lg:gap-4'>
-            <ImageWrapper src={IMAGES.MOCK_PRODUCT_IMAGE} />
-            <ProductInfo />
-          </div>
-          <div className='flex lg:flex-col lg:items-end items-center justify-between w-full lg:w-auto lg:gap-4'>
-            <ProductPriceWithButton count={count} setCount={setCount} />
+      {items.map((item, idx) => (
+        <div
+          key={item.id}
+          className={cn(
+            'flex gap-3 py-2',
+            items.length - 1 === idx
+              ? 'border-none'
+              : 'border-b border-neutral-300 pb-4'
+          )}
+        >
+          <Checkbox />
+          <div className='flex flex-col lg:flex-row gap-1 w-full lg: justify-between'>
+            <div className='flex gap-2 lg:gap-4'>
+              <ImageWrapper
+                src={item.product.images[0] ?? IMAGES.MOCK_PRODUCT_IMAGE}
+              />
+              <ProductInfo product={item.product} />
+            </div>
+            <div className='flex lg:flex-col lg:items-end items-center justify-between w-full lg:w-auto lg:gap-4'>
+              <ProductPriceWithButton
+                count={count}
+                setCount={setCount}
+                product={item.product}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      ))}
+    </Card>
   );
 };

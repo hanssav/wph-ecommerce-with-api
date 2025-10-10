@@ -2,13 +2,15 @@
 import React from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
 import Typography from '@/components/ui/typography';
-import { cn } from '@/lib/utils';
+import { cn, formatMoney } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { CartCard } from './components/cart-card';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import TypographyTitle from '@/components/ui/typography/Title';
 import { useRouter } from 'next/navigation';
-import { PATH } from '@/constants';
+import { NOTIFICATION, PATH } from '@/constants';
+import { useGetCart } from '@/hooks';
+import Notification from '@/components/container/notification';
 
 type CheckAllProps = {
   selected: boolean;
@@ -22,7 +24,7 @@ const CheckAll: React.FC<CheckAllProps> = ({
   className,
 }) => {
   return (
-    <div className={cn('flex gap-3 items-center', className)}>
+    <div className={cn('flex gap-2 items-center', className)}>
       <Checkbox name='all' checked={selected} onChange={onSelectChange} />
       <Typography
         as='label'
@@ -38,11 +40,9 @@ const CheckAll: React.FC<CheckAllProps> = ({
 };
 
 const Client = () => {
-  // const { cart } = useGetCart();
+  const { cart } = useGetCart();
   const router = useRouter();
-  // const [selected, setSelected] = React.useState<string[] | null>(null);
 
-  // console.log(cart);
   const allChecked = true;
 
   const checkAllRest = {
@@ -50,15 +50,35 @@ const Client = () => {
     onSelectChange: () => {},
   };
 
+  if (!cart?.grandTotal)
+    return (
+      <>
+        <TypographyTitle label='Cart' className='hidden lg:block' />
+        <Notification {...NOTIFICATION.CART_EMPTY} />
+      </>
+    );
+
   return (
     <div className='flex flex-col lg:flex-row gap-4 lg:gap-10'>
-      <CheckAll {...checkAllRest} className='lg:hidden' />
+      <CheckAll
+        {...checkAllRest}
+        className={cn('lg:hidden', !cart?.grandTotal && 'hidden')}
+      />
 
       <div className='flex flex-col gap-4 lg:basis-10/15'>
         <TypographyTitle label='Cart' className='hidden lg:block' />
 
-        <CheckAll {...checkAllRest} className='hidden lg:block' />
-        <CartCard />
+        <CheckAll
+          {...checkAllRest}
+          className={cn(
+            'hidden lg:flex w-full',
+            !cart?.grandTotal && 'lg:hidden'
+          )}
+        />
+
+        {cart?.groups.map((data, idx) => (
+          <CartCard key={idx} data={data} />
+        ))}
       </div>
 
       <Card className='lg:basis-5/15 lg:self-start'>
@@ -74,7 +94,9 @@ const Client = () => {
             size={{ base: 'lg', lg: 'xl' }}
           >
             <span className='font-normal'>Total</span>
-            <span className='font-bold'>Rp.1780.000</span>
+            <span className='font-bold'>
+              {formatMoney(cart?.grandTotal ?? 0)}
+            </span>
           </Typography>
           <Button
             onClick={() => router.push(PATH.CHECKOUT.MAIN)}

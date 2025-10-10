@@ -54,7 +54,7 @@ const Footer = () => {
     <SectionWrapper
       as='footer'
       className={cn(
-        'flex flex-col lg:flex-row gap-4 px-4 py-10 lg:px-[150px] lg:py-20 justify-between border-t border-neutral-300',
+        'flex flex-col lg:flex-row gap-4 px-4 py-10 lg:px-[150px] lg:py-20 justify-between border-t border-neutral-300 bg-white',
         hiddenFooter && 'hidden'
       )}
     >

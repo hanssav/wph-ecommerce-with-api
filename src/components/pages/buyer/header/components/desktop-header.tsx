@@ -6,10 +6,12 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { ButtonUserActive } from './button-user-active';
 import { useHeader } from '../useHeader';
+import { useGetCart } from '@/hooks';
 
 export const DesktopHeader: React.FC = () => {
   const { open, setOpen } = useHeader();
   const router = useRouter();
+  const { cart } = useGetCart();
 
   return (
     <>
@@ -60,9 +62,11 @@ export const DesktopHeader: React.FC = () => {
           className='relative w-8 h-8 lg:w-6 lg:h-6 !p-0'
         >
           <ShoppingCart className='!w-5 !h-5 lg:!w-5 lg:!h-5' />
-          <span className='absolute -top-1.5 lg:-top-3 -right-1.5 lg:p-1 rounded-full flex items-center justify-center w-5 h-5 bg-red-500  text-white text-xs lg:text-md'>
-            2
-          </span>
+          {cart?.items && cart.items.length && (
+            <span className='absolute -top-1.5 lg:-top-3 -right-1.5 lg:p-1 rounded-full flex items-center justify-center w-5 h-5 bg-red-500  text-white text-xs lg:text-md'>
+              {cart?.items.length}
+            </span>
+          )}
         </Button>
 
         <Button

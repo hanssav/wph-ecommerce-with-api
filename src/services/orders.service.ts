@@ -1,9 +1,10 @@
 import { api } from '@/api';
+import { CheckoutFormData } from '@/lib/validation/checkout.validation';
 import { GetOrdersMyParam, OrdersResponse } from '@/types';
 
 export const orderService = {
-  ordersCheckout: async (body: { address: string }) => {
-    const res = await api.post('/orders/checkout', body);
+  ordersCheckout: async (data: CheckoutFormData) => {
+    const res = await api.post('/orders/checkout', data);
     return res.data;
   },
   getOrdersMy: async (

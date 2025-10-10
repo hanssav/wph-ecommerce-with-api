@@ -38,7 +38,6 @@ const HomeClient = () => {
           </Typography>
         </Button>
       </div>
-      ;
     </>
   );
 };
