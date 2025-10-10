@@ -4,9 +4,13 @@ import { Product } from '@/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useGetCart = () => {
+  const token =
+    typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+
   const query = useQuery({
     queryKey: ['cart'],
     queryFn: () => cartService.get(),
+    enabled: !!token,
   });
 
   return {

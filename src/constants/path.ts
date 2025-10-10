@@ -47,6 +47,8 @@ const CATALOG = '/catalog';
 const CART = '/cart';
 const PRODUCT_DETAIL = '/detail';
 
+const PRIVATE_USER = [...Object.values(USER), ...Object.values(CHECKOUT), CART];
+
 export const PATH = {
   HIDDEN_FOOTER,
   USER,
@@ -60,4 +62,5 @@ export const PATH = {
   CART,
   PRODUCT_DETAIL,
   ADMIN,
+  PRIVATE_USER,
 };
