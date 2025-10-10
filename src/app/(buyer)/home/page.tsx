@@ -8,7 +8,7 @@ import { ParamsProduct, ProductApiResponse } from '@/types';
 import SectionWrapper from '@/components/container/section-wrapper';
 import HeroSection from './components/hero-section';
 import Typography from '@/components/ui/typography';
-import HomeClient from './components/client';
+import HomeClient from './client';
 
 export default async function Home() {
   const queryClient = new QueryClient();

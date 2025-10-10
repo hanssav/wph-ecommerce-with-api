@@ -1,6 +1,6 @@
 import TypographyTitle from '@/components/ui/typography/Title';
 import React from 'react';
-import ReviewClient from './components/client';
+import ReviewClient from './client';
 import {
   dehydrate,
   HydrationBoundary,

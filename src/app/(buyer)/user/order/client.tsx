@@ -14,7 +14,7 @@ import Typography from '@/components/ui/typography';
 import { useGetOrderMy } from '@/hooks';
 import { Search } from 'lucide-react';
 import React from 'react';
-import OrderCard from './order-card';
+import OrderCard from './components/order-card';
 import { GetOrdersMyParam } from '@/types';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 

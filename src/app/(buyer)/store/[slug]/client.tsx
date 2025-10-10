@@ -4,9 +4,8 @@ import Typography from '@/components/ui/typography';
 import { storeService } from '@/services';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import StoreDetailSection from './store-section';
-import ProductListSection from './product-list';
 import TypographyTitle from '@/components/ui/typography/Title';
+import { ProductListSection, StoreDetailSection } from './components';
 
 const Client: React.FC<{ slug: string }> = ({ slug }) => {
   const { data } = useQuery({

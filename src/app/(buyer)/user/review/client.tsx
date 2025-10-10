@@ -6,7 +6,7 @@ import { NOTIFICATION } from '@/constants';
 import { formatDate } from '@/lib/utils';
 import { Search, Star, Store } from 'lucide-react';
 import React from 'react';
-import { mockReviews } from './mock-reviews';
+import { mockReviews } from './components/mock-reviews';
 import Image from 'next/image';
 import { Hr } from '@/components/ui/hr';
 

@@ -2,10 +2,9 @@
 import React from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
 import Typography from '@/components/ui/typography';
-// import { useGetCart } from '@/hooks/useCart';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { CartCard } from './cart-card';
+import { CartCard } from './components/cart-card';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import TypographyTitle from '@/components/ui/typography/Title';
 import { useRouter } from 'next/navigation';

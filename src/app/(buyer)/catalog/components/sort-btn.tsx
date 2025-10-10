@@ -8,7 +8,7 @@ import {
 import { ChevronDown } from 'lucide-react';
 import React from 'react';
 
-export const SortBtn: React.FC = () => {
+const SortBtn: React.FC = () => {
   const [sorts, setSorts] = React.useState<'latest' | 'oldest'>('latest');
 
   return (
@@ -40,3 +40,5 @@ export const SortBtn: React.FC = () => {
     </DropdownMenu>
   );
 };
+
+export default SortBtn;

@@ -7,9 +7,9 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import CheckoutForm from './checkout-form';
-import ProductShippingCard from './product-shipping-card';
-import PaymentCard from './payment-card';
+import CheckoutForm from './components/checkout-form';
+import ProductShippingCard from './components/product-shipping-card';
+import PaymentCard from './components/payment-card';
 import { useCreateOrders } from '@/hooks/useOrder';
 
 const CheckoutClient = () => {

@@ -5,7 +5,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import React from 'react';
-import OrderClient from './components/client';
+import OrderClient from './client';
 import { orderService } from '@/services';
 
 const Order = async () => {

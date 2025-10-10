@@ -27,7 +27,7 @@ const FilterWrapper: React.FC<{
   );
 };
 
-export const FilterSection = () => {
+const FilterSection = () => {
   const categoryItems = ['all', 'shoes', 'clothes', 'accessories'];
   const ratingItems = [5, 4, 3, 2, 1];
   const priceItems = [
@@ -140,3 +140,5 @@ export const FilterSection = () => {
     </div>
   );
 };
+
+export default FilterSection;

@@ -1,6 +1,6 @@
 import React from 'react';
 import TypographyTitle from '@/components/ui/typography/Title';
-import ProductAdminClient from './product-admin-client';
+import ProductAdminClient from './client';
 import {
   dehydrate,
   HydrationBoundary,

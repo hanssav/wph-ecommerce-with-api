@@ -1,7 +1,7 @@
 import SectionWrapper from '@/components/container/section-wrapper';
 import TypographyTitle from '@/components/ui/typography/Title';
 import React from 'react';
-import CheckoutClient from './components/client';
+import CheckoutClient from './client';
 
 // i want to use ssr for handle get list data checkout in here
 const Checkout: React.FC = () => {

@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ListFilter } from 'lucide-react';
 
-export const FilterBtn = () => {
+const FilterBtn = () => {
   return (
     <Button
       size={'lg'}
@@ -13,3 +13,5 @@ export const FilterBtn = () => {
     </Button>
   );
 };
+
+export default FilterBtn;

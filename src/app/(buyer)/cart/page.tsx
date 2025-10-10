@@ -6,7 +6,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import React from 'react';
-import Client from './components/client';
+import Client from './client';
 import TypographyTitle from '@/components/ui/typography/Title';
 
 const Cart: React.FC = async () => {

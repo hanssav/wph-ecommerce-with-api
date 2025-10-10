@@ -1,14 +1,11 @@
 'use client';
 import React from 'react';
-import { Subtitle } from './subtitle';
-import { FilterBtn } from './filter-btn';
-import { SortBtn } from './sort-btn';
-import { FilterSection } from './filter-section';
 import Typography from '@/components/ui/typography';
 import { Button } from '@/components/ui/button';
 import { useInfiniteProducts } from '@/hooks';
 import ProductCard from '@/components/container/product-card';
 import ProductCardSkeleton from '@/components/container/product-card-skeleton';
+import { FilterBtn, FilterSection, SortBtn, Subtitle } from './components';
 
 const CatalogClient = () => {
   const limit = 8;

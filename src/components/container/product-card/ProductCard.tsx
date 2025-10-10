@@ -20,7 +20,12 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     id,
   } = product;
 
-  const [imgSrc, setImgSrc] = React.useState<string>(images[0]);
+  const [imgSrc, setImgSrc] = React.useState<string>(() => {
+    const firstImage = images?.[0];
+    const isValidUrl = firstImage && /^https?:\/\/.+/.test(firstImage);
+    return isValidUrl ? firstImage : IMAGES.DEFAULT_PRODUCT_IMAGE;
+  });
+
   return (
     <div
       onClick={() => router.push(`${PATH.PRODUCT_DETAIL}/${id}`)}
@@ -29,11 +34,15 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
     >
       <div className='relative w-full rounded-sm overflow-hidden aspect-[1/1]'>
         <Image
-          src={imgSrc ?? IMAGES.DEFAULT_PRODUCT_IMAGE}
+          src={imgSrc}
           alt={slug}
           fill
           className='object-cover'
-          onError={() => setImgSrc(IMAGES.DEFAULT_PRODUCT_IMAGE)}
+          onError={() => {
+            if (imgSrc !== IMAGES.DEFAULT_PRODUCT_IMAGE) {
+              setImgSrc(IMAGES.DEFAULT_PRODUCT_IMAGE);
+            }
+          }}
           sizes='(max-width: 640px) 50vw, (max-width: 768px) 33.33vw, (max-width: 1024px) 25vw, 25vw'
           priority
           unoptimized

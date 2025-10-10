@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-query';
 import { ParamsProduct, ProductApiResponse } from '@/types';
 import { productsService } from '@/services';
-import CatalogClient from './components/client';
+import CatalogClient from './client';
 
 const Catalog = async () => {
   const queryClient = new QueryClient();

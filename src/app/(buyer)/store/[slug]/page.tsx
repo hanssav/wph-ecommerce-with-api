@@ -6,7 +6,7 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import React from 'react';
-import Client from './components/client';
+import Client from './client';
 import TypographyTitle from '@/components/ui/typography/Title';
 
 type StoreProps = {
@@ -16,7 +16,7 @@ type StoreProps = {
 };
 
 export default async function Store({ params }: StoreProps) {
-  const { slug } = params;
+  const { slug } = await params;
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
