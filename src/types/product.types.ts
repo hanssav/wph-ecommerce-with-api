@@ -1,19 +1,6 @@
 import { Category } from './category.types';
+import { Review } from './review.types';
 import { Shop } from './shop.types';
-
-type User = {
-  id: number;
-  name: string;
-  avatarUrl: string;
-};
-
-type Review = {
-  id: number;
-  star: number;
-  comment: string;
-  createdAt: string;
-  user: User;
-};
 
 type Product = {
   id: number;

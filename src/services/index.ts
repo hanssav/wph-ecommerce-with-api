@@ -3,3 +3,5 @@ export * from './products.service';
 export * from './store.service';
 export * from './cart.service';
 export * from './orders.service';
+export * from './review.service';
+export * from './category.service';

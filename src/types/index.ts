@@ -7,3 +7,4 @@ export * from './dialog.types';
 export * from './me.types';
 export * from './category.types';
 export * from './seller.types';
+export * from './review.types';
