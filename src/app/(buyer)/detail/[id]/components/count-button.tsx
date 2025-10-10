@@ -2,8 +2,10 @@ import { Button } from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
 import React from 'react';
 
-const CountButton = () => {
-  const [count, setCount] = React.useState<number>(0);
+const CountButton: React.FC<{
+  count: number;
+  setCount: React.Dispatch<React.SetStateAction<number>>;
+}> = ({ count, setCount }) => {
   return (
     <div className='flex gap-4 items-center'>
       <Typography weight={'bold'} size={{ base: 'sm', lg: 'md' }}>
@@ -14,6 +16,7 @@ const CountButton = () => {
           onClick={() => setCount((prev) => prev - 1)}
           variant={'ghost'}
           className='text-lg leading-lg font-semibold px-2'
+          disabled={!count}
         >
           −
         </Button>

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useInfiniteProducts, useProductById } from '@/hooks';
+import { useAddToCart, useInfiniteProducts, useProductById } from '@/hooks';
 import Typography from '@/components/ui/typography';
 import { Hr } from '@/components/ui/hr';
 import { Button } from '@/components/ui/button';
@@ -41,6 +41,11 @@ const DetailClient: React.FC<{ id: string }> = ({ id }) => {
     products,
     query: { isLoading: isProductLoading },
   } = useInfiniteProducts({ limit: productLimit });
+
+  const [count, setCount] = React.useState<number>(0);
+
+  const { onAddtoCart, isPending } = useAddToCart();
+
   return (
     <>
       <div className='flex flex-col lg:flex-row gap-6 lg:gap-[28px] '>
@@ -70,14 +75,22 @@ const DetailClient: React.FC<{ id: string }> = ({ id }) => {
             <ShopSection shop={shop} />
           </ShowOrSkeleton>
           <Hr />
-          <CountButton />
+          <CountButton count={count} setCount={setCount} />
           <Button className='rounded-lg p-2 lg:p-6 lg:w-[312px]' size={'lg'}>
             <Typography
               weight={'semibold'}
               size={{ base: 'md' }}
               className='text-white'
+              onClick={() => {
+                onAddtoCart(
+                  { productId: parseInt(id), qty: count },
+                  {
+                    onSuccess: () => setCount(0),
+                  }
+                );
+              }}
             >
-              + Add to Cart
+              {isPending ? 'Adding Product...' : '+ Add to Cart'}
             </Typography>
           </Button>
         </div>

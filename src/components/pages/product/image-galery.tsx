@@ -1,5 +1,6 @@
 'use client';
 
+import { IMAGES } from '@/constants';
 import { Product } from '@/types/product.types';
 import Image from 'next/image';
 import React from 'react';
@@ -14,7 +15,7 @@ const ImageGallery: React.FC<Partial<Pick<Product, 'images' | 'slug'>>> = ({
   const validImages = normalizeImages(images);
 
   const [selected, setSelected] = React.useState<string | null>(
-    validImages.length ? validImages[0] : null
+    validImages.length ? validImages[0] : IMAGES.DEFAULT_PRODUCT_IMAGE
   );
 
   React.useEffect(() => {
@@ -23,15 +24,13 @@ const ImageGallery: React.FC<Partial<Pick<Product, 'images' | 'slug'>>> = ({
     }
   }, [validImages, selected]);
 
-  if (!validImages.length) return null;
-
   return (
     <div className='flex flex-col gap-4'>
       <div className='relative w-full aspect-square rounded-lg overflow-hidden'>
         {selected && (
           <Image
             fill
-            src={selected || '/images/placeholder.png'}
+            src={selected}
             alt={slug || 'product image'}
             priority
             className='object-cover'
