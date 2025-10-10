@@ -37,7 +37,7 @@ const OrderClient = () => {
     orders,
     pagination,
     currentPage,
-    query: { isLoading, isError },
+    query: { isLoading },
   } = useGetOrderMy(filter);
 
   return (

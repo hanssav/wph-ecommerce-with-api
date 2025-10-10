@@ -23,7 +23,7 @@ const DASHBOARD_CONSTANT: {
   },
   {
     title: 'Total Revenue',
-    data: 'Rp1.920.000',
+    data: 'Rp89.920.000',
     Icon: CircleDollarSign,
   },
   {

@@ -20,14 +20,15 @@ export const CheckoutSchema = z.object({
 
 export type CheckoutFormData = z.infer<typeof CheckoutSchema>;
 
+export type AddressFieldName = keyof CheckoutFormData['address'];
+
 export type CheckoutFieldName = keyof CheckoutFormData;
 
-export const autoCompleteMap = {
+export const autoCompleteMap: Record<AddressFieldName, string> = {
   name: 'name',
   phone: 'tel',
   city: 'address-level2',
   postalCode: 'postal-code',
   address: 'street-address',
-  shippingMethod: 'off',
   paymentMethod: 'off',
 };

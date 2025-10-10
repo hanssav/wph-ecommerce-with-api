@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Hr } from '@/components/ui/hr';
 import Typography from '@/components/ui/typography';
+import { IMAGES } from '@/constants';
 import { formatDate, formatMoney } from '@/lib/utils';
 import { Order } from '@/types';
 import { Store } from 'lucide-react';
@@ -41,7 +42,7 @@ const OrderCard: React.FC<{ order: Order }> = ({ order }) => {
       <div className='flex gap-2.5'>
         <div className='relative w-12 aspect-square overflow-hidden rounded-sm'>
           <Image
-            src={product.images[0]}
+            src={product.images[0] ?? IMAGES.DEFAULT_PRODUCT_IMAGE}
             alt={product.title}
             fill
             priority

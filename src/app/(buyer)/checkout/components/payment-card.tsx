@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import Typography from '@/components/ui/typography';
 import { ICONS } from '@/constants';
+import { useGetCart } from '@/hooks';
 import { formatMoney } from '@/lib/utils';
 import { CheckoutFormData } from '@/lib/validation/checkout.validation';
 import Image from 'next/image';
@@ -64,16 +65,17 @@ const PaymentCard: React.FC<{
   form: UseFormReturn<CheckoutFormData>;
   isPending: boolean;
 }> = ({ form, isPending }) => {
+  const { cart } = useGetCart();
   return (
     <Card>
       <CardContent className='space-y-3'>
         <FormField
           control={form.control}
-          name='paymentMethod'
+          name='address.paymentMethod'
           render={({ field }) => (
             <FormItem className='space-y-1'>
               <Typography size={{ base: 'sm', lg: 'lg' }} weight={'bold'}>
-                Shipping Method
+                Payment Method
               </Typography>
 
               <FormControl>
@@ -115,9 +117,12 @@ const PaymentCard: React.FC<{
           <Typography size={{ base: 'sm', lg: 'lg' }} weight={'bold'}>
             Payment Summary
           </Typography>
-          <DetailsPayment label='Total Price of Goods' price={19999999} />
-          <DetailsPayment label='Shipping Cost' price={19999999} />
-          <DetailsPayment label='Total' price={19999999} />
+          <DetailsPayment
+            label='Total Price of Goods'
+            price={cart?.grandTotal ?? 0}
+          />
+          <DetailsPayment label='Shipping Cost' price={25000} />
+          <DetailsPayment label='Total' price={cart?.grandTotal ?? 0} />
 
           <Button className='w-full' size={'lg'}>
             {isPending ? 'Processing...' : 'Pay Now'}

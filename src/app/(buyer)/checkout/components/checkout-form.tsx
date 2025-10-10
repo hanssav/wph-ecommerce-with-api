@@ -10,14 +10,14 @@ import { Textarea } from '@/components/ui/textarea';
 import Typography from '@/components/ui/typography';
 import {
   autoCompleteMap,
-  CheckoutFieldName,
+  AddressFieldName,
   CheckoutFormData,
 } from '@/lib/validation/checkout.validation';
 import React from 'react';
 import { UseFormReturn } from 'react-hook-form';
 
 type Field = {
-  name: CheckoutFieldName;
+  name: AddressFieldName;
   label: string;
   type: 'input' | 'textarea';
 };
@@ -30,7 +30,7 @@ const fields: Field[] = [
   { name: 'address', label: 'Address', type: 'textarea' },
 ];
 
-export function getAutoCompleteAttr(name: CheckoutFieldName) {
+export function getAutoCompleteAttr(name: AddressFieldName) {
   return autoCompleteMap[name];
 }
 
@@ -47,7 +47,7 @@ const CheckoutForm: React.FC<{ form: UseFormReturn<CheckoutFormData> }> = ({
           <FormField
             key={idx}
             control={form.control}
-            name={name}
+            name={`address.${name}`}
             render={({ field }) => (
               <FormItem>
                 <FormControl>
