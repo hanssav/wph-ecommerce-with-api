@@ -1,5 +1,6 @@
 import { Hr } from '@/components/ui/hr';
 import Typography from '@/components/ui/typography';
+import { ICONS } from '@/constants';
 import { Review } from '@/types/product.types';
 import { Star } from 'lucide-react';
 import Image from 'next/image';
@@ -17,7 +18,7 @@ const ReviewCard: React.FC<{
       <div className='flex gap-3'>
         <div className='relative w-14 lg:w-16 rounded-full overflow-hidden aspect-square'>
           <Image
-            src={user.avatarUrl}
+            src={user.avatarUrl ?? ICONS.DEFAULT_AVATAR}
             fill
             sizes='(max-width: 1024px) 56px, 64px'
             alt={user.name}

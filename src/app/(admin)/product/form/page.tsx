@@ -3,7 +3,7 @@ import {
   HydrationBoundary,
   QueryClient,
 } from '@tanstack/react-query';
-import React from 'react';
+import React, { Suspense } from 'react';
 import ProductFormClient from './components/product-form-client';
 import { categoryServices } from '@/services/category.service';
 
@@ -19,7 +19,9 @@ const ProductForm = async () => {
   const dehydratedState = dehydrate(queryClient);
   return (
     <HydrationBoundary state={dehydratedState}>
-      <ProductFormClient />
+      <Suspense fallback={<div>Loading form...</div>}>
+        <ProductFormClient />
+      </Suspense>
     </HydrationBoundary>
   );
 };
