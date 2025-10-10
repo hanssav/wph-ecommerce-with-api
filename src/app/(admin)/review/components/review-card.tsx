@@ -13,6 +13,7 @@ const ProductSection: React.FC<{
   title: string;
   categoryName: string;
 }> = ({ images, title, categoryName }) => {
+  if (!images) return;
   return (
     <div className={cn('flex  gap-[10px] py-3')}>
       <div className='relative h-12 w-12 overflow-hidden rounded-md'>
@@ -49,6 +50,7 @@ const SectionWrapper: React.FC<{
 );
 
 const ReviewCard: React.FC<{ review?: Review }> = ({ review }) => {
+  if (!review) return;
   return (
     <Card>
       <CardContent>

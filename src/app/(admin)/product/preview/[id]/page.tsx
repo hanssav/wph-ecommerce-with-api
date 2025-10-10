@@ -7,9 +7,9 @@ import { productsService } from '@/services';
 import PreviewClient from './client';
 
 type DetailProps = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 const Preview = async ({ params }: DetailProps) => {
