@@ -9,6 +9,7 @@ import { FilterBtn, FilterSection, SortBtn, Subtitle } from './components';
 import { ParamsProduct } from '@/types';
 import Notification from '@/components/container/notification';
 import { NOTIFICATION } from '@/constants';
+import ShowOrSkeleton from '@/components/container/show-skeleton';
 
 const CatalogClient = () => {
   const [filter, setFilter] = React.useState<ParamsProduct>({
@@ -63,34 +64,50 @@ const CatalogClient = () => {
             </div>
           </div>
           <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-            {products.map((product, idx) => (
-              <ProductCard key={`${product.id}-${idx}`} product={product} />
-            ))}
-
-            {(isLoading || isFetchingNextPage) &&
-              Array.from({ length: filter.limit ?? 20 }).map((_, index) => (
-                <ProductCardSkeleton key={`skeleton-${index}`} />
-              ))}
-            {!isLoading && products.length === 0 && (
-              <div className='col-span-full flex justify-center py-10'>
-                <Notification {...notificationProps} />
-              </div>
-            )}
+            <ShowOrSkeleton
+              isLoading={isLoading}
+              skeleton={Array.from({ length: filter.limit ?? 20 }).map(
+                (_, i) => (
+                  <ProductCardSkeleton key={`skeleton-${i}`} />
+                )
+              )}
+            >
+              {products.length === 0 ? (
+                <div className='col-span-full flex justify-center py-10'>
+                  <Notification {...notificationProps} />
+                </div>
+              ) : (
+                <>
+                  {products.map((product, idx) => (
+                    <ProductCard
+                      key={`${product.id}-${idx}`}
+                      product={product}
+                    />
+                  ))}
+                  {isFetchingNextPage &&
+                    Array.from({ length: filter.limit ?? 20 }).map((_, i) => (
+                      <ProductCardSkeleton key={`skeleton-fetch-${i}`} />
+                    ))}
+                </>
+              )}
+            </ShowOrSkeleton>
           </div>
+          {products && products.length > 0 && (
+            <div className='flex justify-center w-full'>
+              <Button
+                variant={'outline'}
+                size={'lg'}
+                className='rounded-lg w-40 lg:!w-[220px]'
+                onClick={() => fetchNextPage()}
+                disabled={isFetchingNextPage || !hasNextPage}
+              >
+                <Typography size={{ base: 'md' }} weight={'semibold'}>
+                  {isFetchingNextPage ? 'Loading...' : 'Load More'}
+                </Typography>
+              </Button>
+            </div>
+          )}
         </div>
-      </div>
-      <div className='flex justify-center w-full'>
-        <Button
-          variant={'outline'}
-          size={'lg'}
-          className='rounded-lg w-40 lg:!w-[220px]'
-          onClick={() => fetchNextPage()}
-          disabled={isFetchingNextPage || !hasNextPage}
-        >
-          <Typography size={{ base: 'md' }} weight={'semibold'}>
-            {isFetchingNextPage ? 'Loading...' : 'Load More'}
-          </Typography>
-        </Button>
       </div>
     </>
   );

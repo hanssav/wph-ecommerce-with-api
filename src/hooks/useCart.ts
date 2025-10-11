@@ -1,14 +1,13 @@
+import { useUser } from '@/context/auth';
 import { useToast } from '@/context/toast';
 import { cartService } from '@/services';
 import { Product } from '@/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useGetCart = () => {
-  const token =
-    typeof window !== 'undefined' ? localStorage.getItem('token') : null;
-
+  const { token } = useUser();
   const query = useQuery({
-    queryKey: ['cart'],
+    queryKey: ['cart', token],
     queryFn: () => cartService.get(),
     enabled: !!token,
   });

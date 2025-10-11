@@ -13,6 +13,10 @@ export const DesktopHeader: React.FC = () => {
   const router = useRouter();
   const { cart } = useGetCart();
 
+  console.log(cart, 'cart');
+
+  const totalWithQty = cart?.items.reduce((sum, item) => sum + item.qty, 0);
+
   return (
     <>
       <div
@@ -64,7 +68,7 @@ export const DesktopHeader: React.FC = () => {
           <ShoppingCart className='!w-5 !h-5 lg:!w-5 lg:!h-5' />
           {cart?.items && cart.items.length && (
             <span className='absolute -top-1.5 lg:-top-3 -right-1.5 lg:p-1 rounded-full flex items-center justify-center w-5 h-5 bg-red-500  text-white text-xs lg:text-md'>
-              {cart?.items.length ?? ''}
+              {totalWithQty ?? ''}
             </span>
           )}
         </Button>
