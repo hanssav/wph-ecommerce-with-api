@@ -78,14 +78,14 @@ const ProductFormClient = () => {
   }, [id, productQuery?.product?.data, form, categories]);
 
   const onSubmit: SubmitHandler<ProductFormInput> = (values) => {
-    // mock failed test create produxt
-    // values.title = undefined;
+    const data = {
+      ...values,
+      merge: true,
+    };
+    console.log(data, 'data');
 
-    // change mock product if you want to use others images
-    values.imagesUrl = MOCK_IMAGE_PRODUCTS;
     if (!id) return addProduct(values);
-
-    return update({ id: Number(id), product: values });
+    return update({ id: Number(id), product: data });
   };
 
   return (

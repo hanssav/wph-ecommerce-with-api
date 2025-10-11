@@ -20,11 +20,13 @@ export const DesktopHeader: React.FC = () => {
   const totalWithQty = cart?.items.reduce((sum, item) => sum + item.qty, 0);
 
   React.useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
+    setQuery('');
+  }, [pathname]);
 
+  React.useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
     if (query) params.set('q', query);
     else params.delete('q');
-
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   }, [query]); // eslint-disable-line react-hooks/exhaustive-deps
 
