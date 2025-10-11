@@ -88,6 +88,7 @@ export function useInfiniteSellerProducts(params?: ParamsSellerProduct) {
 }
 
 export function useAddProduct() {
+  const queryClient = useQueryClient();
   const { showToast } = useToast();
   const router = useRouter();
   const addMutation = useMutation({
@@ -96,6 +97,7 @@ export function useAddProduct() {
     onSuccess: () => {
       showToast('Product has been added successfully.', 'success');
       router.push(PATH.ADMIN.PRODUCT);
+      queryClient.invalidateQueries({ queryKey: ['sellerProducts'] });
     },
     onError: () => {
       showToast('Failed to create product. Please try again.', 'error');
@@ -107,6 +109,7 @@ export function useAddProduct() {
 }
 
 export function useUpdateProduct() {
+  const queryClient = useQueryClient();
   const { showToast } = useToast();
   const router = useRouter();
   const update = useMutation({
@@ -115,6 +118,7 @@ export function useUpdateProduct() {
     onSuccess: () => {
       showToast('Product has been update successfully.', 'success');
       router.push(PATH.ADMIN.PRODUCT);
+      queryClient.invalidateQueries({ queryKey: ['sellerProducts'] });
     },
     onError: () => {
       showToast('Failed to update. Please try again.', 'error');
