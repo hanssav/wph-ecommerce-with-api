@@ -81,7 +81,6 @@ const ProductAdminClient = () => {
     },
   ];
 
-  console.log(pagination, 'pagination');
   return (
     <>
       <div className='lg:flex lg:justify-between w-full items-center space-y-3'>

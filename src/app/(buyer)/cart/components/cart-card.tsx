@@ -37,7 +37,10 @@ const ImageWrapper: React.FC<{ src: string }> = ({ src }) => {
     </div>
   );
 };
-const ProductInfo: React.FC<{ product: Partial<Product> }> = ({ product }) => (
+const ProductInfo: React.FC<{ product: Partial<Product>; qty: number }> = ({
+  product,
+  qty,
+}) => (
   <div className='flex flex-col gap-0 items-start justify-center'>
     <Typography weight={'bold'} size={{ base: 'sm', lg: 'lg' }}>
       {product.title}
@@ -45,45 +48,50 @@ const ProductInfo: React.FC<{ product: Partial<Product> }> = ({ product }) => (
     <Typography weight={'normal'} size={{ base: 'xs', lg: 'md' }}>
       {product.category?.name ?? 'No Category Data'}
     </Typography>
+    <Typography weight={'normal'} size={{ base: 'xs', lg: 'md' }}>
+      {qty} x {formatMoney(product.price ?? 0)}
+    </Typography>
   </div>
 );
 const ProductPriceWithButton: React.FC<{
-  count: number;
-  setCount: React.Dispatch<React.SetStateAction<number>>;
-  product: Partial<Product>;
-}> = ({ count, setCount, product }) => (
-  <>
-    <Typography weight={'bold'} size={{ base: 'sm', lg: 'xl' }}>
-      {formatMoney(product.price ?? 0)}
-    </Typography>
-    <div className='flex gap-2 items-center'>
-      <Trash2 className='text-black w-6 h-6' />
-      <div className='inline-flex items-center border border-gray-300 rounded-xl p-2 lg:gap-4'>
-        <Button
-          onClick={() => setCount((prev) => prev - 1)}
-          variant={'ghost'}
-          className='text-lg leading-lg font-semibold px-2'
-        >
-          −
-        </Button>
+  qty: number;
+  total: number;
+}> = ({ qty, total }) => {
+  const [count, setCount] = React.useState<number>(qty ?? 0);
 
-        <span className='mx-3 text-lg leading-lg font-medium'>{count}</span>
+  return (
+    <>
+      <Typography weight={'bold'} size={{ base: 'sm', lg: 'xl' }}>
+        {formatMoney(total ?? 0)}
+      </Typography>
+      <div className='flex gap-2 items-center'>
+        <Trash2 className='text-black w-6 h-6' />
+        <div className='inline-flex items-center border border-gray-300 rounded-xl p-2 lg:gap-4'>
+          <Button
+            onClick={() => setCount((prev) => prev - 1)}
+            variant={'ghost'}
+            className='text-lg leading-lg font-semibold px-2'
+          >
+            −
+          </Button>
 
-        <Button
-          variant={'ghost'}
-          className='text-lg leeading-lg font-semibold px-2'
-          onClick={() => setCount((prev) => prev + 1)}
-        >
-          +
-        </Button>
+          <span className='mx-3 text-lg leading-lg font-medium'>{count}</span>
+
+          <Button
+            variant={'ghost'}
+            className='text-lg leeading-lg font-semibold px-2'
+            onClick={() => setCount((prev) => prev + 1)}
+          >
+            +
+          </Button>
+        </div>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
+};
 export const CartCard: React.FC<{
   data: CartResponse['data']['groups'][number];
 }> = ({ data }) => {
-  const [count, setCount] = React.useState<number>(0);
   const { items, shop } = data;
 
   return (
@@ -106,14 +114,10 @@ export const CartCard: React.FC<{
               <ImageWrapper
                 src={item.product.images[0] ?? IMAGES.MOCK_PRODUCT_IMAGE}
               />
-              <ProductInfo product={item.product} />
+              <ProductInfo product={item.product} qty={item.qty} />
             </div>
             <div className='flex lg:flex-col lg:items-end items-center justify-between w-full lg:w-auto lg:gap-4'>
-              <ProductPriceWithButton
-                count={count}
-                setCount={setCount}
-                product={item.product}
-              />
+              <ProductPriceWithButton qty={item.qty} total={item.subtotal} />
             </div>
           </div>
         </div>

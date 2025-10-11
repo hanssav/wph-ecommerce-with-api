@@ -13,8 +13,6 @@ export const DesktopHeader: React.FC = () => {
   const router = useRouter();
   const { cart } = useGetCart();
 
-  console.log(cart, 'cart');
-
   const totalWithQty = cart?.items.reduce((sum, item) => sum + item.qty, 0);
 
   return (
