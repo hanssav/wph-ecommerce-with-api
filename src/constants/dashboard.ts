@@ -13,22 +13,22 @@ const DASHBOARD_CONSTANT: {
 }[] = [
   {
     title: 'Total Products',
-    data: 128,
+    data: 0,
     Icon: ShoppingBag,
   },
   {
     title: 'Total Orders',
-    data: 342,
+    data: 0,
     Icon: ClipboardList,
   },
   {
     title: 'Total Revenue',
-    data: 'Rp89.920.000',
+    data: 0,
     Icon: CircleDollarSign,
   },
   {
     title: 'Completed Orders',
-    data: 298,
+    data: 0,
     Icon: CheckCircle,
   },
 ];

@@ -81,6 +81,7 @@ const ProductAdminClient = () => {
     },
   ];
 
+  console.log(pagination, 'pagination');
   return (
     <>
       <div className='lg:flex lg:justify-between w-full items-center space-y-3'>
@@ -118,39 +119,41 @@ const ProductAdminClient = () => {
         {(product, idx) => <ProductAdminCard key={idx} product={product} />}
       </ShowOrSkeleton>
 
-      <div className='hidden lg:block'>
-        <DataTable
-          columns={columns}
-          data={products}
-          loading={isLoading}
-          emptyMessage='No products found'
-          rowClassName={(row) =>
-            !row.isActive ? 'opacity-60 hover:opacity-100' : ''
-          }
-        />
-      </div>
+      {pagination && pagination.totalPages > 0 && (
+        <>
+          <div className='hidden lg:block'>
+            <DataTable
+              columns={columns}
+              data={products}
+              loading={isLoading}
+              emptyMessage='No products found'
+              rowClassName={(row) =>
+                !row.isActive ? 'opacity-60 hover:opacity-100' : ''
+              }
+            />
+          </div>
 
-      {pagination && (
-        <div className='flex flex-col lg:flex-row items-center justify-center gap-3 px-3 py-5 bg-white rounded-md border lg:justify-between lg:px-5'>
-          <Typography
-            weight={'normal'}
-            size={{ base: 'sm' }}
-            className='text-neutral-800'
-          >
-            {`Showing ${products.length} to ${
-              pagination.total > filter.limit
-                ? filter.limit ?? 0
-                : pagination.total
-            } of ${pagination.total} entries`}
-          </Typography>
+          <div className='flex flex-col lg:flex-row items-center justify-center gap-3 px-3 py-5 bg-white rounded-md border lg:justify-between lg:px-5'>
+            <Typography
+              weight={'normal'}
+              size={{ base: 'sm' }}
+              className='text-neutral-800'
+            >
+              {`Showing ${products.length} to ${
+                pagination.total > filter.limit
+                  ? filter.limit ?? 0
+                  : pagination.total
+              } of ${pagination.total} entries`}
+            </Typography>
 
-          <Pagination
-            current={filter.page}
-            pagination={pagination}
-            setFilter={setFilter}
-            dataLength={products.length}
-          />
-        </div>
+            <Pagination
+              current={filter.page}
+              pagination={pagination}
+              setFilter={setFilter}
+              dataLength={products.length}
+            />
+          </div>
+        </>
       )}
 
       {!products.length && !isLoading && !debounceFilter.q && (
