@@ -36,6 +36,20 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import InputImage from './input-image';
 
+const base64ToFile = (base64String: string, filename: string): File => {
+  const arr = base64String.split(',');
+  const mime = arr[0].match(/:(.*?);/)?.[1] || 'image/jpeg';
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+
+  return new File([u8arr], filename, { type: mime });
+};
+
 const ProductFormClient = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -77,15 +91,31 @@ const ProductFormClient = () => {
   }, [id, productQuery?.product?.data, form, categories]);
 
   const onSubmit: SubmitHandler<ProductFormInput> = (values) => {
+    const existingUrls: string[] = [];
+    const newImages: File[] = [];
+
+    values.images?.forEach((img: File | string, index: number) => {
+      if (typeof img === 'string') {
+        if (img.startsWith('http')) {
+          existingUrls.push(img);
+        } else if (img.startsWith('data:image')) {
+          newImages.push(base64ToFile(img, `image-${index}.webp`));
+        }
+      } else if (img instanceof File) {
+        newImages.push(img);
+      }
+    });
+
     const data = {
       ...values,
+      images: newImages,
+      imagesUrl: existingUrls,
       merge: true,
     };
 
-    if (!id) return addProduct(values);
+    if (!id) return addProduct(data);
     return update({ id: Number(id), product: data });
   };
-
   return (
     <div className='flex justify-center'>
       <Card className='w-full max-w-[760px]'>

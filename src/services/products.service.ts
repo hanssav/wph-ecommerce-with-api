@@ -30,7 +30,35 @@ export const productsService = {
     id: number | string,
     product: Partial<ProductFormInput>
   ) => {
-    const res = await api.put(`/seller/products/${id}`, product);
+    const formData = new FormData();
+
+    if (product.title) formData.append('title', product.title);
+    if (product.description)
+      formData.append('description', product.description);
+    if (product.price) formData.append('price', product.price);
+    if (product.stock) formData.append('stock', product.stock);
+    if (product.categoryId !== undefined) {
+      formData.append('categoryId', String(product.categoryId));
+    }
+    if (product.isActive !== undefined) {
+      formData.append('isActive', product.isActive ? '1' : '0');
+    }
+    if (product.images && Array.isArray(product.images)) {
+      product.images.forEach((image: unknown) => {
+        if (typeof image === 'string') {
+          formData.append('imagesUrl[]', image);
+        } else if (image instanceof File) {
+          formData.append('images', image);
+        }
+      });
+    }
+
+    const res = await api.put(`/seller/products/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
     return res.data;
   },
   deleteProduct: async (id: number | string) => {

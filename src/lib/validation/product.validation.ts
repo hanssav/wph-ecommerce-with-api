@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
 export const ProductSchema = z.object({
-  title: z.string().min(1, 'title is required'),
-  description: z.string().min(1, 'description is required'),
+  title: z.string().min(1, 'Title is required'),
+  description: z.string().min(1, 'Description is required'),
   price: z
     .string()
     .min(1, 'Price is required')
@@ -23,8 +23,22 @@ export const ProductSchema = z.object({
     .refine((val) => val !== undefined, {
       message: 'Category is required',
     }),
-  images: z.array(z.string()).optional(),
-  imagesUrl: z.array(z.string().url('must be a valid URL')).optional(),
+  images: z
+    .array(
+      z.union([
+        z.instanceof(File),
+        z
+          .string()
+          .refine(
+            (val) => val.startsWith('http') || val.startsWith('data:image'),
+            {
+              message: 'Must be a valid URL or base64 image string',
+            }
+          ),
+      ])
+    )
+    .optional(),
+  imagesUrl: z.array(z.string().url('Must be a valid URL')).optional(),
   isActive: z.boolean().optional(),
 });
 

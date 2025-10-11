@@ -18,7 +18,7 @@ const InputImage: React.FC<{
           >
             <div className='relative h-full w-full overflow-hidden'>
               <Image
-                src={img}
+                src={img instanceof File ? URL.createObjectURL(img) : img}
                 alt={`Preview ${index + 1}`}
                 fill
                 priority

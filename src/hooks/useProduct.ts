@@ -113,13 +113,15 @@ export function useUpdateProduct() {
   const queryClient = useQueryClient();
   const { showToast } = useToast();
   const router = useRouter();
+
   const update = useMutation({
     mutationFn: ({ id, product }: { id: number; product: ProductFormInput }) =>
       productsService.updateProduct(id, product),
     onSuccess: () => {
-      showToast('Product has been update successfully.', 'success');
+      showToast('Product has been updated successfully.', 'success');
       router.push(PATH.ADMIN.PRODUCT);
       queryClient.invalidateQueries({ queryKey: ['sellerProducts'] });
+      queryClient.invalidateQueries({ queryKey: ['product'] });
     },
     onError: () => {
       showToast('Failed to update. Please try again.', 'error');
@@ -138,6 +140,7 @@ export const useProductById = (id: string | null) => {
       const res = productsService.getById(id);
       return res;
     },
+
     staleTime: 1000 * 60,
     enabled: !!id,
   });
