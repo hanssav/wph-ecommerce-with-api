@@ -3,17 +3,30 @@ import { Input } from '@/components/ui/input';
 import { ICONS, IMAGES, PATH } from '@/constants';
 import { Menu, Search, ShoppingCart } from 'lucide-react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { ButtonUserActive } from './button-user-active';
 import { useHeader } from '../useHeader';
 import { useGetCart } from '@/hooks';
+import React from 'react';
 
 export const DesktopHeader: React.FC = () => {
   const { open, setOpen } = useHeader();
-  const router = useRouter();
   const { cart } = useGetCart();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
+  const [query, setQuery] = React.useState(searchParams.get('q') ?? '');
   const totalWithQty = cart?.items.reduce((sum, item) => sum + item.qty, 0);
+
+  React.useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (query) params.set('q', query);
+    else params.delete('q');
+
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
+  }, [query]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
@@ -51,10 +64,12 @@ export const DesktopHeader: React.FC = () => {
         <Input
           label='search.. '
           id='search'
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
           className='h-10 lg:h-11 lg:max-w-[481px]'
           iconPosition='left'
           icon={<Search className='h-5 w-5 text-neutral-950 ' />}
-        ></Input>
+        />
       </div>
 
       <div className='lg:basis-5/20 flex gap-4 items-center'>

@@ -50,8 +50,11 @@ export function useInfiniteProducts(params: ParamsProduct) {
 
   const products =
     query.data?.pages.flatMap((page) => page.data.products) ?? [];
+  const pagination = query.data?.pages.flatMap(
+    (page) => page.data.pagination ?? {}
+  );
 
-  return { query, products };
+  return { query, products, pagination };
 }
 
 export function useInfiniteSellerProducts(params?: ParamsSellerProduct) {

@@ -53,6 +53,7 @@ type ParamsProduct = {
   sort?: 'newest' | 'rating' | 'price' | 'popular';
   page?: number;
   limit?: number;
+  q?: string;
 };
 
 type ParamsSellerProduct = {

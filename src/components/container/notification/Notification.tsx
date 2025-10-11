@@ -1,6 +1,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import Typography from '@/components/ui/typography';
+import { cn } from '@/lib/utils';
 import { NotificationProps } from '@/types/notification.types';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -12,11 +13,12 @@ const Notification: React.FC<NotificationProps> = ({
   subtitle,
   btnLabel,
   btnActionSrc,
+  className,
 }) => {
   const router = useRouter();
 
   return (
-    <div className='relative h-[calc(100vh-360px)] w-full'>
+    <div className={cn('relative h-[calc(100vh-360px)] w-full', className)}>
       <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-4'>
         <div className='relative overflow-hidden w-40 aspect-square'>
           <Image src={src} alt={title} fill priority sizes='160px' />

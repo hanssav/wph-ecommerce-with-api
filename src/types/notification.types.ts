@@ -4,4 +4,5 @@ export type NotificationProps = {
   subtitle: string;
   btnLabel?: string;
   btnActionSrc?: string;
+  className?: string;
 };

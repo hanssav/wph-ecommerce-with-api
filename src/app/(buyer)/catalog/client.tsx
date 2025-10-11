@@ -10,26 +10,27 @@ import { ParamsProduct } from '@/types';
 import Notification from '@/components/container/notification';
 import { NOTIFICATION } from '@/constants';
 import ShowOrSkeleton from '@/components/container/show-skeleton';
+import { useSearchParams } from 'next/navigation';
 
 const CatalogClient = () => {
+  const searchParams = useSearchParams();
+  const q = searchParams.get('q') || '';
+
   const [filter, setFilter] = React.useState<ParamsProduct>({
     limit: 12,
     order: 'desc',
+    q: '',
   });
 
-  const debounceMinPrice = useDebounce(filter.minPrice, 500);
-  const debounceMaxPrice = useDebounce(filter.maxPrice, 500);
+  React.useEffect(() => {
+    setFilter((prev) => ({ ...prev, q }));
+  }, [q]);
 
-  const debouncedFilter = React.useMemo(
-    () => ({
-      ...filter,
-      minPrice: debounceMinPrice,
-      maxPrice: debounceMaxPrice,
-    }),
-    [filter, debounceMinPrice, debounceMaxPrice]
-  );
+  const debouncedFilter = useDebounce(filter, 400);
+
   const {
     products,
+    pagination,
     query: { fetchNextPage, hasNextPage, isFetchingNextPage, isLoading },
   } = useInfiniteProducts(debouncedFilter);
 
@@ -40,10 +41,13 @@ const CatalogClient = () => {
     title,
     subtitle: 'No products found. Please adjust your filters.',
   };
+
+  const total = pagination?.[0]?.total ?? 0;
+
   return (
     <>
       <div className='lg:hidden flex flex-col gap-3'>
-        <Subtitle />
+        <Subtitle totalProduct={total} />
         <div className='flex gap-2'>
           <FilterBtn />
           <SortBtn filter={filter} setFilter={setFilter} />
@@ -55,7 +59,7 @@ const CatalogClient = () => {
         </div>
         <div className='basis-12/15 flex flex-col gap-6'>
           <div className='hidden lg:flex justify-between items-center'>
-            <Subtitle />
+            <Subtitle totalProduct={total} />
             <div className='flex gap-3 items-center'>
               <Typography weight={'bold'} size={'md'}>
                 Sort

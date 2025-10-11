@@ -1,9 +1,9 @@
 import Typography from '@/components/ui/typography';
 
-const Subtitle = () => {
+const Subtitle: React.FC<{ totalProduct: number }> = ({ totalProduct }) => {
   return (
     <Typography as='p' weight={'normal'} size={{ base: 'xs', lg: 'md' }}>
-      Showing 160 products
+      Showing {totalProduct} products
     </Typography>
   );
 };
