@@ -21,7 +21,7 @@ const Review = async () => {
 
   const dehydrateState = dehydrate(queryClient);
   return (
-    <div className='flex flex-col gap-3 py-4'>
+    <div className='flex flex-col gap-3 pb-4'>
       <TypographyTitle label='Reviews' />
       <HydrationBoundary state={dehydrateState}>
         <PreviewClient />

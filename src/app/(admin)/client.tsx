@@ -28,7 +28,7 @@ export default function LayoutClient({
     <>
       <Navbar setOpen={setOpen} open={open} user={user} />
 
-      <div>
+      <div className='pt-20'>
         <Sidebar open={open} setOpen={setOpen} />
         <div
           className={cn(

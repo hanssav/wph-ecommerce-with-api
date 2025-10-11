@@ -22,7 +22,7 @@ const Navbar: React.FC<{
   const router = useRouter();
 
   return (
-    <nav className='flex justify-between items-center px-4 py-3 lg:px-6 bg-white max-h-16 w-full shadow-card backdrop:backdrop-blur-md'>
+    <nav className='flex justify-between items-center px-4 py-3 lg:px-6 bg-white max-h-16 w-full shadow-card backdrop:backdrop-blur-md fixed top-0 right-0'>
       <Button
         variant='ghost'
         className={cn(

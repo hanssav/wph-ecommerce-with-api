@@ -34,6 +34,7 @@ export type GetAllOrderSellerParams = {
   limit: number;
   status?: Status;
   q?: string;
+  date?: Date | undefined;
 };
 
 export type OrderItemBySeller = {

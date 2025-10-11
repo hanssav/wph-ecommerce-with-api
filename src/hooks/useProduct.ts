@@ -57,6 +57,7 @@ export function useInfiniteProducts(params: ParamsProduct) {
   return { query, products, pagination };
 }
 
+// =============== ADMIN/ SELLER ===============
 export function useInfiniteSellerProducts(params?: ParamsSellerProduct) {
   const query = useInfiniteQuery({
     queryKey: ['sellerProducts', params],

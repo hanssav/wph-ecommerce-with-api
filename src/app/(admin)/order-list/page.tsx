@@ -20,7 +20,7 @@ const OrderList = async () => {
   const dehydratedState = dehydrate(queryClient);
 
   return (
-    <div className='flex flex-col gap-3 py-4'>
+    <div className='flex flex-col gap-3 pb-4'>
       <TypographyTitle label='Order List' />
       <HydrationBoundary state={dehydratedState}>
         <OrderClient />

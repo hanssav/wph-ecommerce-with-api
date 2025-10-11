@@ -3,7 +3,7 @@ import React from 'react';
 import { Input } from '@/components/ui/input';
 import { useDebounce, useGetAllOrderBySeller } from '@/hooks';
 import { GetAllOrderSellerParams } from '@/types';
-import { Search } from 'lucide-react';
+import { CalendarIcon, Search } from 'lucide-react';
 import { OrderCard } from './components';
 import Typography from '@/components/ui/typography';
 import Notification from '@/components/container/notification';
@@ -17,6 +17,15 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { cn } from '@/lib/utils';
+import { format } from 'date-fns';
 
 const selectValues = [
   { value: 'ALL', label: 'All Orders' },
@@ -26,11 +35,13 @@ const selectValues = [
   { value: 'CANCELLED', label: 'Canceled' },
 ];
 const OrderClient = () => {
+  const [calendarOpen, setCalendarOpen] = React.useState<boolean>(false);
   const [filter, setFilter] = React.useState<GetAllOrderSellerParams>({
     page: 1,
     limit: 10,
     q: '',
     status: 'ALL',
+    date: undefined,
   });
 
   const debounceFilter = useDebounce(filter);
@@ -57,6 +68,36 @@ const OrderClient = () => {
             }
           />
         </div>
+        {/* Date */}
+        <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant={'outline'}
+              className={cn(
+                'justify-start text-left font-normal h-12 rounded-md w-full lg:max-w-[254px]',
+                !filter.date && 'text-muted-foreground'
+              )}
+            >
+              <CalendarIcon />
+              {filter.date ? (
+                format(filter.date, 'PPP')
+              ) : (
+                <span>Pick a date</span>
+              )}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className='w-auto p-0'>
+            <Calendar
+              mode='single'
+              selected={filter.date}
+              onSelect={(val) => {
+                setFilter((prev) => ({ ...prev, date: val }));
+                setCalendarOpen(false);
+              }}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
 
         <Select
           onValueChange={(value) =>

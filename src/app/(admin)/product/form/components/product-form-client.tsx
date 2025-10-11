@@ -35,7 +35,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import InputImage from './input-image';
-import { MOCK_IMAGE_PRODUCTS } from '@/constants';
 
 const ProductFormClient = () => {
   const router = useRouter();
@@ -82,7 +81,6 @@ const ProductFormClient = () => {
       ...values,
       merge: true,
     };
-    console.log(data, 'data');
 
     if (!id) return addProduct(values);
     return update({ id: Number(id), product: data });
