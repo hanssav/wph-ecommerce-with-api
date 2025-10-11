@@ -1,3 +1,4 @@
+'use client';
 import { useMe } from '@/hooks';
 import { useRouter } from 'next/navigation';
 import { ICONS } from '@/constants';
@@ -28,7 +29,8 @@ export const ButtonUserActive: React.FC<{ isDesktop?: boolean }> = ({
       imgClass: 'rounded-full',
       handleClick: () => {
         router.push(PATH.USER.ORDER);
-        setOpen(false);
+        // wait for router push execute
+        setTimeout(() => setOpen(false), 500);
       },
     },
   ];
@@ -37,9 +39,10 @@ export const ButtonUserActive: React.FC<{ isDesktop?: boolean }> = ({
     if (!me.shop) {
       router.push(PATH.OPEN_STORE.MAIN);
     } else {
+      console.log('click store/dashboard');
       router.push(PATH.DASHBOARD);
     }
-    setOpen(false);
+    setTimeout(() => setOpen(false), 500);
   };
 
   return (
