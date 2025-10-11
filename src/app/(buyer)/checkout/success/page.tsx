@@ -1,3 +1,4 @@
+'use client';
 import Notification from '@/components/container/notification';
 import { NOTIFICATION } from '@/constants/notification';
 import React from 'react';

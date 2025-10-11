@@ -9,6 +9,15 @@ import SectionWrapper from '@/components/container/section-wrapper';
 import HeroSection from './components/hero-section';
 import Typography from '@/components/ui/typography';
 import HomeClient from './client';
+import React from 'react';
+
+const HomeLoading = () => (
+  <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+    {Array.from({ length: 8 }).map((_, i) => (
+      <div key={i} className='h-64 bg-gray-200 animate-pulse rounded-lg' />
+    ))}
+  </div>
+);
 
 export default async function Home() {
   const queryClient = new QueryClient();
@@ -46,7 +55,9 @@ export default async function Home() {
           Feature Product
         </Typography>
         <HydrationBoundary state={dehydratedState}>
-          <HomeClient />
+          <React.Suspense fallback={<HomeLoading />}>
+            <HomeClient />
+          </React.Suspense>
         </HydrationBoundary>
       </section>
     </SectionWrapper>

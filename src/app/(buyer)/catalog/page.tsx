@@ -10,6 +10,14 @@ import { ParamsProduct, ProductApiResponse } from '@/types';
 import { productsService } from '@/services';
 import CatalogClient from './client';
 
+const CatalogLoading = () => (
+  <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+    {Array.from({ length: 12 }).map((_, i) => (
+      <div key={i} className='h-64 bg-gray-200 animate-pulse rounded-lg' />
+    ))}
+  </div>
+);
+
 const Catalog = async () => {
   const queryClient = new QueryClient();
 
@@ -37,7 +45,9 @@ const Catalog = async () => {
     <SectionWrapper className='flex flex-col gap-3 lg:gap-6 py-6'>
       <TypographyTitle label='Catalog' />
       <HydrationBoundary state={dehydratedState}>
-        <CatalogClient />
+        <React.Suspense fallback={<CatalogLoading />}>
+          <CatalogClient />
+        </React.Suspense>
       </HydrationBoundary>
     </SectionWrapper>
   );
