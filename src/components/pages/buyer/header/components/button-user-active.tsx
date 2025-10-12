@@ -39,7 +39,6 @@ export const ButtonUserActive: React.FC<{ isDesktop?: boolean }> = ({
     if (!me.shop) {
       router.push(PATH.OPEN_STORE.MAIN);
     } else {
-      console.log('click store/dashboard');
       router.push(PATH.DASHBOARD);
     }
     setTimeout(() => setOpen(false), 500);
